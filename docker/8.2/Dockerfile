@@ -49,7 +49,7 @@ RUN if [ "${XDEBUG}" = 'true' ]; then \
     && echo "xdebug.mode = debug" >> /etc/php/8.0/mods-available/xdebug.ini \
     # && echo "xdebug.discover_client_host = 1" >> /etc/php/8.0/mods-available/xdebug.ini \
     && echo "xdebug.start_with_request = yes" >> /etc/php/8.0/mods-available/xdebug.ini \
-    && echo "xdebug.client_host = host.docker.internal" >> /etc/php/8.0/mods-available/xdebug.ini \
+    && echo "xdebug.client_host = 172.25.128.1" >> /etc/php/8.0/mods-available/xdebug.ini \
     ;\
 fi;
 

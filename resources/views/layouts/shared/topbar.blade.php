@@ -343,7 +343,7 @@
             <li class="dropdown">
                 <a class="nav-link dropdown-toggle arrow-none nav-user px-2" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                     <span class="account-user-avatar">
-                        <img src="/images/users/avatar-1.jpg" alt="user-image" width="32" class="rounded-circle">
+                        <img src="/images/logo-dark.png" alt="user-image" width="32" class="rounded-circle avatar-sm object-fit-contain">
                     </span>
                     <span class="d-lg-flex flex-column gap-1 d-none">
                         <h5 class="my-0">
@@ -383,4 +383,73 @@
         </ul>
     </div>
 </div>
+
+@if(session('success'))
+<!-- Success Alert Modal -->
+<div id="success-alert-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-filled bg-success">
+            <div class="modal-body p-4">
+                <div class="text-center">
+                    <i class="ri-check-line h1"></i>
+                    <h4 class="mt-2">Well Done!</h4>
+                    <p class="mt-3">{{session('success')}}</p>
+                    <button type="button" class="btn btn-light my-2" data-bs-dismiss="modal">Continue</button>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+@endif
+@if(session('info'))
+<!-- Info Alert Modal -->
+<div id="info-alert-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-body p-4">
+                <div class="text-center">
+                    <i class="ri-information-line h1 text-info"></i>
+                    <h4 class="mt-2">Heads up!</h4>
+                    <p class="mt-3">{{session('info')}}</p>
+                    <button type="button" class="btn btn-info my-2" data-bs-dismiss="modal">Continue</button>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+@endif
+@if(session('warning'))
+<!-- Warning Alert Modal -->
+<div id="warning-alert-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-body p-4">
+                <div class="text-center">
+                    <i class="ri-alert-line h1 text-warning"></i>
+                    <h4 class="mt-2">Incorrect Information</h4>
+                    <p class="mt-3">{{session('warning')}}</p>
+                    <button type="button" class="btn btn-warning my-2" data-bs-dismiss="modal">Continue</button>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+@endif
+@if(session('danger'))
+<!-- Danger Alert Modal -->
+<div id="danger-alert-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-filled bg-danger">
+            <div class="modal-body p-4">
+                <div class="text-center">
+                    <i class="ri-close-circle-line h1"></i>
+                    <h4 class="mt-2">Oh snap!</h4>
+                    <p class="mt-3">{{session('danger')}}</p>
+                    <button type="button" class="btn btn-light my-2" data-bs-dismiss="modal">Continue</button>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+@endif
 <!-- ========== Topbar End ========== -->

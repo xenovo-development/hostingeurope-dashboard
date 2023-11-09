@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Listing;
+use App\Models\Reservation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -22,6 +24,9 @@ class RoutingController extends Controller
      */
     public function index(Request $request)
     {
+
+
+
         if (Auth::user()) {
             return redirect('index');
         } else {
@@ -37,6 +42,16 @@ class RoutingController extends Controller
     public function root(Request $request, $first)
     {
 
+        $listings =Listing::where('user_id',Auth::user()['id'])->with('reservations')->get();
+        $totalRevenue = 0;
+        foreach($listings as $listing){
+            $sum = 0;
+            foreach($listing->reservations as $reservation){
+                $sum+=$reservation->net_revenue;
+            };
+            $totalRevenue += $sum;
+    };
+        dd($totalRevenue);
         $mode = $request->query('mode');
         $demo = $request->query('demo');
 

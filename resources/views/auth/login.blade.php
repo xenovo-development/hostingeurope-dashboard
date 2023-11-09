@@ -206,13 +206,13 @@
                                 @csrf
                                 <div class="mb-3">
                                     <label for="emailaddress" class="form-label">Email address</label>
-                                    <input class="form-control" type="email" id="emailaddress" required="" placeholder="Enter your email" value="attex@coderthemes.com" name="email">
+                                    <input class="form-control" type="email" id="emailaddress" required="" placeholder="Enter your email" value="{{old('email')}}" name="email">
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="password" class="form-label">Password</label>
                                     <div class="input-group input-group-merge">
-                                        <input type="password" id="password" class="form-control" placeholder="Enter your password" value="password" name="password">
+                                        <input type="password" id="password" class="form-control" placeholder="Enter your password" name="password">
                                         <div class="input-group-text" data-password="false">
                                             <span class="password-eye"></span>
                                         </div>
