@@ -135,6 +135,20 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="mb-3">
+                                                <label for="password" class="form-label">Password</label>
+                                                <input type="password" class="form-control" id="password" placeholder="Enter password" name="password">
+                                            </div>
+                                        </div> <!-- end col -->
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="password_confirmation" class="form-label">Password Confirmation</label>
+                                                <input type="password" class="form-control" id="password_confirmation" placeholder="Enter password" name="password_confirmation">
+                                            </div>
+                                        </div><!-- end col -->
+                                    </div> <!-- end row -->
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
                                                 <label for="newpassword" class="form-label">New Password</label>
                                                 <input type="password" class="form-control" id="newpassword" placeholder="Enter new password" name="password">
                                             </div>

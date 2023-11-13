@@ -53,7 +53,6 @@ class RoutingController extends Controller
             };
             $totalRevenue += $sum;
     };
-        dd($totalRevenue);
         $mode = $request->query('mode');
         $demo = $request->query('demo');
 

@@ -20,17 +20,18 @@ class UpdateUserController extends Controller
     {
         $request->validate([
             'email' => 'required|email',
+            'old_password' => 'required',
         ]);
-
         $user = User::where('email',$request['email'])->first();
-        $user->update(
-            [
-                'password' => Hash::make($request['password']) ?? $user['password'],
-                'name' => $request['name'] ?? $user['name'],
-            ]);
+        if(Hash::check($request['old_password'],$user['password'])){
+            $user->update(
+                [
+                    'password' => Hash::make($request['password']) ?? $user['password'],
+                    'name' => $request['name'] ?? $user['name'],
+                ]);
 
-        $user->save();
-
-        return back()->with('success', 'User Updated!');
+            $user->save();
+            return back()->with('success', 'User Updated!');
+        }
     }
 }
