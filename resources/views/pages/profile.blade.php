@@ -29,8 +29,8 @@
                     <div class="card-body">
                         <img src="/images/logo.png" class="rounded-circle avatar-lg img-thumbnail object-fit-lg-contain" alt="profile-image">
 
-                        <h4 class="mb-1 mt-2">{{ \Illuminate\Support\Facades\Auth::user()['name'] }}</h4>
-                        <p class="text-muted">User</p>
+                        <h4 class="mb-1 mt-2">{{Auth::user()['name'] }}</h4>
+                        <p class="text-muted">{{Auth::user()['role']}}</p>
 
                         <div class="text-start mt-3">
                             <p class="text-muted mb-2"><strong>Full Name :</strong> <span class="ms-2">{{ \Illuminate\Support\Facades\Auth::user()['name'] }}</span></p>
@@ -136,13 +136,13 @@
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label for="password" class="form-label">Password</label>
-                                                <input type="password" class="form-control" id="password" placeholder="Enter password" name="password">
+                                                <input type="password" class="form-control" id="password" placeholder="Enter password" name="old_password">
                                             </div>
                                         </div> <!-- end col -->
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label for="password_confirmation" class="form-label">Password Confirmation</label>
-                                                <input type="password" class="form-control" id="password_confirmation" placeholder="Enter password" name="password_confirmation">
+                                                <input type="password" class="form-control" id="password_confirmation" placeholder="Enter password" name="old_password_confirmation">
                                             </div>
                                         </div><!-- end col -->
                                     </div> <!-- end row -->

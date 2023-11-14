@@ -24,8 +24,7 @@ class UpdateUserController extends Controller
         ]);
         $user = User::where('email',$request['email'])->first();
         if(Hash::check($request['old_password'],$user['password'])){
-            $user->update(
-                [
+            $user->update([
                     'password' => Hash::make($request['password']) ?? $user['password'],
                     'name' => $request['name'] ?? $user['name'],
                 ]);
