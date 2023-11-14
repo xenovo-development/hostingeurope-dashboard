@@ -43,23 +43,14 @@ class RoutingController extends Controller
     public function root(Request $request, $first)
     {
 
-        $listings =Listing::where('user_id',Auth::user()['id'])->get();
-        $totalRevenue = 0;
-
-        foreach($listings as $listing){
-            $sum = 0;
-            foreach($listing->reservations as $reservation){
-                $sum+=$reservation->net_revenue;
-            };
-            $totalRevenue += $sum;
-    };
+        $dashboardData = (new UserDashboardController)->index();
         $mode = $request->query('mode');
         $demo = $request->query('demo');
 
         if ($first == "assets")
             return redirect('home');
 
-        return view($first, ['mode' => $mode, 'demo' => $demo]);
+        return view($first, ['mode' => $mode, 'demo' => $demo],compact('dashboardData'));
     }
 
     /**
