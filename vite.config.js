@@ -66,6 +66,7 @@ export default defineConfig({
 
                 // Dashboard js
                 'resources/js/pages/demo.dashboard.js',
+                'resources/js/pages/dashboard.js',
                 'resources/js/pages/demo.dashboard-analytics.js',
 
                 // Apps js

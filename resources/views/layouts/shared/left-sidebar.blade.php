@@ -48,7 +48,7 @@
 
 
             <li class="side-nav-item">
-                <a href="{{ route('any', 'analytics') }}" class="side-nav-link">
+                <a href="{{ route('any', 'index') }}" class="side-nav-link">
                     <i class="ri-home-4-line"></i>
                     <span> Dashboard </span>
                 </a>

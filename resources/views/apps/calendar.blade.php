@@ -14,8 +14,7 @@
                 <div class="page-title-box">
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Attex</a></li>
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Apps</a></li>
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Hosting Europe</a></li>
                             <li class="breadcrumb-item active">Calendar</li>
                         </ol>
                     </div>
