@@ -1,6 +1,6 @@
 /**
  * Theme: Attex - Responsive Bootstrap 5 Admin Dashboard
- * Author: Coderthemes
+ * Author: Coderthemes - Edited By Ali Emin Çomoğlu
  * Component: Full-Calendar
  */
 

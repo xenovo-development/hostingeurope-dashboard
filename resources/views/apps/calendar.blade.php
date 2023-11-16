@@ -32,37 +32,37 @@
                         <div class="row">
                             <div class="col-lg-3">
                                 <div class="d-grid">
-                                    <button class="btn btn-lg fs-16 btn-danger" id="btn-new-event">
-                                        <i class="ri-add-circle-fill"></i> Create New Event
-                                    </button>
+{{--                                    <button class="btn btn-lg fs-16 btn-danger" id="btn-new-event">--}}
+{{--                                        <i class="ri-add-circle-fill"></i> Create New Event--}}
+{{--                                    </button>--}}
                                 </div>
                                 <div id="external-events" class="mt-3">
-                                    <p class="text-muted">Drag and drop your event or click in the calendar</p>
-                                    <div class="external-event bg-success-subtle text-success" data-class="bg-success"><i class="ri-focus-fill me-2 vertical-middle"></i>New Theme Release</div>
-                                    <div class="external-event bg-info-subtle text-info" data-class="bg-info"><i class="ri-focus-fill me-2 vertical-middle"></i>My Event</div>
-                                    <div class="external-event bg-warning-subtle text-warning" data-class="bg-warning"><i class="ri-focus-fill me-2 vertical-middle"></i>Meet manager</div>
-                                    <div class="external-event bg-danger-subtle text-danger" data-class="bg-danger"><i class="ri-focus-fill me-2 vertical-middle"></i>Create New theme</div>
+{{--                                    <p class="text-muted">Drag and drop your event or click in the calendar</p>--}}
+{{--                                    <div class="external-event bg-success-subtle text-success" data-class="bg-success"><i class="ri-focus-fill me-2 vertical-middle"></i>New Theme Release</div>--}}
+{{--                                    <div class="external-event bg-info-subtle text-info" data-class="bg-info"><i class="ri-focus-fill me-2 vertical-middle"></i>My Event</div>--}}
+{{--                                    <div class="external-event bg-warning-subtle text-warning" data-class="bg-warning"><i class="ri-focus-fill me-2 vertical-middle"></i>Meet manager</div>--}}
+{{--                                    <div class="external-event bg-danger-subtle text-danger" data-class="bg-danger"><i class="ri-focus-fill me-2 vertical-middle"></i>Create New theme</div>--}}
                                 </div>
 
                                 <div class="mt-5 d-none d-xl-block">
-                                    <h5 class="text-center">How It Works ?</h5>
+{{--                                    <h5 class="text-center">How It Works ?</h5>--}}
 
-                                    <ul class="ps-3">
-                                        <li class="text-muted mb-3">
-                                            It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                                        </li>
-                                        <li class="text-muted mb-3">
-                                            Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage.
-                                        </li>
-                                        <li class="text-muted mb-3">
-                                            It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                                        </li>
-                                    </ul>
+{{--                                    <ul class="ps-3">--}}
+{{--                                        <li class="text-muted mb-3">--}}
+{{--                                            It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.--}}
+{{--                                        </li>--}}
+{{--                                        <li class="text-muted mb-3">--}}
+{{--                                            Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage.--}}
+{{--                                        </li>--}}
+{{--                                        <li class="text-muted mb-3">--}}
+{{--                                            It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.--}}
+{{--                                        </li>--}}
+{{--                                    </ul>--}}
                                 </div>
 
                             </div> <!-- end col-->
 
-                            <div class="col-lg-9">
+                            <div class="col-lg-12">
                                 <div class="mt-4 mt-lg-0">
                                     <div id="calendar"></div>
                                 </div>

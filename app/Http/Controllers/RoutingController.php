@@ -43,14 +43,23 @@ class RoutingController extends Controller
     public function root(Request $request, $first)
     {
 
-        $dashboardData = (new UserDashboardController)->index();
+        /**
+         * User Dashboard (index) page data mount.
+         */
+        if($first == 'index'){
+            $dashboardData = (new UserDashboardController)->index();
+        };
+
+
         $mode = $request->query('mode');
         $demo = $request->query('demo');
 
         if ($first == "assets")
             return redirect('home');
 
-        return view($first, ['mode' => $mode, 'demo' => $demo],compact('dashboardData'));
+        return view($first, ['mode' => $mode, 'demo' => $demo],compact(
+            'dashboardData',
+        ));
     }
 
     /**
