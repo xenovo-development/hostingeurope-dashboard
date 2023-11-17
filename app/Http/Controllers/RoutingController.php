@@ -26,8 +26,6 @@ class RoutingController extends Controller
     public function index(Request $request)
     {
 
-
-
         if (Auth::user()) {
             return redirect('index');
         } else {
@@ -68,13 +66,17 @@ class RoutingController extends Controller
     public function secondLevel(Request $request, $first, $second)
     {
 
+        if($first == 'apps' && $second == 'calendar'){
+            $calendarData = (new CalendarController)->index();
+        }
+
         $mode = $request->query('mode');
         $demo = $request->query('demo');
 
         if ($first == "assets")
             return redirect('home');
 
-    return view($first .'.'. $second, ['mode' => $mode, 'demo' => $demo]);
+    return view($first .'.'. $second, ['mode' => $mode, 'demo' => $demo], compact('calendarData'));
     }
 
     /**

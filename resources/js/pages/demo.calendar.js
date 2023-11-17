@@ -131,7 +131,7 @@ import 'fullcalendar/main.min.js'
           center: 'title',
           right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
         },
-        initialEvents: defaultEvents,
+        initialEvents: calendarReservations,
         editable: true,
         droppable: true, // this allows things to be dropped onto the calendar !!!
         // dayMaxEventRows: false, // allow "more" link when too many events

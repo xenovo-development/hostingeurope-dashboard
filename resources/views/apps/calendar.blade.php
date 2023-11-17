@@ -26,43 +26,46 @@
 
         <div class="row">
             <div class="col-12">
+                <div class="alert alert-warning text-bg-warning border-0" role="alert">
+                    <strong>Warning! - </strong> Dear host, you can follow all the booking processes of your property from the calendar below. Our application under development will allow you to make your reservation from this calendar as soon as possible. Until the short-term integration process of the application is completed, you can easily make your own reservation transactions from the following e-mail addresses:
 
+                </div>
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-3">
                                 <div class="d-grid">
-{{--                                    <button class="btn btn-lg fs-16 btn-danger" id="btn-new-event">--}}
-{{--                                        <i class="ri-add-circle-fill"></i> Create New Event--}}
-{{--                                    </button>--}}
+                                    <button class="btn btn-lg fs-16 btn-danger" id="btn-new-event">
+                                        <i class="ri-add-circle-fill"></i> Make A Reservation
+                                    </button>
                                 </div>
                                 <div id="external-events" class="mt-3">
-{{--                                    <p class="text-muted">Drag and drop your event or click in the calendar</p>--}}
-{{--                                    <div class="external-event bg-success-subtle text-success" data-class="bg-success"><i class="ri-focus-fill me-2 vertical-middle"></i>New Theme Release</div>--}}
-{{--                                    <div class="external-event bg-info-subtle text-info" data-class="bg-info"><i class="ri-focus-fill me-2 vertical-middle"></i>My Event</div>--}}
-{{--                                    <div class="external-event bg-warning-subtle text-warning" data-class="bg-warning"><i class="ri-focus-fill me-2 vertical-middle"></i>Meet manager</div>--}}
-{{--                                    <div class="external-event bg-danger-subtle text-danger" data-class="bg-danger"><i class="ri-focus-fill me-2 vertical-middle"></i>Create New theme</div>--}}
+                                    <p class="text-muted">Drag and drop your apartment or click in the calendar</p>
+                                    <h5 class=" mb-2">My Apartments</h5>
+                                    @foreach($calendarData['listings'] as $listing)
+                                        <div class="external-event bg-info-subtle text-info" data-class="bg-info"><i class="ri-focus-fill me-2 vertical-middle"></i>{{$listing['name']}}</div>
+                                    @endforeach
                                 </div>
 
-                                <div class="mt-5 d-none d-xl-block">
-{{--                                    <h5 class="text-center">How It Works ?</h5>--}}
+                                <div class="mt-4 d-none d-xl-block">
+                                    <h5 class="text-center">How It Works ?</h5>
 
-{{--                                    <ul class="ps-3">--}}
-{{--                                        <li class="text-muted mb-3">--}}
-{{--                                            It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.--}}
-{{--                                        </li>--}}
-{{--                                        <li class="text-muted mb-3">--}}
-{{--                                            Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage.--}}
-{{--                                        </li>--}}
-{{--                                        <li class="text-muted mb-3">--}}
-{{--                                            It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.--}}
-{{--                                        </li>--}}
-{{--                                    </ul>--}}
+                                    <ul class="ps-3">
+                                        <li class="text-muted mb-3">
+                                            From here you can make your reservations to your own apartment.
+                                        </li>
+                                        <li class="text-muted mb-3">
+                                            Rules are simple; yadee yadee yadaa, bla bla bla. This much days and that much days except the fact that this and that.
+                                        </li>
+                                        <li class="alert alert-warning mb-3">
+                                            Need any assistance? Contact us sending email to the following adresses :  <strong>example@example.com</strong>
+                                        </li>
+                                    </ul>
                                 </div>
 
                             </div> <!-- end col-->
 
-                            <div class="col-lg-12">
+                            <div class="col-lg-9">
                                 <div class="mt-4 mt-lg-0">
                                     <div id="calendar"></div>
                                 </div>
@@ -129,4 +132,8 @@
 
 @section('script')
     @vite(['resources/js/pages/demo.calendar.js'])
+    <script>
+        let calendarReservations = @json($calendarData['reservations']);
+        console.log(calendarReservations);
+    </script>
 @endsection
