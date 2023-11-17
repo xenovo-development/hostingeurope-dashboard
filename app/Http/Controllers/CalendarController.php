@@ -16,8 +16,9 @@ class CalendarController extends Controller
         }
 
         foreach ($reservations as $reservation) {
+            $listing  = $listings->where('name',$reservation['listing_title'])->first();
             $calendarReservations[] = [
-                'title'=>$reservation['listing_nickname'] . ' - ' . $reservation['guest_name'],
+                'title'=>$listing['street'] . ' - ' . $reservation['guest_name'],
                 'start'=>$reservation['checkIn'],
                 'end'=>$reservation['checkOut'],
                 'class-name'=>'bg-primary'

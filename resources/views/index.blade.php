@@ -26,6 +26,9 @@
                     </div>
                     <h4 class="page-title">Dashboard</h4>
                 </div>
+                <div class="alert alert-warning text-bg-warning border-0" role="alert">
+                    <strong>Warning! - </strong> Dear host, you can follow all the reservation analysis of your property from the chart below. While evaluating this page, please keep in mind that you are accessing this data at a very early stage of development, and that in the future, with the completion of the developments and the increase in the number of reservations, this data will be expanded to be much more detailed analyzes and you will reach much healthier data.
+                </div>
             </div>
         </div>
 

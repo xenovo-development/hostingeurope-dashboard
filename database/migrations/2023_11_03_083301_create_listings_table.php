@@ -72,6 +72,8 @@ return new class extends Migration
             $table->string('integration_photo')->nullable();
             $table->float('price')->nullable();
             $table->float('price_monthly')->nullable();
+            $table->float('cleaning_percent')->nullable();
+            $table->float('cuts_percent')->nullable();
             $table->json('tags')->nullable();
             $table->json('custom_fields')->nullable();
             $table->json('users')->nullable();

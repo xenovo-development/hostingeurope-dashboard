@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Expenses;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
@@ -14,7 +16,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory(1)->create([
+        User::factory(1)->create([
             'name' => 'Hosting Europe',
             'role' => 'Admin',
             'email' => 'hosting.tr@odsol-host.com',
@@ -22,7 +24,7 @@ class DatabaseSeeder extends Seeder
             'password' => '$2a$12$Q6gSOr1PW.oOW3LzAH9psu3i5uu.607AVOWhE2zr3JXLcce8G.EAu',
             'remember_token' => Str::random(10),
         ]);
-        \App\Models\User::factory(1)->create([
+        User::factory(1)->create([
             'name' => 'Danny Hinken',
             'role' => 'Host',
             'email' => 'dannyhinken@hostingeurope.com',

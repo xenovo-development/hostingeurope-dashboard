@@ -27,8 +27,8 @@
         <div class="row">
             <div class="col-12">
                 <div class="alert alert-warning text-bg-warning border-0" role="alert">
-                    <strong>Warning! - </strong> Dear host, you can follow all the booking processes of your property from the calendar below. Our application under development will allow you to make your reservation from this calendar as soon as possible. Until the short-term integration process of the application is completed, you can easily make your own reservation transactions from the following e-mail addresses:
-
+                    <strong>Warning! - </strong> Dear host, you can follow all the booking processes of your property from the calendar below.
+                    Our application under development will allow you to make your reservation from this calendar as soon as possible.
                 </div>
                 <div class="card">
                     <div class="card-body">
@@ -40,27 +40,24 @@
                                     </button>
                                 </div>
                                 <div id="external-events" class="mt-3">
-                                    <p class="text-muted">Drag and drop your apartment or click in the calendar</p>
+                                    <p class="text-muted mt-3 mb-3"> From here you can make your reservations to your own apartment. Just simply drag and drop your apartment or click in the calendar</p>
                                     <h5 class=" mb-2">My Apartments</h5>
                                     @foreach($calendarData['listings'] as $listing)
-                                        <div class="external-event bg-info-subtle text-info" data-class="bg-info"><i class="ri-focus-fill me-2 vertical-middle"></i>{{$listing['name']}}</div>
+                                        <div class="external-event bg-info-subtle text-info" data-class="bg-info"><i class="ri-focus-fill me-2 vertical-middle"></i>{{$listing['street']}}</div>
                                     @endforeach
                                 </div>
 
                                 <div class="mt-4 d-none d-xl-block">
-                                    <h5 class="text-center">How It Works ?</h5>
+                                    <h5 class="text-center">Rules</h5>
 
                                     <ul class="ps-3">
                                         <li class="text-muted mb-3">
-                                            From here you can make your reservations to your own apartment.
-                                        </li>
-                                        <li class="text-muted mb-3">
                                             Rules are simple; yadee yadee yadaa, bla bla bla. This much days and that much days except the fact that this and that.
                                         </li>
-                                        <li class="alert alert-warning mb-3">
-                                            Need any assistance? Contact us sending email to the following adresses :  <strong>example@example.com</strong>
-                                        </li>
                                     </ul>
+                                    <div class="alert alert-warning mb-3">
+                                            Until the short-term integration process of the application is completed, you can easily make your own reservation transactions from the following e-mail addresses: <strong>example@example.com</strong>
+                                        </div>
                                 </div>
 
                             </div> <!-- end col-->

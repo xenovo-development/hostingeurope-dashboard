@@ -15,7 +15,7 @@ var options = {
         type: 'column',
         data: seriesSubTotal,
     }, {
-        name: 'Commision',
+        name: 'Channel Commision',
         type: 'column',
         data: seriesCommission,
     }, {
@@ -24,7 +24,7 @@ var options = {
         data: seriesNetRevenue
     }],
     chart: {
-        height: 350,
+        height: 500,
         type: 'line',
         stacked: false
     },
@@ -60,7 +60,7 @@ var options = {
                 }
             },
             title: {
-                text: "Subtotal amount (with commissions)",
+                text: "Subtotal amount (without commissions)",
                 style: {
                     color: '#008FFB',
                 }
@@ -85,7 +85,7 @@ var options = {
                 }
             },
             title: {
-                text: "Commissions",
+                text: "Channlel Commissions(Airbnb, Booking.com etc.)",
                 style: {
                     color: '#00E396',
                 }
@@ -120,11 +120,6 @@ var options = {
             position: 'topLeft', // topRight, topLeft, bottomRight, bottomLeft
             offsetY: 30,
             offsetX: 60,
-            custom: function({series, seriesIndex, dataPointIndex, w}) {
-                return '<div class="arrow_box">' +
-                    '<span>' + series[seriesIndex][dataPointIndex] + '</span>' +
-                    '</div>'
-            }
         },
     },
     legend: {

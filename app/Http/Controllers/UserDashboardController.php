@@ -27,27 +27,24 @@ class UserDashboardController extends Controller
         $openRevenue = 0;
 
         /**
-         * Set total and open revenue values.
+         * Set total and open revenue values && chart series variables.
          */
         foreach ($reservations as $reservation) {
+            $listing = Listing::where('name',$reservation['listing_title'])->firstOrFail();
+            $totalPercentage = $listing['cleaning_percent'] + $listing['cuts_percent'];
             $createdMonth = Carbon::parse($reservation['created_at'])->month;
             if($createdMonth <= $now->month){
-                $openRevenue += $reservation['owner_revenue'];
+                $openRevenue += $reservation['owner_revenue'] - ($reservation['owner_revenue'] * $totalPercentage / 100);
             }else{
-                $totalRevenue += $reservation['owner_revenue'];
+                $openRevenue += $reservation['owner_revenue'] - ($reservation['owner_revenue'] * $totalPercentage / 100);
             }
-        };
 
-        /**
-         * Set chart series variables.
-         */
-        foreach($reservations as $reservation){
-            $seriesSubTotal[] = $reservation['subtotal'];
+            $seriesSubTotal[] = round($reservation['subtotal'] - ($reservation['owner_revenue'] * $totalPercentage / 100),2);
             $seriesCommission[] = $reservation['channel_commission'];
-            $seriesNetRevenue[] = $reservation['net_revenue'];
+            $seriesNetRevenue[] = round($reservation['net_revenue'] - ($reservation['owner_revenue'] * $totalPercentage / 100),2);
             $reservationDates[] = $reservation['created_at'];
             $reservationListings[] = $reservation['listing_title'];
-        }
+        };
 
         return
             [
