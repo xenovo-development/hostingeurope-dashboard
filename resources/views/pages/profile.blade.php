@@ -37,7 +37,7 @@
 
                             <p class="text-muted mb-2"><strong>Email :</strong> <span class="ms-2 ">{{ \Illuminate\Support\Facades\Auth::user()['email'] }}</span></p>
 
-                            <p class="text-muted mb-1"><strong>User Type :</strong> <span class="ms-2">Owner</span></p>
+                            <p class="text-muted mb-1"><strong>User Type :</strong> <span class="ms-2">{{Auth::user()['role']}}</span></p>
                         </div>
                     </div> <!-- end card-body -->
                 </div> <!-- end card -->
@@ -91,14 +91,29 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                        @forelse($profileData['listings'] as $listing)
+                                            <tr>
+                                                <td>{{$loop->iteration}}</td>
+                                                <td><img src="{{$listing['thumbnail_file']}}" alt="thumbnail_file" class="avatar-xs me-2 rounded-circle" height="24">
+                                                    {{$listing['name']}}</td>
+                                                <td>{{$listing['street']}}</td>
+                                                <td>{{$listing->reservations()->where('status','accepted')->count()}}</td>
+                                                @if($listing['is_listed'])
+                                                <td><span class="badge bg-info-subtle text-success-emphasis">Listed</span></td>
+                                                @else
+                                                    <td><span class="badge bg-warning-subtle text-warning-emphasis">Unlisted</span></td>
+                                                @endif
+                                            </tr>
+                                        @empty
                                             <tr>
                                                 <td>1</td>
-                                                <td><img src="/images/users/avatar-2.jpg" alt="table-user" class="me-2 rounded-circle" height="24"> My Apartment</td>
-                                                <td>Hawkling st. 309</td>
-                                                <td>1</td>
-                                                <td><span class="badge bg-info-subtle text-success-emphasis">Reserved</span></td>
+                                                <td><img src="" alt="thumbnail_file" class="avatar-xs me-2 rounded-circle" height="24">
+                                                    No listings Found</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
                                             </tr>
-
+                                        @endforelse
                                         </tbody>
                                     </table>
                                 </div>

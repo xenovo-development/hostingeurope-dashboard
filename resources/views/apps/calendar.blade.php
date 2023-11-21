@@ -30,6 +30,11 @@
                     <strong>Warning! - </strong> Dear host, you can follow all the booking processes of your property from the calendar below.
                     Our application under development will allow you to make your reservation from this calendar as soon as possible.
                 </div>
+                @if(!$calendarData['listings'])
+                <div class="alert alert-danger text-bg-danger border-0" role="alert">
+                    <strong>Error! - </strong> No listings found.
+                </div>
+                @endif
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
@@ -41,10 +46,12 @@
                                 </div>
                                 <div id="external-events" class="mt-3">
                                     <p class="text-muted mt-3 mb-3"> From here you can make your reservations to your own apartment. Just simply drag and drop your apartment or click in the calendar</p>
-                                    <h5 class=" mb-2">My Apartments</h5>
-                                    @foreach($calendarData['listings'] as $listing)
+                                    <h5 class=" mb-2">My Properties</h5>
+                                    @forelse($calendarData['listings'] as $listing)
                                         <div class="external-event bg-info-subtle text-info" data-class="bg-info"><i class="ri-focus-fill me-2 vertical-middle"></i>{{$listing['street']}}</div>
-                                    @endforeach
+                                    @empty
+                                        <div class="external-event bg-info-subtle text-info" data-class="bg-info"><i class="ri-focus-fill me-2 vertical-middle"></i>No listings found</div>
+                                    @endforelse
                                 </div>
 
                                 <div class="mt-4 d-none d-xl-block">
@@ -52,11 +59,16 @@
 
                                     <ul class="ps-3">
                                         <li class="text-muted mb-3">
-                                            Rules are simple; yadee yadee yadaa, bla bla bla. This much days and that much days except the fact that this and that.
+                                            You can only make <strong>21</strong> reservations in a month.
+                                        </li>
+                                        <li class="text-muted mb-3">
+                                            If you cancel your reservation <strong>two days </strong> or less before the check-in date, there will be no refund for the reservation fee.
                                         </li>
                                     </ul>
-                                    <div class="alert alert-warning mb-3">
-                                            Until the short-term integration process of the application is completed, you can easily make your own reservation transactions from the following e-mail addresses: <strong>example@example.com</strong>
+                                    <div class="alert alert-warning mb-3 text-center">
+                                            Until the short-term integration process of the application is completed, please refer to the following e-mail addresses for your reservations:
+                                        <br><br>
+                                        <strong>b.ozturk@hostingeurope.info</strong> <strong>sm.sakaryak@hostingeurope.info</strong>
                                         </div>
                                 </div>
 

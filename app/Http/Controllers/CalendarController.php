@@ -14,23 +14,22 @@ class CalendarController extends Controller
         foreach ($listings as $listing) {
             $reservations = $listing->reservations()->where('status', 'accepted')->get();
         }
-
-        foreach ($reservations as $reservation) {
-            $listing  = $listings->where('name',$reservation['listing_title'])->first();
-            $calendarReservations[] = [
-                'title'=>$listing['street'] . ' - ' . $reservation['guest_name'],
-                'start'=>$reservation['checkIn'],
-                'end'=>$reservation['checkOut'],
-                'class-name'=>'bg-primary'
-            ];
+        if(isset($reservations)) {
+            foreach ($reservations as $reservation) {
+                $calendarReservations[] = [
+                    'title' => $reservation['guest_name'] . ' - ' . $reservation->listing->street,
+                    'start' => $reservation['checkIn'],
+                    'end' => $reservation['checkOut'],
+                    'class-name' => 'bg-primary'
+                ];
+            }
         }
-
         /**
          * Return the calendar data.
          */
         return [
             'listings'=>$listings,
-            'reservations'=>$calendarReservations,
+            'reservations'=>$calendarReservations ?? [],
         ];
     }
 }

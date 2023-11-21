@@ -3,11 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Models\Listing;
-use Illuminate\Http\Request;
+use App\Models\Reservation;
+use Illuminate\Support\Facades\Auth;
 
 class ReservationsController extends Controller
 {
-    public function getChartData() {
-        return Listing::where('user_id',1)->reservations->sum('net_revenue');
+    /**
+     * Return reservations data.
+     *
+     * @return array
+     */
+    public function index(): array
+    {
+        $listings = Listing::where('user_id',Auth::user()['id'])->get();
+        $reservations = Reservation::whereHas('listing', function ($query) {
+            $query->where('user_id', Auth::id());
+        })->where('status', 'accepted')->paginate(50);;
+
+         return[
+             'listings'=>$listings,
+             'reservations'=>$reservations
+         ];
     }
 }

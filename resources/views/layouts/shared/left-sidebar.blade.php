@@ -46,37 +46,47 @@
 
             <li class="side-nav-title">Navigation</li>
 
-
+            @if(Auth::user()['role']==='Admin')
+                <li class="side-nav-item">
+                    <a data-bs-toggle="collapse" href="#sidebarPagesAuth" aria-expanded="false" aria-controls="sidebarPagesAuth" class="side-nav-link">
+                        <i class="ri-shield-user-line"></i>
+                        <span> Admin </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebarPagesAuth">
+                        <ul class="side-nav-second-level">
+                            <li>
+                                <a href="{{ route('second', ['auth', 'login']) }}">Create new user</a>
+                                <a href="{{ route('second', ['auth', 'login']) }}">Set listing</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            @endif
             <li class="side-nav-item">
                 <a href="{{ route('any', 'index') }}" class="side-nav-link">
                     <i class="ri-home-4-line"></i>
                     <span> Dashboard </span>
                 </a>
             </li>
-            @if(Auth::user()['role']==='Admin')
             <li class="side-nav-item">
-                <a data-bs-toggle="collapse" href="#sidebarPagesAuth" aria-expanded="false" aria-controls="sidebarPagesAuth" class="side-nav-link">
-                    <i class="ri-shield-user-line"></i>
-                    <span> Admin </span>
-                    <span class="menu-arrow"></span>
+                <a href="{{ route('second', ['pages', 'properties']) }}" class="side-nav-link">
+                    <i class="ri-community-fill"></i>
+                    <span> My Properties </span>
                 </a>
-                <div class="collapse" id="sidebarPagesAuth">
-                    <ul class="side-nav-second-level">
-                        <li>
-                            <a href="{{ route('second', ['auth', 'login']) }}">Create new user</a>
-                            <a href="{{ route('second', ['auth', 'login']) }}">Set listing</a>
-                        </li>
-                    </ul>
-                </div>
             </li>
-            @endif
             <li class="side-nav-item">
                 <a href="{{ route('second', ['apps', 'calendar']) }}" class="side-nav-link">
                     <i class="ri-calendar-event-line"></i>
                     <span> Calendar </span>
                 </a>
             </li>
-
+            <li class="side-nav-item">
+                <a href="{{ route('second', ['pages', 'reservations']) }}" class="side-nav-link">
+                    <i class="ri-bookmark-3-line"></i>
+                    <span> Reservations </span>
+                </a>
+            </li>
             <li class="side-nav-item">
                 <a href="{{ route('second', ['pages', 'profile']) }}" class="side-nav-link">
                     <i class="ri-account-pin-circle-line"></i>

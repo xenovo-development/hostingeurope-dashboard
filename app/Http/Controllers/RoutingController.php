@@ -69,6 +69,15 @@ class RoutingController extends Controller
         if($first == 'apps' && $second == 'calendar'){
             $calendarData = (new CalendarController)->index();
         }
+        if($first == 'pages' && $second == 'properties'){
+            $propertiesData = (new ListingController())->index();
+        }
+        if($first == 'pages' && $second == 'reservations'){
+            $reservationsData = (new ReservationsController())->index();
+        }
+        if($first == 'pages' && $second == 'profile'){
+            $profileData = (new ListingController())->index();
+        }
 
         $mode = $request->query('mode');
         $demo = $request->query('demo');
@@ -76,7 +85,11 @@ class RoutingController extends Controller
         if ($first == "assets")
             return redirect('home');
 
-    return view($first .'.'. $second, ['mode' => $mode, 'demo' => $demo], compact('calendarData'));
+    return view($first .'.'. $second, ['mode' => $mode, 'demo' => $demo],)
+        ->with('calendarData', $calendarData ?? [])
+        ->with('propertiesData', $propertiesData ?? [])
+        ->with('reservationsData', $reservationsData ?? [])
+        ->with('profileData', $profileData ?? []);
     }
 
     /**

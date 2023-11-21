@@ -9,15 +9,23 @@ import 'daterangepicker/moment.min.js';
 import 'daterangepicker/daterangepicker.js';
 import ApexCharts from 'apexcharts/dist/apexcharts.min.js';
 
+var formattedDates = reservationDates.map(function(date) {
+    return new Date(date).toLocaleDateString('en-EN', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+    });
+});
+
 var options = {
     series: [{
         name: 'Subtotal',
         type: 'column',
         data: seriesSubTotal,
     }, {
-        name: 'Channel Commision',
+        name: 'Reserved Nights',
         type: 'column',
-        data: seriesCommission,
+        data: reservationNights,
     }, {
         name: 'Net Revenue',
         type: 'line',
@@ -29,7 +37,7 @@ var options = {
         stacked: false
     },
     dataLabels: {
-        enabled: true
+        enabled: false
     },
     stroke: {
         width: [1, 1, 4]
@@ -41,8 +49,8 @@ var options = {
     },
     xaxis:
         {
-            categories: reservationDates,
-            type: 'datetime',
+            categories: formattedDates,
+            type: 'categories',
         },
     yaxis: [
         {
@@ -66,7 +74,7 @@ var options = {
                 }
             },
             tooltip: {
-                enabled: true
+                enabled: true,
             }
         },
         {

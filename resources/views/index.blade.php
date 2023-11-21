@@ -27,7 +27,11 @@
                     <h4 class="page-title">Dashboard</h4>
                 </div>
                 <div class="alert alert-warning text-bg-warning border-0" role="alert">
-                    <strong>Warning! - </strong> Dear host, you can follow all the reservation analysis of your property from the chart below. While evaluating this page, please keep in mind that you are accessing this data at a very early stage of development, and that in the future, with the completion of the developments and the increase in the number of reservations, this data will be expanded to be much more detailed analyzes and you will reach much healthier data.
+                    <strong>Warning! - </strong> Dear host, you can follow all the reservation analysis of your property
+                    from the chart below. While evaluating this page, please keep in mind that you are accessing this
+                    data at a very early stage of development, and that in the future, with the completion of the
+                    developments and the increase in the number of reservations, this data will be expanded to be much
+                    more detailed analyzes and you will reach much healthier data.
                 </div>
             </div>
         </div>
@@ -40,9 +44,9 @@
                             <i class="ri-group-line text-bg-info widget-icon"></i>
                         </div>
                         <h5 class="text-muted fw-normal mt-0" title="Number of Customers">Accepted Reservations</h5>
-                        <h3 class="my-3">{{$dashboardData['reservations_count']}}</h3>
+                        <h3 class="my-3">{{count($dashboardData['reservations'])}}</h3>
                         <p class="mb-0 text-muted">
-                            <span class="text-success me-2"><i class="ri-arrow-up-line"></i>{{$dashboardData['reservations_count']}}</span>
+                            <span class="text-success me-2"><i class="ri-arrow-up-line"></i>{{count($dashboardData['reservations'])}}</span>
                             <span class="text-nowrap">Since last month</span>
                         </p>
                     </div> <!-- end card-body-->
@@ -88,16 +92,15 @@
                             <i class="ri-line-chart-line text-bg-success widget-icon"></i>
                         </div>
                         <h5 class="text-muted fw-normal mt-0" title="Growth">Listings</h5>
-                        <h3 class="my-3">{{$dashboardData['user_listing_count']}}</h3>
+                        <h3 class="my-3">{{count($dashboardData['listings'])}}</h3>
                         <p class="mb-0 text-muted">
-                            <span class="text-success me-2"><i class="ri-arrow-up-line"></i> {{$dashboardData['user_listing_count']}}</span>
+                            <span class="text-success me-2"><i class="ri-arrow-up-line"></i> {{count($dashboardData['listings'])}}</span>
                             <span class="text-nowrap">Since last month</span>
                         </p>
                     </div> <!-- end card-body-->
                 </div> <!-- end card-->
             </div> <!-- end col-->
         </div> <!-- end row -->
-        <div class="row">
             <div class="col col-md-12">
                 <div class="card">
                     <div class="card-body">
@@ -106,7 +109,6 @@
                 </div>
             </div>
         </div><!-- end row -->
-    </div>
     <!-- container -->
 @endsection
 
@@ -118,6 +120,7 @@
         let seriesNetRevenue = @json($dashboardData['series_net_revenue']);
         let reservationDates = @json($dashboardData['reservation_dates']);
         let reservationListings = @json($dashboardData['reservation_listings']);
+        let reservationNights = @json($dashboardData['reservation_nights']);
     </script>
 @endsection
 
