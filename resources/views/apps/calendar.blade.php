@@ -64,6 +64,9 @@
                                         <li class="text-muted mb-3">
                                             If you cancel your reservation <strong>two days </strong> or less before the check-in date, there will be no refund for the reservation fee.
                                         </li>
+                                        <li class="text-muted mb-3">
+                                            You have <strong>21</strong> days of reservation initiative left.
+                                        </li>
                                     </ul>
                                     <div class="alert alert-warning mb-3 text-center">
                                             Until the short-term integration process of the application is completed, please refer to the following e-mail addresses for your reservations:

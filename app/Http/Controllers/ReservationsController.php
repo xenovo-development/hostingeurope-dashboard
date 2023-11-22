@@ -11,17 +11,14 @@ class ReservationsController extends Controller
     /**
      * Return reservations data.
      *
+     * @param $listing_id
      * @return array
      */
-    public function index(): array
+    public function index($listing_id): array
     {
-        $listings = Listing::where('user_id',Auth::user()['id'])->get();
-        $reservations = Reservation::whereHas('listing', function ($query) {
-            $query->where('user_id', Auth::id());
-        })->where('status', 'accepted')->paginate(50);;
+        $reservations = Reservation::where('listing_id',$listing_id)->paginate(50);
 
          return[
-             'listings'=>$listings,
              'reservations'=>$reservations
          ];
     }

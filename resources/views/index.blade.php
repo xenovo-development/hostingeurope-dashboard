@@ -101,6 +101,27 @@
                 </div> <!-- end card-->
             </div> <!-- end col-->
         </div> <!-- end row -->
+        <div class="row">
+            <div class="col col-4">
+                <div class="card">
+                    <div class="d-flex card-header bg-secondary-subtle">
+                        <h4 class="header-title">Bookings by source pie (Accepted bookings only)</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart" id="pie-chart"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <div class="chart" id="cashflow-chart"></div>
+                </div>
+            </div>
+            </div> <!-- end col -->
+        </div>
+
+        <div class="row">
             <div class="col col-md-12">
                 <div class="card">
                     <div class="card-body">
@@ -108,19 +129,20 @@
                     </div>
                 </div>
             </div>
-        </div><!-- end row -->
+        </div>
+    </div><!-- end row -->
     <!-- container -->
 @endsection
 
 @section('script')
     @vite(['resources/js/pages/dashboard.js'])
     <script>
-        let seriesSubTotal = @json($dashboardData['series_subtotal']);
-        let seriesCommission = @json($dashboardData['series_commission']);
+        let seriesGuests = @json($dashboardData['series_guests']);
         let seriesNetRevenue = @json($dashboardData['series_net_revenue']);
         let reservationDates = @json($dashboardData['reservation_dates']);
         let reservationListings = @json($dashboardData['reservation_listings']);
         let reservationNights = @json($dashboardData['reservation_nights']);
+        let seriesPievals = @json($dashboardData['series_pievals'])
     </script>
 @endsection
 

@@ -16,7 +16,7 @@ class UserDashboardController extends Controller
     public function index(): array
     {
         /**
-         * Class global variables.
+         * Class  variables.
          */
         $now = Carbon::now();
         $listings = Listing::where('user_id', Auth::user()['id'])->get();
@@ -31,13 +31,16 @@ class UserDashboardController extends Controller
 
         $totalRevenue = 0;
         $openRevenue = 0;
+        $airbnb = 0;
+        $booking = 0;
+        $guest24 = 0;
 
         /**
          * Set total and open revenue values && chart series variables.
          */
         if(isset($reservations)) {
             foreach ($reservations as $reservation) {
-                $listing = Listing::where('name', $reservation['listing_title'])->firstOrFail();
+                $listing = $reservation->listing;
                 $totalPercentage = $listing['cleaning_percent'] + $listing['cuts_percent'];
                 $createdMonth = Carbon::parse($reservation['created_at'])->month;
                 if ($createdMonth <= $now->month) {
@@ -45,13 +48,15 @@ class UserDashboardController extends Controller
                 } else {
                     $openRevenue += $reservation['owner_revenue'] - ($reservation['owner_revenue'] * $totalPercentage / 100);
                 }
+                if ($reservation['status']=='accepted' && $reservation['source']=='Airbnb'){$airbnb++;}
+                if ($reservation['status']=='accepted' && $reservation['source']=='Booking.com'){$booking++;}
+                if ($reservation['status']=='accepted' && $reservation['source']=='Guest24 Services'){$guest24++;}
 
-                $seriesSubTotal[] = round($reservation['subtotal'] - ($reservation['owner_revenue'] * $totalPercentage / 100), 2);
-                $seriesCommission[] = $reservation['channel_commission'];
                 $seriesNetRevenue[] = round($reservation['net_revenue'] - ($reservation['owner_revenue'] * $totalPercentage / 100), 2);
+                $seriesGuests [] = $reservation['guests'];
                 $reservationDates[] = $reservation['created_at'];
                 $reservationListings[] = $reservation['listing_title'];
-                $reservationNights[] = intval($reservation['nights']);
+                $reservationNights [] = $reservation['nights'];
             }
         };
 
@@ -60,9 +65,9 @@ class UserDashboardController extends Controller
                 'reservations' => $reservations ?? [],
                 'user_total_revenue' => $totalRevenue ?? [],
                 'user_open_revenue' => $openRevenue ?? [],
-                'series_subtotal' => $seriesSubTotal ?? [],
-                'series_commission' => $seriesCommission ?? [],
                 'series_net_revenue' => $seriesNetRevenue ?? [],
+                'series_guests' => $seriesGuests ?? [],
+                'series_pievals'=>[$airbnb,$booking,$guest24] ?? [],
                 'reservation_dates' => $reservationDates ?? [],
                 'reservation_listings' => $reservationListings ?? [],
                 'reservation_nights' => $reservationNights ?? [],

@@ -48,16 +48,16 @@
 
             <div class="col-xl-8 col-lg-7">
                 <!-- Chart-->
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="header-title mb-3">Reservations & Revenue</h4>
-                        <div>
-                            <div style="height: 260px;" class="chartjs-chart">
-                                <canvas id="high-performing-product"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+{{--                <div class="card">--}}
+{{--                    <div class="card-body">--}}
+{{--                        <h4 class="header-title mb-3">Reservations & Revenue</h4>--}}
+{{--                        <div>--}}
+{{--                            <div style="height: 260px;" class="chartjs-chart">--}}
+{{--                                <canvas id="high-performing-product"></canvas>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
                 <!-- End Chart-->
 
                 <div class="card">

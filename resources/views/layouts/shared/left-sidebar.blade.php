@@ -70,22 +70,32 @@
                 </a>
             </li>
             <li class="side-nav-item">
-                <a href="{{ route('second', ['pages', 'properties']) }}" class="side-nav-link">
-                    <i class="ri-community-fill"></i>
-                    <span> My Properties </span>
-                </a>
-            </li>
-            <li class="side-nav-item">
                 <a href="{{ route('second', ['apps', 'calendar']) }}" class="side-nav-link">
                     <i class="ri-calendar-event-line"></i>
                     <span> Calendar </span>
                 </a>
             </li>
             <li class="side-nav-item">
-                <a href="{{ route('second', ['pages', 'reservations']) }}" class="side-nav-link">
+                <a href="{{ route('second', ['pages', 'properties']) }}" class="side-nav-link">
+                    <i class="ri-community-fill"></i>
+                    <span> My Properties </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#sidebarPagesReservations" aria-expanded="false"  aria-controls="sidebarPagesReservations"class="side-nav-link">
                     <i class="ri-bookmark-3-line"></i>
                     <span> Reservations </span>
+                    <span class="menu-arrow"></span>
                 </a>
+                <div class="collapse" id="sidebarPagesReservations">
+                    <ul class="side-nav-second-level">
+                        <li>
+                            @foreach(App\Models\Listing::where('user_id',Auth()->user()['id'])->get() as $listing)
+                                <a href="{{route('second', ['pages', 'reservations']).'?listingId='.$listing['id'] }}">{{$listing['street'].' - '.$listing['city']}}</a>
+                            @endforeach
+                        </li>
+                    </ul>
+                </div>
             </li>
             <li class="side-nav-item">
                 <a href="{{ route('second', ['pages', 'profile']) }}" class="side-nav-link">

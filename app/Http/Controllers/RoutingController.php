@@ -55,9 +55,8 @@ class RoutingController extends Controller
         if ($first == "assets")
             return redirect('home');
 
-        return view($first, ['mode' => $mode, 'demo' => $demo],compact(
-            'dashboardData',
-        ));
+        return view($first, ['mode' => $mode, 'demo' => $demo])
+            ->with('dashboardData',$dashboardData);
     }
 
     /**
@@ -65,6 +64,9 @@ class RoutingController extends Controller
      */
     public function secondLevel(Request $request, $first, $second)
     {
+        $mode = $request->query('mode');
+        $demo = $request->query('demo');
+        $listingId = $request->query('listingId');
 
         if($first == 'apps' && $second == 'calendar'){
             $calendarData = (new CalendarController)->index();
@@ -73,14 +75,11 @@ class RoutingController extends Controller
             $propertiesData = (new ListingController())->index();
         }
         if($first == 'pages' && $second == 'reservations'){
-            $reservationsData = (new ReservationsController())->index();
+            $reservationsData = (new ReservationsController())->index($listingId);
         }
         if($first == 'pages' && $second == 'profile'){
             $profileData = (new ListingController())->index();
         }
-
-        $mode = $request->query('mode');
-        $demo = $request->query('demo');
 
         if ($first == "assets")
             return redirect('home');
@@ -97,6 +96,8 @@ class RoutingController extends Controller
      */
     public function thirdLevel(Request $request, $first, $second, $third)
     {
+
+
         $mode = $request->query('mode');
         $demo = $request->query('demo');
 

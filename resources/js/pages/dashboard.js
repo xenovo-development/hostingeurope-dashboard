@@ -9,7 +9,7 @@ import 'daterangepicker/moment.min.js';
 import 'daterangepicker/daterangepicker.js';
 import ApexCharts from 'apexcharts/dist/apexcharts.min.js';
 
-var formattedDates = reservationDates.map(function(date) {
+let formattedDates = reservationDates.map(function(date) {
     return new Date(date).toLocaleDateString('en-EN', {
         year: 'numeric',
         month: 'short',
@@ -17,11 +17,11 @@ var formattedDates = reservationDates.map(function(date) {
     });
 });
 
-var options = {
+let options = {
     series: [{
-        name: 'Subtotal',
+        name: 'Guests',
         type: 'column',
-        data: seriesSubTotal,
+        data: seriesGuests,
     }, {
         name: 'Reserved Nights',
         type: 'column',
@@ -93,7 +93,7 @@ var options = {
                 }
             },
             title: {
-                text: "Channlel Commissions(Airbnb, Booking.com etc.)",
+                text: "Reserved Nights",
                 style: {
                     color: '#00E396',
                 }
@@ -136,8 +136,105 @@ var options = {
     }
 };
 
-var chart = new ApexCharts(document.querySelector("#chart"), options);
+let chart = new ApexCharts(document.querySelector("#chart"), options);
 chart.render();
+
+
+let pieOptions = {
+    series: seriesPievals,
+    chart: {
+        width: 380,
+        type: 'pie',
+    },
+    labels: ['Airbnb', 'Booking.com', 'Guest24 Services'],
+    responsive: [{
+        breakpoint: 480,
+        options: {
+            chart: {
+                width: 200
+            },
+            legend: {
+                position: 'bottom'
+            }
+        }
+    }]
+};
+
+let pieChart = new ApexCharts(document.querySelector("#pie-chart"), pieOptions);
+pieChart.render();
+
+let dates = [];
+for (let i = 29; i >= 0; i--) {
+    let day = new Date();
+    day.setDate(day.getDate() - i);
+    dates.push(day.toISOString().split('T')[0]);
+}
+
+let cashflowOptions = {
+    series: [{
+        name: 'Income',
+        data: seriesNetRevenue
+    }],
+    chart: {
+        type: 'area',
+        stacked: false,
+        height: 225,
+        zoom: {
+            type: 'x',
+            enabled: true,
+            autoScaleYaxis: true
+        },
+        toolbar: {
+            autoSelected: 'zoom'
+        }
+    },
+    dataLabels: {
+        enabled: false
+    },
+    markers: {
+        size: 0,
+    },
+    title: {
+        text: 'Revenue (Monthly)',
+        align: 'left'
+    },
+    fill: {
+        type: 'gradient',
+        gradient: {
+            shadeIntensity: 1,
+            inverseColors: false,
+            opacityFrom: 0.5,
+            opacityTo: 0,
+            stops: [0, 90, 100]
+        },
+    },
+    yaxis: {
+        labels: {
+            // formatter: function (val) {
+            //     return (val / 1000000).toFixed(0);
+            // },
+        },
+        title: {
+            text: 'Revenue'
+        },
+    },
+    xaxis: {
+        categories: reservationDates,
+        type: 'datetime',
+    },
+    tooltip: {
+        shared: false,
+        y: {
+            // formatter: function (val) {
+            //     return (val / 1000000).toFixed(0)
+            // }
+        }
+    }
+};
+
+var cashflowChart = new ApexCharts(document.querySelector("#cashflow-chart"), cashflowOptions);
+cashflowChart.render();
+
 
 //default date range picker
 $('#dash-daterange').daterangepicker({

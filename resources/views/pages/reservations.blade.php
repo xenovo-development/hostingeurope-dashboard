@@ -28,7 +28,7 @@
 
                         <h4 class="header-title">List of Reservations</h4>
                         <p class="text-muted fs-14">
-                            Here you can see all accepted reservations to all your properties listed.
+                            Here you can see all reservations to your listed property.
                         </p>
 
                         <div class="table-responsive">
@@ -37,6 +37,9 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Listing Adress</th>
+                                    <th scope="col">Listing Title</th>
+                                    <th scope="col">Source</th>
+                                    <th scope="col">Guest Name</th>
                                     <th scope="col">Check In</th>
                                     <th scope="col">Check Out</th>
                                     <th scope="col">Nights</th>
@@ -55,8 +58,11 @@
                                 <tr>
                                     <th scope="row">{{$counterStart + $loop->iteration}}</th>
                                     <td>{{$reservation->listing->street}}</td>
-                                    <td>{{ \Carbon\Carbon::parse($reservation['checkIn'])->format('M-d-Y D') }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($reservation['checkOut'])->format('M-d-Y D') }}</td>
+                                    <td>{{$reservation->listing->name}}</td>
+                                    <td>{{$reservation['source']}}</td>
+                                    <td>{{$reservation['guest_name']}}</td>
+                                    <td>{{ \Carbon\Carbon::parse($reservation['checkIn'])->format('M d Y D') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($reservation['checkOut'])->format('M d Y D') }}</td>
                                     <td>{{$reservation['nights']}}</td>
                                     <td>{{ucfirst($reservation['status'])}}</td>
                                     <td>{{'€'.$reservation['net_revenue']}}</td>
@@ -80,6 +86,5 @@
                 </div> <!-- end card -->
             </div><!-- end col-->
             {{$reservationsData['reservations']->links('vendor.pagination.bootstrap-5')}}
-        </div>
     </div> <!-- container -->
 @endsection
