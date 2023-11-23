@@ -24,14 +24,12 @@
                             </a>
                         </form>
                     </div>
-                    <h4 class="page-title">Dashboard</h4>
+                    <h4 class="page-title">Dashboard <span class="text-muted">(Beta)</span></h4>
                 </div>
                 <div class="alert alert-warning text-bg-warning border-0" role="alert">
-                    <strong>Warning! - </strong> Dear host, you can follow all the reservation analysis of your property
-                    from the chart below. While evaluating this page, please keep in mind that you are accessing this
-                    data at a very early stage of development, and that in the future, with the completion of the
-                    developments and the increase in the number of reservations, this data will be expanded to be much
-                    more detailed analyzes and you will reach much healthier data.
+                   <span style="color: #464f5b;"> <strong>Warning! - </strong> Dear host, you can follow analysis & charts of your properties
+                    from below. Please note that this page is in its early access phase and will be much improved in terms of design and functionality in the future.
+                Thank you for your patience.</span>
                 </div>
             </div>
         </div>
@@ -45,10 +43,10 @@
                         </div>
                         <h5 class="text-muted fw-normal mt-0" title="Number of Customers">Accepted Reservations</h5>
                         <h3 class="my-3">{{count($dashboardData['reservations'])}}</h3>
-                        <p class="mb-0 text-muted">
-                            <span class="text-success me-2"><i class="ri-arrow-up-line"></i>{{count($dashboardData['reservations'])}}</span>
-                            <span class="text-nowrap">Since last month</span>
-                        </p>
+{{--                        <p class="mb-0 text-muted">--}}
+{{--                            <span class="text-success me-2"><i class="ri-arrow-up-line"></i>{{count($dashboardData['reservations'])}}</span>--}}
+{{--                            <span class="text-nowrap">Since last month</span>--}}
+{{--                        </p>--}}
                     </div> <!-- end card-body-->
                 </div> <!-- end card-->
             </div> <!-- end col-->
@@ -59,12 +57,12 @@
                         <div class="float-end">
                             <i class="ri-exchange-dollar-line text-bg-primary widget-icon"></i>
                         </div>
-                        <h5 class="text-muted fw-normal mt-0" title="Average Revenue">Revenue</h5>
+                        <h5 class="text-muted fw-normal mt-0" title="Average Profit">Profit</h5>
                         <h3 class="my-3">€{{$dashboardData['user_total_revenue']}}</h3>
-                        <p class="mb-0 text-muted">
-                            <span class="text-success me-2"><i class="ri-arrow-up-line"></i>€{{$dashboardData['user_total_revenue']}}</span>
-                            <span class="text-nowrap">Since last month</span>
-                        </p>
+{{--                        <p class="mb-0 text-muted">--}}
+{{--                            <span class="text-success me-2"><i class="ri-arrow-up-line"></i>€{{$dashboardData['user_total_revenue']}}</span>--}}
+{{--                            <span class="text-nowrap">Since last month</span>--}}
+{{--                        </p>--}}
                     </div> <!-- end card-body-->
                 </div> <!-- end card-->
             </div> <!-- end col-->
@@ -75,12 +73,12 @@
                         <div class="float-end">
                             <i class="ri-exchange-dollar-line text-bg-primary widget-icon"></i>
                         </div>
-                        <h5 class="text-muted fw-normal mt-0" title="Average Revenue">Open Revenue</h5>
+                        <h5 class="text-muted fw-normal mt-0" title="Upcoming Profit">Upcoming Profit</h5>
                         <h3 class="my-3">€{{$dashboardData['user_open_revenue']}}</h3>
-                        <p class="mb-0 text-muted">
-                            <span class="text-success me-2"><i class="ri-arrow-up-line"></i>€{{$dashboardData['user_open_revenue']}}</span>
-                            <span class="text-nowrap">Since last month</span>
-                        </p>
+{{--                        <p class="mb-0 text-muted">--}}
+{{--                            <span class="text-success me-2"><i class="ri-arrow-up-line"></i>€{{$dashboardData['user_open_revenue']}}</span>--}}
+{{--                            <span class="text-nowrap">Since last month</span>--}}
+{{--                        </p>--}}
                     </div> <!-- end card-body-->
                 </div> <!-- end card-->
             </div> <!-- end col-->
@@ -93,10 +91,10 @@
                         </div>
                         <h5 class="text-muted fw-normal mt-0" title="Growth">Listings</h5>
                         <h3 class="my-3">{{count($dashboardData['listings'])}}</h3>
-                        <p class="mb-0 text-muted">
-                            <span class="text-success me-2"><i class="ri-arrow-up-line"></i> {{count($dashboardData['listings'])}}</span>
-                            <span class="text-nowrap">Since last month</span>
-                        </p>
+{{--                        <p class="mb-0 text-muted">--}}
+{{--                            <span class="text-success me-2"><i class="ri-arrow-up-line"></i> {{count($dashboardData['listings'])}}</span>--}}
+{{--                            <span class="text-nowrap">Since last month</span>--}}
+{{--                        </p>--}}
                     </div> <!-- end card-body-->
                 </div> <!-- end card-->
             </div> <!-- end col-->
@@ -138,7 +136,9 @@
     @vite(['resources/js/pages/dashboard.js'])
     <script>
         let seriesGuests = @json($dashboardData['series_guests']);
-        let seriesNetRevenue = @json($dashboardData['series_net_revenue']);
+        let seriesNetProfit = @json($dashboardData['series_net_revenue']);
+        let seriesMonths = @json($dashboardData['series_months']);
+        let seriesMonthlyProfit = @json($dashboardData['series_monthly_profit']);
         let reservationDates = @json($dashboardData['reservation_dates']);
         let reservationListings = @json($dashboardData['reservation_listings']);
         let reservationNights = @json($dashboardData['reservation_nights']);

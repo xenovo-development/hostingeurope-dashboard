@@ -4,7 +4,7 @@
     <!-- Brand Logo Light -->
     <a href="{{ route('any', 'index') }}" class="logo logo-light">
         <span class="logo-lg">
-            <img src="/images/logo.png" alt="logo">
+            <img class="h-40" src="/images/Asset 16.png" alt="logo">
         </span>
         <span class="logo-sm">
             <img src="/images/logo-sm.png" alt="small logo">
@@ -14,10 +14,10 @@
     <!-- Brand Logo Dark -->
     <a href="{{ route('any', 'index') }}" class="logo logo-dark">
         <span class="logo-lg">
-            <img src="/images/logo-dark.png" alt="logo">
+            <img src="/images/Asset 16.png" alt="logo">
         </span>
         <span class="logo-sm">
-            <img src="/images/logo-sm.png" alt="small logo">
+            <img src="/images/Asset 16.png" alt="small logo">
         </span>
     </a>
 

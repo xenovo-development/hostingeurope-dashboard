@@ -8,20 +8,20 @@
                 <!-- Logo light -->
                 <a href="/" class="logo-light">
                     <span class="logo-lg">
-                        <img src="/images/logo.png" alt="logo">
+                        <img src="/images/Asset 16.png" alt="logo">
                     </span>
                     <span class="logo-sm">
-                        <img src="/images/logo-sm.png" alt="small logo">
+                        <img src="/images/Asset 16.png" alt="small logo">
                     </span>
                 </a>
 
                 <!-- Logo Dark -->
                 <a href="/" class="logo-dark">
                     <span class="logo-lg">
-                        <img src="/images/logo-dark.png" alt="dark logo">
+                        <img src="/images/Asset 16.png" alt="dark logo">
                     </span>
                     <span class="logo-sm">
-                        <img src="/images/logo-sm.png" alt="small logo">
+                        <img src="/images/Asset 16.png" alt="small logo">
                     </span>
                 </a>
             </div>
@@ -343,7 +343,7 @@
             <li class="dropdown">
                 <a class="nav-link dropdown-toggle arrow-none nav-user px-2" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                     <span class="account-user-avatar">
-                        <img src="/images/logo-dark.png" alt="user-image" width="32" class="rounded-circle avatar-sm object-fit-contain">
+                        <img src="/images/Asset 16.png" alt="user-image" width="32" class="rounded-circle avatar-sm object-fit-contain">
                     </span>
                     <span class="d-lg-flex flex-column gap-1 d-none">
                         <h5 class="my-0">

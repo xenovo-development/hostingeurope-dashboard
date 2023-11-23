@@ -17,7 +17,7 @@
                             <li class="breadcrumb-item active">Reservations</li>
                         </ol>
                     </div>
-                    <h4 class="page-title">Reservations</h4>
+                    <h4 class="page-title">Reservations <span class="text-muted">(Beta)</span></h4>
                 </div>
             </div>
         </div>

@@ -9,6 +9,7 @@ import 'daterangepicker/moment.min.js';
 import 'daterangepicker/daterangepicker.js';
 import ApexCharts from 'apexcharts/dist/apexcharts.min.js';
 
+//XYZ - Reservation Analysis Chart
 let formattedDates = reservationDates.map(function(date) {
     return new Date(date).toLocaleDateString('en-EN', {
         year: 'numeric',
@@ -16,7 +17,6 @@ let formattedDates = reservationDates.map(function(date) {
         day: 'numeric'
     });
 });
-
 let options = {
     series: [{
         name: 'Guests',
@@ -27,9 +27,9 @@ let options = {
         type: 'column',
         data: reservationNights,
     }, {
-        name: 'Net Revenue',
+        name: 'Net Profit',
         type: 'line',
-        data: seriesNetRevenue
+        data: seriesNetProfit
     }],
     chart: {
         height: 500,
@@ -68,7 +68,7 @@ let options = {
                 }
             },
             title: {
-                text: "Subtotal amount (without commissions)",
+                text: "Guest count (by booking)",
                 style: {
                     color: '#008FFB',
                 }
@@ -100,7 +100,7 @@ let options = {
             },
         },
         {
-            seriesName: 'Revenue',
+            seriesName: 'Profit',
             opposite: true,
             axisTicks: {
                 show: true,
@@ -115,7 +115,7 @@ let options = {
                 },
             },
             title: {
-                text: "Net Revenue (minus commissions)",
+                text: "Net Profit (minus commissions)",
                 style: {
                     color: '#FEB019',
                 }
@@ -139,7 +139,7 @@ let options = {
 let chart = new ApexCharts(document.querySelector("#chart"), options);
 chart.render();
 
-
+// Bookings by source Pie chart
 let pieOptions = {
     series: seriesPievals,
     chart: {
@@ -170,10 +170,12 @@ for (let i = 29; i >= 0; i--) {
     dates.push(day.toISOString().split('T')[0]);
 }
 
+
+//Cash flow(Profit) chart
 let cashflowOptions = {
     series: [{
         name: 'Income',
-        data: seriesNetRevenue
+        data: seriesMonthlyProfit
     }],
     chart: {
         type: 'area',
@@ -195,7 +197,7 @@ let cashflowOptions = {
         size: 0,
     },
     title: {
-        text: 'Revenue (Monthly)',
+        text: 'Profit (Monthly)',
         align: 'left'
     },
     fill: {
@@ -215,12 +217,17 @@ let cashflowOptions = {
             // },
         },
         title: {
-            text: 'Revenue'
+            text: 'Profit'
         },
     },
     xaxis: {
-        categories: reservationDates,
+        categories: seriesMonths,
         type: 'datetime',
+        labels: {
+            formatter: function(val) {
+                return new Date(val).toLocaleDateString('en-EN', { month: 'short' });
+            }
+        }
     },
     tooltip: {
         shared: false,

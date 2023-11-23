@@ -18,7 +18,7 @@
                             <li class="breadcrumb-item active">Calendar</li>
                         </ol>
                     </div>
-                    <h4 class="page-title">Calendar</h4>
+                    <h4 class="page-title">Calendar <span class="text-muted">(Beta)</span></h4>
                 </div>
             </div>
         </div>
@@ -26,9 +26,10 @@
 
         <div class="row">
             <div class="col-12">
-                <div class="alert alert-warning text-bg-warning border-0" role="alert">
-                    <strong>Warning! - </strong> Dear host, you can follow all the booking processes of your property from the calendar below.
-                    Our application under development will allow you to make your reservation from this calendar as soon as possible.
+                <div class="alert alert-warning text-bg-warning border-0" role="alert" >
+                    <span style="color: #464f5b;"><strong>Warning! - </strong> Dear host, you can follow all the booking processes of your property from the calendar below.
+                    Our application under development will allow you to make your reservation from this calendar as soon as possible. Please note that this page is in its early access phase and will be much improved in terms of design and functionality in the future.
+                Thank you for your patience.</span>
                 </div>
                 @if(!$calendarData['listings'])
                 <div class="alert alert-danger text-bg-danger border-0" role="alert">

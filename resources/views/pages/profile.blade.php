@@ -17,7 +17,7 @@
                             <li class="breadcrumb-item active">Profile</li>
                         </ol>
                     </div>
-                    <h4 class="page-title">Profile</h4>
+                    <h4 class="page-title">Profile <span class="text-muted">(Beta)</span></h4>
                 </div>
             </div>
         </div>
@@ -27,7 +27,7 @@
             <div class="col-xl-4 col-lg-5">
                 <div class="card text-center">
                     <div class="card-body">
-                        <img src="/images/logo.png" class="rounded-circle avatar-lg img-thumbnail object-fit-lg-contain" alt="profile-image">
+                        <img src="/images/Asset 16.png" class="rounded avatar-lg img-thumbnail object-fit-lg-contain" alt="profile-image">
 
                         <h4 class="mb-1 mt-2">{{Auth::user()['name'] }}</h4>
                         <p class="text-muted">{{Auth::user()['role']}}</p>
@@ -48,16 +48,16 @@
 
             <div class="col-xl-8 col-lg-7">
                 <!-- Chart-->
-{{--                <div class="card">--}}
-{{--                    <div class="card-body">--}}
-{{--                        <h4 class="header-title mb-3">Reservations & Revenue</h4>--}}
-{{--                        <div>--}}
-{{--                            <div style="height: 260px;" class="chartjs-chart">--}}
-{{--                                <canvas id="high-performing-product"></canvas>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header-title mb-3">Bookings & Revenue</h4>
+                        <div>
+                            <div style="height: 260px;" class="chartjs-chart">
+                                <canvas id="high-performing-product"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- End Chart-->
 
                 <div class="card">
@@ -195,4 +195,9 @@
 
 @section('script')
     @vite(['resources/js/pages/demo.profile.js'])
+    <script>
+        let seriesBookingsCount = @json($profileData['series_bookings_count']);
+        let seriesRevenue = @json($profileData['series_revenue']);
+        let seriesMonths = @json($profileData['series_months']);
+    </script>
 @endsection

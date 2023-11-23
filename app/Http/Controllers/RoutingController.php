@@ -78,7 +78,7 @@ class RoutingController extends Controller
             $reservationsData = (new ReservationsController())->index($listingId);
         }
         if($first == 'pages' && $second == 'profile'){
-            $profileData = (new ListingController())->index();
+            $profileData = (new ProfileChartController())->index();
         }
 
         if ($first == "assets")

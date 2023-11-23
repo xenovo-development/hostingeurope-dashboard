@@ -184,7 +184,7 @@
                         <!-- Logo -->
                         <div class="card-header py-4 text-center bg-secondary">
                             <a href="{{ route('any', 'index') }}ml">
-                                <span><img src="/images/logo.png" alt="logo" height="60"></span>
+                                <span><img src="/images/Asset 16.png" alt="logo" height="80"></span>
                             </a>
                         </div>
 

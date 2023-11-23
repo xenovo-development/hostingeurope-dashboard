@@ -10,6 +10,13 @@
     }
 }
 
+.logo-xl {
+    img {
+        //height: $logo-lg-height;
+        height: 65px;
+    }
+}
+
 .logo-sm {
     img {
         height: $logo-sm-height;
@@ -21,7 +28,7 @@
     display: block;
     top: 0;
     position: sticky;
-    text-align: center;
+    text-align: left;
     //line-height: $topbar-height;
     line-height: 100px;
     padding: 0 calc($leftbar-width-sm * 0.5 - $logo-sm-height * 0.7);
