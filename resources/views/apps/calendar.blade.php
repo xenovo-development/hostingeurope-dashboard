@@ -72,7 +72,8 @@
                                     <div class="alert alert-warning mb-3 text-center">
                                             Until the short-term integration process of the application is completed, please refer to the following e-mail addresses for your reservations:
                                         <br><br>
-                                        <strong>b.ozturk@hostingeurope.info</strong> <strong>sm.sakaryak@hostingeurope.info</strong>
+                                        <strong><a class="text-info" href="mailto:b.ozturk@hostingeurope.info">b.ozturk@hostingeurope.info</a></strong> <a
+                                            class="text-info" href="mailto:sm.sakarya@hostingeurope.info"><strong>sm.sakarya@hostingeurope.info</strong></a>
                                         </div>
                                 </div>
 
@@ -147,6 +148,5 @@
     @vite(['resources/js/pages/demo.calendar.js'])
     <script>
         let calendarReservations = @json($calendarData['reservations']);
-        console.log(calendarReservations);
     </script>
 @endsection

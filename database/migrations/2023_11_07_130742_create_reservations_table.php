@@ -66,8 +66,8 @@ return new class extends Migration
             $table->float('city_tax')->nullable();
             $table->string('channel_reservation_id')->nullable();
             $table->string('listing_nickname')->nullable();
-            $table->unsignedBigInteger('channel_listing_id')->nullable();
-            $table->unsignedBigInteger('listing_channel_id')->nullable();
+            $table->bigInteger('channel_listing_id')->nullable();
+            $table->bigInteger('listing_channel_id')->nullable();
             $table->string('guest_name')->nullable();
             $table->string('guest_email')->nullable();
             $table->string('guest_phone')->nullable();

@@ -60,9 +60,9 @@ class ListingsGetCommand extends Command
                 }
 
 
-                Listing::updateOrCreate([
-                    'id' => $listing['id'],
-                    'fs_integration_type' => $listing['fs_integration_type'],
+                Listing::updateOrCreate(
+                    ['id' => $listing['id']],
+                    ['fs_integration_type' => $listing['fs_integration_type'],
                     'currency' => $listing['currency'],
                     'channel_listing_id' => $listing['channel_listing_id'],
                     'room_type' => $listing['room_type'],
@@ -126,7 +126,6 @@ class ListingsGetCommand extends Command
                     'custom_fields' => json_encode($listing['custom_fields'], true),
                     'users' => json_encode($listing['users']),
                     'integration_id' => $listing['integration_id'],
-                    'user_id' => 1
                 ]);
             }
 

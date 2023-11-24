@@ -16,7 +16,7 @@ return new class extends Migration
             $table->timestamps();
             $table->integer('fs_integration_type')->nullable();
             $table->string('currency')->nullable();
-            $table->unsignedBigInteger('channel_listing_id')->nullable();
+            $table->bigInteger('channel_listing_id')->nullable();
             $table->integer('room_type')->nullable();
             $table->integer('listing_type')->nullable();
             $table->integer('property_type_id')->nullable();
@@ -79,7 +79,7 @@ return new class extends Migration
             $table->json('users')->nullable();
             $table->integer('integration_id')->nullable();
 
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->default(1)->constrained()->onDelete('cascade');
         });
     }
 

@@ -343,7 +343,7 @@
             <li class="dropdown">
                 <a class="nav-link dropdown-toggle arrow-none nav-user px-2" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                     <span class="account-user-avatar">
-                        <img src="/images/Asset 16.png" alt="user-image" width="32" class="rounded-circle avatar-sm object-fit-contain">
+                        <img src="/images/Asset 14.png" alt="user-image" width="32" class="rounded-circle avatar-sm object-fit-contain">
                     </span>
                     <span class="d-lg-flex flex-column gap-1 d-none">
                         <h5 class="my-0">

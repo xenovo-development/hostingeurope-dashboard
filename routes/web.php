@@ -31,3 +31,11 @@ Route::group(['prefix' => '/', 'middleware' => 'auth'], function () {
         Route::post('/create-user', [RegisteredUserController::class, 'store']);
     });
 });
+//Route::get('command', function () {
+////
+////    \Artisan::call('migrate:refresh --seed');
+//    \Artisan::call('app:reservations-get-command');
+//
+//    dd("Command ran");
+//
+//});

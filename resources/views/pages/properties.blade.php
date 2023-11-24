@@ -246,10 +246,10 @@
                                     <td>{{$listing['city']}}</td>
                                     <td class="text-center">
                                         <a href="{{route('second',['apps','calendar'])}}"
-                                           class="btn btn-soft-dark rounded-pill text-body fs-20"> <i
+                                           class="btn btn-soft-info rounded-pill text-body fs-20"> <i
                                                 class="ri-calendar-event-line"></i></a>
                                         <a href="{{route('second', ['pages', 'reservations']).'?listingId='.$listing['id'] }}"
-                                           class="btn btn-soft-dark rounded-pill text-body fs-20"> <i
+                                           class="btn btn-soft-info rounded-pill text-body fs-20"> <i
                                                 class="ri-bookmark-3-line"></i></a>
                                     </td>
                                 </tr>
