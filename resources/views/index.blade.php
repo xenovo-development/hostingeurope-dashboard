@@ -58,7 +58,7 @@
                             <i class="ri-exchange-dollar-line text-bg-primary widget-icon"></i>
                         </div>
                         <h5 class="text-muted fw-normal mt-0" title="Average Profit">Profit</h5>
-                        <h3 class="my-3">€{{$dashboardData['user_total_revenue']}}</h3>
+                        <h3 class="my-3">€{{round($dashboardData['user_total_revenue'], 2)}}</h3>
 {{--                        <p class="mb-0 text-muted">--}}
 {{--                            <span class="text-success me-2"><i class="ri-arrow-up-line"></i>€{{$dashboardData['user_total_revenue']}}</span>--}}
 {{--                            <span class="text-nowrap">Since last month</span>--}}
@@ -74,7 +74,7 @@
                             <i class="ri-exchange-dollar-line text-bg-primary widget-icon"></i>
                         </div>
                         <h5 class="text-muted fw-normal mt-0" title="Upcoming Profit">Upcoming Profit</h5>
-                        <h3 class="my-3">€{{$dashboardData['user_open_revenue']}}</h3>
+                        <h3 class="my-3">€{{round($dashboardData['user_open_revenue'],2)}}</h3>
 {{--                        <p class="mb-0 text-muted">--}}
 {{--                            <span class="text-success me-2"><i class="ri-arrow-up-line"></i>€{{$dashboardData['user_open_revenue']}}</span>--}}
 {{--                            <span class="text-nowrap">Since last month</span>--}}

@@ -160,19 +160,19 @@
                                                             </div>
                                                         </div>
                                                         <!-- end title -->
-                                                        <!-- start state -->
+                                                        <!-- start city -->
                                                         <div class="col-md-auto">
-                                                            <p class="mt-2 mb-1 text-muted">State</p>
+                                                            <p class="mt-2 mb-1 text-muted">City</p>
                                                             <div class="d-flex align-items-start">
                                                                 <i class="ri-earth-line fs-18 text-success me-1"></i>
                                                                 <div class="w-100">
                                                                     <h5 class="mt-1">
-                                                                        {{$listing['state']??'No data'}}
+                                                                        {{$listing['city']??'No data'}}
                                                                     </h5>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <!-- end state -->
+                                                        <!-- end city -->
                                                         <!-- start country -->
                                                         <div class="col-md-auto">
                                                             <p class="mt-2 mb-1 text-muted">Country</p>
@@ -180,7 +180,7 @@
                                                                 <i class="ri-earth-line fs-18 text-success me-1"></i>
                                                                 <div class="w-100">
                                                                     <h5 class="mt-1">
-                                                                        {{$listing['country']?? 'No data'}}
+                                                                        {{$listing['country'] = null ?? 'Cyprus'}}
                                                                     </h5>
                                                                 </div>
                                                             </div>
@@ -193,7 +193,7 @@
                                                                 <i class="ri-money-euro-circle-line fs-18 text-success me-1"></i>
                                                                 <div class="w-100">
                                                                     <h5 class="mt-1">
-                                                                        €{{$listing['default_daily_price'] ?? 'No data'}}
+                                                                        €{{$listing['price'] ?? 'No data'}}
                                                                     </h5>
                                                                 </div>
                                                             </div>
@@ -266,7 +266,7 @@
                                                         <!-- end person capacity -->
                                                         <!-- start checkin -->
                                                         <div class="col-md-auto">
-                                                            <p class="mt-2 mb-1 text-muted">Checkin Start</p>
+                                                            <p class="mt-2 mb-1 text-muted">Checkin</p>
                                                             <div class="d-flex align-items-start">
                                                                 <i class="ri-time-line fs-18 text-success me-1"></i>
                                                                 <div class="w-100">
@@ -279,12 +279,12 @@
                                                         <!-- end checkin -->
                                                         <!-- start checkin start -->
                                                         <div class="col-md-auto">
-                                                            <p class="mt-2 mb-1 text-muted">Checkin End</p>
+                                                            <p class="mt-2 mb-1 text-muted">Check Out</p>
                                                             <div class="d-flex align-items-start">
                                                                 <i class="ri-time-line fs-18 text-success me-1"></i>
                                                                 <div class="w-100">
                                                                     <h5 class="mt-1">
-                                                                        {{\Carbon\Carbon::parse($listing['checkin_end'])->format('H:i') ?? 'No data'}}
+                                                                        {{\Carbon\Carbon::parse($listing['checkout']??'11:00')->format('H:i')}}
                                                                     </h5>
                                                                 </div>
                                                             </div>

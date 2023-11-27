@@ -55,7 +55,7 @@ import 'fullcalendar/main.min.js'
       this.$selectedEvent = null;
       this.$newEventData = info;
       this.$btnDeleteEvent.hide();
-      this.$modalTitle.text('Add New Event');
+      this.$modalTitle.text('New Reservation');
 
       this.$modal.show();
       this.$calendarObj.unselect();
@@ -164,6 +164,7 @@ import 'fullcalendar/main.min.js'
               allDay: $this.$newEventData.allDay,
               className: $("#event-category").val()
             }
+              console.log($this.$newEventData.date);
             $this.$calendarObj.addEvent(eventData);
           }
           $this.$modal.hide();

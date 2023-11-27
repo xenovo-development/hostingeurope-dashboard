@@ -102,21 +102,14 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="mb-3">
-                                                <label class="control-label form-label">Event Name</label>
-                                                <input class="form-control" placeholder="Insert Event Name" type="text" name="title" id="event-title" required />
+                                                <input class="form-control" placeholder="Insert Event Name" type="text" name="name" id="event-title" value="{{Auth()->user()['name']}}" required />
                                                 <div class="invalid-feedback">Please provide a valid event name</div>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="mb-3">
-                                                <label class="control-label form-label">Category</label>
                                                 <select class="form-select" name="category" id="event-category" required>
-                                                    <option value="bg-danger" selected>Danger</option>
-                                                    <option value="bg-success">Success</option>
-                                                    <option value="bg-primary">Primary</option>
-                                                    <option value="bg-info">Info</option>
-                                                    <option value="bg-dark">Dark</option>
-                                                    <option value="bg-warning">Warning</option>
+                                                    <option value="bg-primary" selected></option>
                                                 </select>
                                                 <div class="invalid-feedback">Please select a valid event category</div>
                                             </div>

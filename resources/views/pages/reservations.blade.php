@@ -61,6 +61,7 @@
                                 $counterStart = $perPage * ($currentPage - 1);
                             @endphp
                             @forelse($reservationsData['reservations'] as $reservation)
+                                @if($reservation['status'] == 'accepted' || $reservation['status'] == 'cancelled')
                                 <tr>
                                     <th scope="row">{{$counterStart + $loop->iteration}}</th>
                                     <td class="table-user"><img src="{{$reservation['listing_photo']}}"
@@ -81,6 +82,7 @@
                                             class="badge bg-success">{{'€'.round($reservation['net_revenue'] - ($reservation['net_revenue'] * Auth()->user()['commission'] / 100),2)}}</span>
                                     </td>
                                 </tr>
+                                @endif
                             @empty
                                 <tr>
                                     <th scope="row">1</th>
