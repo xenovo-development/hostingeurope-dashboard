@@ -51,7 +51,7 @@
                                     </a>
                                 @empty
                                     <a class="nav-link active show" id="v-pills-home-tab" data-bs-toggle="pill"
-                                       href="#v-pills-airbnb" role="tab" aria-controls="v-pills-home"
+                                       role="tab" aria-controls="v-pills-home"
                                        aria-selected="true">
                                         No properties found
                                     </a>

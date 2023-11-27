@@ -16,9 +16,11 @@ class ReservationsController extends Controller
      */
     public function index($listing_id): array
     {
+        $listing = Listing::find($listing_id);
         $reservations = Reservation::where('listing_id',$listing_id)->paginate(50);
 
          return[
+             'listing'=>$listing,
              'reservations'=>$reservations
          ];
     }
