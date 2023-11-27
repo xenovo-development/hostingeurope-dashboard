@@ -23,6 +23,12 @@
         </div>
         <!-- end page title -->
         <div class="col-12">
+            <div class="alert alert-warning text-bg-warning border-0" role="alert">
+                    <span
+                        style="color: #464f5b;"><strong>Warning! - </strong> Dear host, This page represents the <strong>beta</strong>
+                        stage of its development. Please note that this page is in its early access phase and will be much improved in terms of design and functionality in the future.
+                        Thank you for your patience.</span>
+            </div>
             <div class="card">
                 <div class="card-body">
                     <h4 class="header-title">{{$reservationsData['listing']['street'].' - '. $reservationsData['listing']['name']}}</h4>
@@ -44,7 +50,7 @@
                                 <th scope="col">Check Out</th>
                                 <th scope="col">Nights</th>
                                 <th scope="col">Status</th>
-                                <th scope="col">Revenue</th>
+                                <th scope="col">Profit</th>
 
                             </tr>
                             </thead>
@@ -71,7 +77,9 @@
                                     <td>{{ \Carbon\Carbon::parse($reservation['checkOut'])->format('M d Y D') }}</td>
                                     <td>{{$reservation['nights']}}</td>
                                     <td>{{ucfirst($reservation['status'])}}</td>
-                                    <td>{{'€'.$reservation['net_revenue'] - ($reservation['net_revenue'] * Auth()->user()['commission'] / 100)}}</td>
+                                    <td><span
+                                            class="badge bg-success">{{'€'.round($reservation['net_revenue'] - ($reservation['net_revenue'] * Auth()->user()['commission'] / 100),2)}}</span>
+                                    </td>
                                 </tr>
                             @empty
                                 <tr>

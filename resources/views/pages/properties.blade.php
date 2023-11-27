@@ -306,7 +306,7 @@
                                                     <i class="ri-calendar-event-line me-1"></i>
                                                     <span>Calendar</span>
                                                 </a>
-                                                <a href="{{route('second',['pages','reservations']).'?listingId='.$listing['id']}}" type="button" class="btn btn-danger m-1">
+                                                <a href="{{route('second',['pages','reservations']).'?listingId='.$listing['id']}}" type="button" class="btn btn-info m-1">
                                                     <i class="ri-bookmark-3-line me-1"></i>
                                                     <span>Bookings</span>
                                                 </a>
