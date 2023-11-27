@@ -16,7 +16,7 @@ class NewPasswordController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function create(Request $request)
+    public function create(Request $request): \Illuminate\View\View
     {
         return view('auth.reset-password', ['request' => $request]);
     }
@@ -25,7 +25,6 @@ class NewPasswordController extends Controller
      * Handle an incoming new password request.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
      *
      * @throws \Illuminate\Validation\ValidationException
      */

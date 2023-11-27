@@ -9,6 +9,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class RegisteredUserController extends Controller
 {
@@ -34,14 +35,18 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'role' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|confirmed|min:8',
         ]);
 
         $user = User::create([
             'name' => $request->name,
+            'role' => $request->role,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'remember_token' => Str::random(10),
+            'email_verified_at' => now(),
         ]);
 
         event(new Registered($user));

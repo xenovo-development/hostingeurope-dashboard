@@ -4,7 +4,7 @@
     <!-- Brand Logo Light -->
     <a href="{{ route('any', 'index') }}" class="logo logo-light">
         <span class="logo-lg">
-            <img src="/images/logo.png" alt="logo">
+            <img class="h-40" src="/images/Asset 16.png" alt="logo">
         </span>
         <span class="logo-sm">
             <img src="/images/logo-sm.png" alt="small logo">
@@ -14,10 +14,10 @@
     <!-- Brand Logo Dark -->
     <a href="{{ route('any', 'index') }}" class="logo logo-dark">
         <span class="logo-lg">
-            <img src="/images/logo-dark.png" alt="logo">
+            <img src="/images/Asset 16.png" alt="logo">
         </span>
         <span class="logo-sm">
-            <img src="/images/logo-sm.png" alt="small logo">
+            <img src="/images/Asset 16.png" alt="small logo">
         </span>
     </a>
 
@@ -46,21 +46,57 @@
 
             <li class="side-nav-title">Navigation</li>
 
-
+            @if(Auth::user()['role']==='Admin')
+                <li class="side-nav-item">
+                    <a data-bs-toggle="collapse" href="#sidebarPagesAuth" aria-expanded="false" aria-controls="sidebarPagesAuth" class="side-nav-link">
+                        <i class="ri-shield-user-line"></i>
+                        <span> Admin </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebarPagesAuth">
+                        <ul class="side-nav-second-level">
+                            <li>
+                                <a href="{{ route('second', ['auth', 'login']) }}">Create new user</a>
+                                <a href="{{ route('second', ['auth', 'login']) }}">Set listing</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            @endif
             <li class="side-nav-item">
-                <a href="{{ route('any', 'analytics') }}" class="side-nav-link">
+                <a href="{{ route('any', 'index') }}" class="side-nav-link">
                     <i class="ri-home-4-line"></i>
                     <span> Dashboard </span>
                 </a>
             </li>
-
             <li class="side-nav-item">
                 <a href="{{ route('second', ['apps', 'calendar']) }}" class="side-nav-link">
                     <i class="ri-calendar-event-line"></i>
                     <span> Calendar </span>
                 </a>
             </li>
-
+            <li class="side-nav-item">
+                <a href="{{ route('second', ['pages', 'properties']) }}" class="side-nav-link">
+                    <i class="ri-community-fill"></i>
+                    <span> My Properties </span>
+                </a>
+            </li>
+            <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#sidebarPagesReservations" aria-expanded="false"  aria-controls="sidebarPagesReservations"class="side-nav-link">
+                    <i class="ri-bookmark-3-line"></i>
+                    <span> Reservations </span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="sidebarPagesReservations">
+                    <ul class="side-nav-second-level">
+                        <li>
+                            @foreach(App\Models\Listing::where('user_id',Auth()->user()['id'])->get() as $listing)
+                                <a href="{{route('second', ['pages', 'reservations']).'?listingId='.$listing['id'] }}">{{$listing['street'].' - '.$listing['city']}}</a>
+                            @endforeach
+                        </li>
+                    </ul>
+                </div>
+            </li>
             <li class="side-nav-item">
                 <a href="{{ route('second', ['pages', 'profile']) }}" class="side-nav-link">
                     <i class="ri-account-pin-circle-line"></i>
@@ -68,19 +104,6 @@
                 </a>
             </li>
 
-            <li class="side-nav-item">
-                <a href="{{ route('second', ['pages', 'invoice']) }}" class="side-nav-link">
-                    <i class="ri-coupon-3-line"></i>
-                    <span> Invoice </span>
-                </a>
-            </li>
-
-            <li class="side-nav-item">
-                <a href="{{ route('second', ['pages', 'pricing']) }}" class="side-nav-link">
-                    <i class="ri-bank-card-fill"></i>
-                    <span> Pricing </span>
-                </a>
-            </li>
 
 {{--            <li class="side-nav-item">--}}
 {{--                <a data-bs-toggle="collapse" href="#sidebarEmail" aria-expanded="false" aria-controls="sidebarEmail" class="side-nav-link">--}}

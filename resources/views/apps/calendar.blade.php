@@ -14,12 +14,11 @@
                 <div class="page-title-box">
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Attex</a></li>
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Apps</a></li>
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Hosting Europe</a></li>
                             <li class="breadcrumb-item active">Calendar</li>
                         </ol>
                     </div>
-                    <h4 class="page-title">Calendar</h4>
+                    <h4 class="page-title">Calendar <span class="text-muted">(Beta)</span></h4>
                 </div>
             </div>
         </div>
@@ -27,38 +26,55 @@
 
         <div class="row">
             <div class="col-12">
-
+                <div class="alert alert-warning text-bg-warning border-0" role="alert" >
+                    <span style="color: #464f5b;"><strong>Warning! - </strong> Dear host, you can follow all the booking processes of your property from the calendar below.
+                    Our application under development will allow you to make your reservation from this calendar as soon as possible. Please note that this page is in its early access phase and will be much improved in terms of design and functionality in the future.
+                Thank you for your patience.</span>
+                </div>
+                @if(!$calendarData['listings'])
+                <div class="alert alert-danger text-bg-danger border-0" role="alert">
+                    <strong>Error! - </strong> No listings found.
+                </div>
+                @endif
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-3">
                                 <div class="d-grid">
                                     <button class="btn btn-lg fs-16 btn-danger" id="btn-new-event">
-                                        <i class="ri-add-circle-fill"></i> Create New Event
+                                        <i class="ri-add-circle-fill"></i> Make A Reservation
                                     </button>
                                 </div>
                                 <div id="external-events" class="mt-3">
-                                    <p class="text-muted">Drag and drop your event or click in the calendar</p>
-                                    <div class="external-event bg-success-subtle text-success" data-class="bg-success"><i class="ri-focus-fill me-2 vertical-middle"></i>New Theme Release</div>
-                                    <div class="external-event bg-info-subtle text-info" data-class="bg-info"><i class="ri-focus-fill me-2 vertical-middle"></i>My Event</div>
-                                    <div class="external-event bg-warning-subtle text-warning" data-class="bg-warning"><i class="ri-focus-fill me-2 vertical-middle"></i>Meet manager</div>
-                                    <div class="external-event bg-danger-subtle text-danger" data-class="bg-danger"><i class="ri-focus-fill me-2 vertical-middle"></i>Create New theme</div>
+                                    <p class="text-muted mt-3 mb-3"> From here you can make your reservations to your own apartment. Just simply drag and drop your apartment or click in the calendar</p>
+                                    <h5 class=" mb-2">My Properties</h5>
+                                    @forelse($calendarData['listings'] as $listing)
+                                        <div class="external-event bg-info-subtle text-info" data-class="bg-info"><i class="ri-focus-fill me-2 vertical-middle"></i>{{$listing['street']}}</div>
+                                    @empty
+                                        <div class="external-event bg-info-subtle text-info" data-class="bg-info"><i class="ri-focus-fill me-2 vertical-middle"></i>No listings found</div>
+                                    @endforelse
                                 </div>
 
-                                <div class="mt-5 d-none d-xl-block">
-                                    <h5 class="text-center">How It Works ?</h5>
+                                <div class="mt-4 d-none d-xl-block">
+                                    <h5 class="text-center">Rules</h5>
 
                                     <ul class="ps-3">
                                         <li class="text-muted mb-3">
-                                            It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+                                            You can only make <strong>21</strong> reservations in a month.
                                         </li>
                                         <li class="text-muted mb-3">
-                                            Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage.
+                                            If you cancel your reservation <strong>two days </strong> or less before the check-in date, there will be no refund for the reservation fee.
                                         </li>
                                         <li class="text-muted mb-3">
-                                            It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+                                            You have <strong>21</strong> days of reservation initiative left.
                                         </li>
                                     </ul>
+                                    <div class="alert alert-warning mb-3 text-center">
+                                            Until the short-term integration process of the application is completed, please refer to the following e-mail addresses for your reservations:
+                                        <br><br>
+                                        <strong><a class="text-info" href="mailto:b.ozturk@hostingeurope.info">b.ozturk@hostingeurope.info</a></strong> <a
+                                            class="text-info" href="mailto:sm.sakarya@hostingeurope.info"><strong>sm.sakarya@hostingeurope.info</strong></a>
+                                        </div>
                                 </div>
 
                             </div> <!-- end col-->
@@ -130,4 +146,7 @@
 
 @section('script')
     @vite(['resources/js/pages/demo.calendar.js'])
+    <script>
+        let calendarReservations = @json($calendarData['reservations']);
+    </script>
 @endsection

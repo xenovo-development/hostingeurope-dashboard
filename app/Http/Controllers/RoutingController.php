@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Listing;
+use App\Models\Reservation;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -22,6 +25,7 @@ class RoutingController extends Controller
      */
     public function index(Request $request)
     {
+
         if (Auth::user()) {
             return redirect('index');
         } else {
@@ -37,13 +41,22 @@ class RoutingController extends Controller
     public function root(Request $request, $first)
     {
 
+        /**
+         * User Dashboard (index) page data mount.
+         */
+        if($first == 'index'){
+            $dashboardData = (new UserDashboardController)->index();
+        };
+
+
         $mode = $request->query('mode');
         $demo = $request->query('demo');
 
         if ($first == "assets")
             return redirect('home');
 
-        return view($first, ['mode' => $mode, 'demo' => $demo]);
+        return view($first, ['mode' => $mode, 'demo' => $demo])
+            ->with('dashboardData',$dashboardData);
     }
 
     /**
@@ -51,14 +64,31 @@ class RoutingController extends Controller
      */
     public function secondLevel(Request $request, $first, $second)
     {
-
         $mode = $request->query('mode');
         $demo = $request->query('demo');
+        $listingId = $request->query('listingId');
+
+        if($first == 'apps' && $second == 'calendar'){
+            $calendarData = (new CalendarController)->index();
+        }
+        if($first == 'pages' && $second == 'properties'){
+            $propertiesData = (new ListingController())->index();
+        }
+        if($first == 'pages' && $second == 'reservations'){
+            $reservationsData = (new ReservationsController())->index($listingId);
+        }
+        if($first == 'pages' && $second == 'profile'){
+            $profileData = (new ProfileChartController())->index();
+        }
 
         if ($first == "assets")
             return redirect('home');
 
-    return view($first .'.'. $second, ['mode' => $mode, 'demo' => $demo]);
+    return view($first .'.'. $second, ['mode' => $mode, 'demo' => $demo],)
+        ->with('calendarData', $calendarData ?? [])
+        ->with('propertiesData', $propertiesData ?? [])
+        ->with('reservationsData', $reservationsData ?? [])
+        ->with('profileData', $profileData ?? []);
     }
 
     /**
@@ -66,6 +96,8 @@ class RoutingController extends Controller
      */
     public function thirdLevel(Request $request, $first, $second, $third)
     {
+
+
         $mode = $request->query('mode');
         $demo = $request->query('demo');
 

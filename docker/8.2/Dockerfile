@@ -45,11 +45,11 @@ RUN apt-get update \
 
 RUN if [ "${XDEBUG}" = 'true' ]; then \
     apt-get install -y php-xdebug \
-    && echo "xdebug.client_port = ${XDEBUG_PORT}" >> /etc/php/8.0/mods-available/xdebug.ini \
-    && echo "xdebug.mode = debug" >> /etc/php/8.0/mods-available/xdebug.ini \
-    # && echo "xdebug.discover_client_host = 1" >> /etc/php/8.0/mods-available/xdebug.ini \
-    && echo "xdebug.start_with_request = yes" >> /etc/php/8.0/mods-available/xdebug.ini \
-    && echo "xdebug.client_host = host.docker.internal" >> /etc/php/8.0/mods-available/xdebug.ini \
+    && echo "xdebug.client_port = ${XDEBUG_PORT}" >> /etc/php/8.2/mods-available/xdebug.ini \
+    && echo "xdebug.mode = debug" >> /etc/php/8.2/mods-available/xdebug.ini \
+    # && echo "xdebug.discover_client_host = 1" >> /etc/php/8.2/mods-available/xdebug.ini \
+    && echo "xdebug.start_with_request = yes" >> /etc/php/8.2/mods-available/xdebug.ini \
+    && echo "xdebug.client_host = host.docker.internal" >> /etc/php/8.2/mods-available/xdebug.ini \
     ;\
 fi;
 
