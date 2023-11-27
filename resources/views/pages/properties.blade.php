@@ -67,35 +67,35 @@
                                          aria-labelledby="v-pills-{{$listing['id']}}-tab">
                                     </div>
                                     <!-- project card -->
-                                    <div class="card d-block">
+                                    <div class="card bg-light-subtle d-block">
                                         <div class="card-body ">
-                                            <div class="dropdown float-end">
-                                                <a href="#" class="dropdown-toggle arrow-none text-muted"
-                                                   data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <i class="ri-more-fill fs-18"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <!-- item-->
-                                                    <a href="javascript:void(0);" class="dropdown-item">
-                                                        <i class='ri-attachment-line me-1'></i>Attachment
-                                                    </a>
-                                                    <!-- item-->
-                                                    <a href="javascript:void(0);" class="dropdown-item">
-                                                        <i class='ri-edit-box-line me-1'></i>Edit
-                                                    </a>
-                                                    <!-- item-->
-                                                    <a href="javascript:void(0);" class="dropdown-item">
-                                                        <i class='ri-file-copy-2-line me-1'></i>Mark as Duplicate
-                                                    </a>
-                                                    <div class="dropdown-divider"></div>
-                                                    <!-- item-->
-                                                    <a href="javascript:void(0);" class="dropdown-item text-danger">
-                                                        <i class='ri-delete-bin-line me-1'></i>Delete
-                                                    </a>
-                                                </div>
-                                                <!-- end dropdown menu-->
-                                            </div>
-                                            <!-- end dropdown-->
+{{--                                            <div class="dropdown float-end">--}}
+{{--                                                <a href="#" class="dropdown-toggle arrow-none text-muted"--}}
+{{--                                                   data-bs-toggle="dropdown" aria-expanded="false">--}}
+{{--                                                    <i class="ri-more-fill fs-18"></i>--}}
+{{--                                                </a>--}}
+{{--                                                <div class="dropdown-menu dropdown-menu-end">--}}
+{{--                                                    <!-- item-->--}}
+{{--                                                    <a href="javascript:void(0);" class="dropdown-item">--}}
+{{--                                                        <i class='ri-attachment-line me-1'></i>Attachment--}}
+{{--                                                    </a>--}}
+{{--                                                    <!-- item-->--}}
+{{--                                                    <a href="javascript:void(0);" class="dropdown-item">--}}
+{{--                                                        <i class='ri-edit-box-line me-1'></i>Edit--}}
+{{--                                                    </a>--}}
+{{--                                                    <!-- item-->--}}
+{{--                                                    <a href="javascript:void(0);" class="dropdown-item">--}}
+{{--                                                        <i class='ri-file-copy-2-line me-1'></i>Mark as Duplicate--}}
+{{--                                                    </a>--}}
+{{--                                                    <div class="dropdown-divider"></div>--}}
+{{--                                                    <!-- item-->--}}
+{{--                                                    <a href="javascript:void(0);" class="dropdown-item text-danger">--}}
+{{--                                                        <i class='ri-delete-bin-line me-1'></i>Delete--}}
+{{--                                                    </a>--}}
+{{--                                                </div>--}}
+{{--                                                <!-- end dropdown menu-->--}}
+{{--                                            </div>--}}
+{{--                                            <!-- end dropdown-->--}}
 
 
                                             <h4>{{$listing['street'] . ' - '. $listing['name']}}</h4>
