@@ -76,7 +76,7 @@ class UserDashboardController extends Controller
                     $reservationListings[] = $reservation['listing_title'];
                     $reservationNights [] = $reservation['nights'];
                 }
-                elseif($reservation['status'] == 'inquiry') {
+                elseif($reservation['status'] == 'awaiting_payment') {
                     $openRevenue += $reservation['net_revenue'] - ($reservation['net_revenue'] * $commissionPercentage / 100);
                 }
         };

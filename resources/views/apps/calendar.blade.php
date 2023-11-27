@@ -42,7 +42,7 @@
                             <div class="col-lg-3">
                                 <div class="d-grid">
                                     <button class="btn btn-lg fs-16 btn-danger disabled" id="btn-new-event">
-                                        <i class="ri-add-circle-fill"></i> <del>Make A Reservation</del> (Coming Soon)
+                                        <i class="ri-add-circle-fill"></i> Make A Reservation <br> (Coming Soon)
                                     </button>
                                 </div>
                                 <div id="external-events" class="mt-3">
@@ -53,7 +53,8 @@
                                         <div class="external-event bg-info-subtle text-info" data-class="bg-info"><i class="ri-focus-fill me-2 vertical-middle"></i>No listings found</div>
                                     @endforelse
                                 </div>
-                                <p class="text-muted mt-3 mb-3"> <del>From here you can make your reservations to your own apartment. Just simply drag and drop your apartment or click in the calendar</del>
+{{--                                <del>From here you can make your reservations to your own apartment. Just simply drag and drop your apartment or click in the calendar</del>--}}
+                                <p class="text-muted mt-3 mb-3">
                                     <br>You can not make any reservations from this page until the development process is finished. <i><strong>Please continue reading</strong></i></p>
                                 <div class="mt-4 d-none d-xl-block">
                                     <div class="alert alert-warning mb-3 text-center">

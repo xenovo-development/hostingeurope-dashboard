@@ -186,19 +186,6 @@
                                                             </div>
                                                         </div>
                                                         <!-- end country -->
-                                                        <!-- start default price -->
-                                                        <div class="col-md-auto">
-                                                            <p class="mt-2 mb-1 text-muted">Daily Price</p>
-                                                            <div class="d-flex align-items-start">
-                                                                <i class="ri-money-euro-circle-line fs-18 text-success me-1"></i>
-                                                                <div class="w-100">
-                                                                    <h5 class="mt-1">
-                                                                        €{{$listing['price'] ?? 'No data'}}
-                                                                    </h5>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!-- end default price -->
                                                         <!-- start minimum nights -->
                                                         <div class="col-md-auto">
                                                             <p class="mt-2 mb-1 text-muted">Minimum Nights</p>
