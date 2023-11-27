@@ -79,7 +79,8 @@
                                     <td>{{$reservation['nights']}}</td>
                                     <td>{{ucfirst($reservation['status'])}}</td>
                                     <td><span
-                                            class="badge bg-success">{{'€'.round($reservation['net_revenue'] - ($reservation['net_revenue'] * Auth()->user()['commission'] / 100),2)}}</span>
+                                            class="badge bg-success">{{'€'.round($reservation['net_revenue'] -
+                                            ($reservation['net_revenue'] * Auth()->user()['commission'] / 100),2)}}</span>
                                     </td>
                                 </tr>
                                 @endif

@@ -41,8 +41,8 @@
                         <div class="row">
                             <div class="col-lg-3">
                                 <div class="d-grid">
-                                    <button class="btn btn-lg fs-16 btn-danger" id="btn-new-event">
-                                        <i class="ri-add-circle-fill"></i> Make A Reservation
+                                    <button class="btn btn-lg fs-16 btn-danger disabled" id="btn-new-event">
+                                        <i class="ri-add-circle-fill"></i> <del>Make A Reservation</del> (Coming Soon)
                                     </button>
                                 </div>
                                 <div id="external-events" class="mt-3">

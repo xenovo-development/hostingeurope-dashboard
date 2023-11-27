@@ -33,33 +33,33 @@ import 'fullcalendar/main.min.js'
   };
 
 
-  /* on click on event */
-  CalendarApp.prototype.onEventClick = function (info) {
-    this.$formEvent[0].reset();
-    this.$formEvent.removeClass("was-validated");
-
-    this.$newEventData = null;
-    this.$btnDeleteEvent.show();
-    this.$modalTitle.text('Edit Event');
-    this.$modal.show();
-    this.$selectedEvent = info.event;
-    $("#event-title").val(this.$selectedEvent.title);
-    $("#event-category").val(this.$selectedEvent.classNames[0]);
-  },
+  // /* on click on event */
+  // CalendarApp.prototype.onEventClick = function (info) {
+  //   this.$formEvent[0].reset();
+  //   this.$formEvent.removeClass("was-validated");
+  //
+  //   this.$newEventData = null;
+  //   this.$btnDeleteEvent.show();
+  //   this.$modalTitle.text('Edit Event');
+  //   this.$modal.show();
+  //   this.$selectedEvent = info.event;
+  //   $("#event-title").val(this.$selectedEvent.title);
+  //   $("#event-category").val(this.$selectedEvent.classNames[0]);
+  // },
 
     /* on select */
-    CalendarApp.prototype.onSelect = function (info) {
-      this.$formEvent[0].reset();
-      this.$formEvent.removeClass("was-validated");
-
-      this.$selectedEvent = null;
-      this.$newEventData = info;
-      this.$btnDeleteEvent.hide();
-      this.$modalTitle.text('New Reservation');
-
-      this.$modal.show();
-      this.$calendarObj.unselect();
-    },
+    // CalendarApp.prototype.onSelect = function (info) {
+    //   this.$formEvent[0].reset();
+    //   this.$formEvent.removeClass("was-validated");
+    //
+    //   this.$selectedEvent = null;
+    //   this.$newEventData = info;
+    //   this.$btnDeleteEvent.hide();
+    //   this.$modalTitle.text('New Reservation');
+    //
+    //   this.$modal.show();
+    //   this.$calendarObj.unselect();
+    // },
 
     /* Initializing */
     CalendarApp.prototype.init = function () {
@@ -69,40 +69,16 @@ import 'fullcalendar/main.min.js'
       // var Draggable = FullCalendar.Draggable;
       var externalEventContainerEl = document.getElementById('external-events');
 
-      // init dragable
-      new Draggable(externalEventContainerEl, {
-        itemSelector: '.external-event',
-        eventData: function (eventEl) {
-          return {
-            title: eventEl.innerText,
-            className: $(eventEl).data('class')
-          };
-        }
-      });
-
-      var defaultEvents = [{
-        title: 'Meeting with Mr. Shreyu',
-        start: new Date($.now() + 158000000),
-        end: new Date($.now() + 338000000),
-        className: 'bg-warning'
-      },
-      {
-        title: 'Interview - Backend Engineer',
-        start: today,
-        end: today,
-        className: 'bg-success'
-      },
-      {
-        title: 'Phone Screen - Frontend Engineer',
-        start: new Date($.now() + 168000000),
-        className: 'bg-info'
-      },
-      {
-        title: 'Buy Design Assets',
-        start: new Date($.now() + 338000000),
-        end: new Date($.now() + 338000000 * 1.2),
-        className: 'bg-primary',
-      }];
+      // // init dragable
+      // new Draggable(externalEventContainerEl, {
+      //   itemSelector: '.external-event',
+      //   eventData: function (eventEl) {
+      //     return {
+      //       title: eventEl.innerText,
+      //       className: $(eventEl).data('class')
+      //     };
+      //   }
+      // });
 
       var $this = this;
 
@@ -132,7 +108,7 @@ import 'fullcalendar/main.min.js'
           right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
         },
         initialEvents: calendarReservations,
-        editable: true,
+        editable: false,
         droppable: true, // this allows things to be dropped onto the calendar !!!
         // dayMaxEventRows: false, // allow "more" link when too many events
         selectable: true,
