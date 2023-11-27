@@ -197,7 +197,6 @@
 
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
-
                                 @if (sizeof($errors) > 0)
                                     <ul>
                                         @foreach ($errors->all() as $error)
