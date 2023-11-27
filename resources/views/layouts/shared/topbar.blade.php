@@ -8,20 +8,20 @@
                 <!-- Logo light -->
                 <a href="/" class="logo-light">
                     <span class="logo-lg">
-                        <img src="/images/Asset 16.png" alt="logo">
+                        <img src="/images/Asset 14.png" alt="logo">
                     </span>
                     <span class="logo-sm">
-                        <img src="/images/Asset 16.png" alt="small logo">
+                        <img src="/images/Asset 14.png" alt="small logo">
                     </span>
                 </a>
 
                 <!-- Logo Dark -->
                 <a href="/" class="logo-dark">
                     <span class="logo-lg">
-                        <img src="/images/Asset 16.png" alt="dark logo">
+                        <img src="/images/Asset 14.png" alt="dark logo">
                     </span>
                     <span class="logo-sm">
-                        <img src="/images/Asset 16.png" alt="small logo">
+                        <img src="/images/Asset 14.png" alt="small logo">
                     </span>
                 </a>
             </div>
@@ -268,64 +268,43 @@
 {{--                </div>--}}
 {{--            </li>--}}
 
-            <li class="dropdown d-none d-sm-inline-block">
-                <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                    <i class="ri-apps-2-line fs-22"></i>
-                </a>
-                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated dropdown-lg p-0">
+{{--            <li class="dropdown d-none d-sm-inline-block">--}}
+{{--                <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">--}}
+{{--                    <i class="ri-apps-2-line fs-22"></i>--}}
+{{--                </a>--}}
+{{--                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated dropdown-lg p-0">--}}
 
-                    <div class="p-2">
-                        <div class="row g-0">
-                            <div class="col">
-                                <a class="dropdown-icon-item" href="#">
-                                    <img src="/images/brands/github.png" alt="Github">
-                                    <span>GitHub</span>
-                                </a>
-                            </div>
-                            <div class="col">
-                                <a class="dropdown-icon-item" href="#">
-                                    <img src="/images/brands/bitbucket.png" alt="bitbucket">
-                                    <span>Bitbucket</span>
-                                </a>
-                            </div>
-                            <div class="col">
-                                <a class="dropdown-icon-item" href="#">
-                                    <img src="/images/brands/dropbox.png" alt="dropbox">
-                                    <span>Dropbox</span>
-                                </a>
-                            </div>
-                        </div>
+{{--                    <div class="p-2">--}}
+{{--                        <div class="row g-0">--}}
+{{--                            <div class="col">--}}
+{{--                                <a class="dropdown-icon-item" href="#">--}}
+{{--                                    <img src="/images/logo-dark.png" alt="bitbucket">--}}
+{{--                                    <span>Hosting Europe</span>--}}
+{{--                                </a>--}}
+{{--                            </div>--}}
+{{--                            <div class="col">--}}
+{{--                                <a class="dropdown-icon-item" href="#">--}}
+{{--                                    <img src="/images/brands/dropbox.png" alt="dropbox">--}}
+{{--                                    <span>Dropbox</span>--}}
+{{--                                </a>--}}
+{{--                            </div>--}}
+{{--                            <div class="col">--}}
+{{--                                <a class="dropdown-icon-item" href="#">--}}
+{{--                                    <img src="/images/brands/dropbox.png" alt="dropbox">--}}
+{{--                                    <span>Dropbox</span>--}}
+{{--                                </a>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
 
-                        <div class="row g-0">
-                            <div class="col">
-                                <a class="dropdown-icon-item" href="#">
-                                    <img src="/images/brands/slack.png" alt="slack">
-                                    <span>Slack</span>
-                                </a>
-                            </div>
-                            <div class="col">
-                                <a class="dropdown-icon-item" href="#">
-                                    <img src="/images/brands/dribbble.png" alt="dribbble">
-                                    <span>Dribbble</span>
-                                </a>
-                            </div>
-                            <div class="col">
-                                <a class="dropdown-icon-item" href="#">
-                                    <img src="/images/brands/behance.png" alt="Behance">
-                                    <span>Behance</span>
-                                </a>
-                            </div>
-                        </div> <!-- end row-->
-                    </div>
+{{--                </div>--}}
+{{--            </li>--}}
 
-                </div>
-            </li>
-
-            <li class="d-none d-sm-inline-block">
-                <a class="nav-link" data-bs-toggle="offcanvas" href="#theme-settings-offcanvas">
-                    <i class="ri-settings-3-line fs-22"></i>
-                </a>
-            </li>
+{{--            <li class="d-none d-sm-inline-block">--}}
+{{--                <a class="nav-link" data-bs-toggle="offcanvas" href="#theme-settings-offcanvas">--}}
+{{--                    <i class="ri-settings-3-line fs-22"></i>--}}
+{{--                </a>--}}
+{{--            </li>--}}
 
             <li class="d-none d-sm-inline-block">
                 <div class="nav-link" id="light-dark-mode" data-bs-toggle="tooltip" data-bs-placement="left" title="Theme Mode">
@@ -343,7 +322,7 @@
             <li class="dropdown">
                 <a class="nav-link dropdown-toggle arrow-none nav-user px-2" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                     <span class="account-user-avatar">
-                        <img src="/images/Asset 14.png" alt="user-image" width="32" class="rounded-circle avatar-sm object-fit-contain">
+                        <img src="/images/logo-dark.png" alt="user-image" width="32" class="rounded avatar-sm object-fit-contain">
                     </span>
                     <span class="d-lg-flex flex-column gap-1 d-none">
                         <h5 class="my-0">

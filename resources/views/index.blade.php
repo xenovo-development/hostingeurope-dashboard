@@ -13,13 +13,13 @@
                 <div class="page-title-box">
                     <div class="page-title-right">
                         <form class="d-flex">
-                            <div class="input-group">
-                                <input type="text" class="form-control shadow border-0" id="dash-daterange">
-                                <span class="input-group-text bg-success border-success text-white">
-                                    <i class="ri-calendar-todo-fill fs-13"></i>
-                                </span>
-                            </div>
-                            <a href="javascript: void(0);" class="btn btn-success ms-2 flex-shrink-0">
+{{--                            <div class="input-group">--}}
+{{--                                <input type="text" class="form-control shadow border-0" id="dash-daterange">--}}
+{{--                                <span class="input-group-text bg-success border-success text-white">--}}
+{{--                                    <i class="ri-calendar-todo-fill fs-13"></i>--}}
+{{--                                </span>--}}
+{{--                            </div>--}}
+                            <a href="javascript: location.reload();" class="btn btn-success ms-2 flex-shrink-0">
                                 <i class="ri-refresh-line"></i> Refresh
                             </a>
                         </form>
@@ -42,7 +42,7 @@
                             <i class="ri-group-line text-bg-info widget-icon"></i>
                         </div>
                         <h5 class="text-muted fw-normal mt-0" title="Number of Customers">Accepted Reservations</h5>
-                        <h3 class="my-3">{{count($dashboardData['reservations'])}}</h3>
+                        <h3 class="my-3">{{count($dashboardData['reservations']->where('status','accepted'))}}</h3>
 {{--                        <p class="mb-0 text-muted">--}}
 {{--                            <span class="text-success me-2"><i class="ri-arrow-up-line"></i>{{count($dashboardData['reservations'])}}</span>--}}
 {{--                            <span class="text-nowrap">Since last month</span>--}}

@@ -40,26 +40,6 @@ class ListingsGetCommand extends Command
             $data = json_decode($response->getBody(), true);
 
             foreach ($data['listings'] as $listing) {
-                switch ($listing['city']) {
-                    case('Ilgaz'):
-                        $cleaningPercent = 15;
-                        $cutsPercent = 15;
-                        break;
-                    case('İstanbul'):
-                        $cleaningPercent = 10;
-                        $cutsPercent = 10;
-                        break;
-                    case('Vienna'):
-                        $cleaningPercent = 18;
-                        $cutsPercent = 12;
-                        break;
-                    case('Niederösterreich'):
-                        $cleaningPercent = 19;
-                        $cutsPercent = 16;
-                        break;
-                }
-
-
                 Listing::updateOrCreate(
                     ['id' => $listing['id']],
                     ['fs_integration_type' => $listing['fs_integration_type'],
@@ -120,8 +100,6 @@ class ListingsGetCommand extends Command
                     'integration_name' => $listing['integration_name'],
                     'price' => $listing['price'],
                     'price_monthly' => $listing['price_monthly'],
-                    'cleaning_percent'=>$cleaningPercent,
-                    'cuts_percent'=>$cutsPercent,
                     'tags' => json_encode($listing['tags'], true),
                     'custom_fields' => json_encode($listing['custom_fields'], true),
                     'users' => json_encode($listing['users']),

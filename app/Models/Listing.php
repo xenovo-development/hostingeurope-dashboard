@@ -79,8 +79,6 @@ class Listing extends Model
             'integration_photo',
             'price',
             'price_monthly',
-            'cleaning_percent',
-            'cuts_percent',
             'tags',
             'custom_fields',
             'users',

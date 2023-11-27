@@ -27,7 +27,7 @@
             <div class="col-xl-4 col-lg-5">
                 <div class="card text-center">
                     <div class="card-body">
-                        <img src="/images/Asset 16.png" class="rounded avatar-lg img-thumbnail object-fit-lg-contain" alt="profile-image">
+                        <img src="/images/logo-dark.png" class="rounded-pill avatar-xl img-thumbnail object-fit-scale" alt="profile-image">
 
                         <h4 class="mb-1 mt-2">{{Auth::user()['name'] }}</h4>
                         <p class="text-muted">{{Auth::user()['role']}}</p>

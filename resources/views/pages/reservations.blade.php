@@ -38,6 +38,7 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Listing Adress</th>
                                     <th scope="col">Listing Title</th>
+                                    <th scope="col">Booking Date</th>
                                     <th scope="col">Source</th>
                                     <th scope="col">Guest Name</th>
                                     <th scope="col">Check In</th>
@@ -59,13 +60,14 @@
                                     <th scope="row">{{$counterStart + $loop->iteration}}</th>
                                     <td>{{$reservation->listing->street}}</td>
                                     <td>{{$reservation->listing->name}}</td>
+                                    <td>{{\Carbon\Carbon::parse($reservation['created_at'])->format('M d Y D')}}</td>
                                     <td>{{$reservation['source']}}</td>
                                     <td>{{$reservation['guest_name']}}</td>
                                     <td>{{ \Carbon\Carbon::parse($reservation['checkIn'])->format('M d Y D') }}</td>
                                     <td>{{ \Carbon\Carbon::parse($reservation['checkOut'])->format('M d Y D') }}</td>
                                     <td>{{$reservation['nights']}}</td>
                                     <td>{{ucfirst($reservation['status'])}}</td>
-                                    <td>{{'€'.$reservation['net_revenue']}}</td>
+                                    <td>{{'€'.$reservation['net_revenue'] - ($reservation['net_revenue'] * Auth()->user()['commission'] / 100)}}</td>
                                 </tr>
                                     @empty
                                     <tr>

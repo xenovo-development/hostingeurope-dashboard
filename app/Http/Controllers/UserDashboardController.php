@@ -19,64 +19,71 @@ class UserDashboardController extends Controller
          * Class  variables.
          */
         $now = Carbon::now();
+        $commissionPercentage = Auth::user()['commission'];
         $listings = Listing::where('user_id', Auth::user()['id'])->get();
         foreach ($listings as $listing) {
-            $reservationsArr[] = $listing->reservations()->where('status', 'accepted')->get();
+            $reservationsArr[] = $listing->reservations()->get();
         };
         if (isset($reservationsArr)) {
             $reservations = collect($reservationsArr)->flatMap(function ($collection) {
                 return $collection;
             });
         };
-
         $totalRevenue = 0;
         $openRevenue = 0;
         $airbnb = 0;
         $booking = 0;
         $guest24 = 0;
 
+        /**
+         * Regular month variables for charts
+         */
         for ($month = 0; $month <= 11; $month++) {
             $monthStart = Carbon::create(date('Y'), $month)->startOfMonth();
             $monthEnd = Carbon::create(date('Y'), $month)->endOfMonth();
             $monthNames[] = $monthStart;
             $monthlyRevenue[] = round($reservations->where('status', 'accepted')
-                ->whereBetween('created_at', [$monthStart->toDate(), $monthEnd->toDate()])->sum('net_revenue'),2);
+                ->whereBetween('created_at', [$monthStart->toDate(), $monthEnd->toDate()])
+                ->sum('net_revenue'),2) -(round($reservations->where('status', 'accepted')
+                    ->whereBetween('created_at', [$monthStart->toDate(), $monthEnd->toDate()])
+                    ->sum('net_revenue'),2) * $commissionPercentage / 100)
+            ;
         }
+
 
         /**
          * Set total and open revenue values && chart series variables.
          */
-        if (isset($reservations)) {
             foreach ($reservations as $reservation) {
-                $listing = $reservation->listing;
-                $totalPercentage = $listing['cleaning_percent'] + $listing['cuts_percent'];
                 $createdMonth = Carbon::parse($reservation['created_at'])->month;
-                if ($createdMonth <= $now->month) {
-                    $totalRevenue += $reservation['owner_revenue'] - ($reservation['owner_revenue'] * $totalPercentage / 100);
-                } else {
-                    $openRevenue += $reservation['owner_revenue'] - ($reservation['owner_revenue'] * $totalPercentage / 100);
-                }
-                if ($reservation['status'] == 'accepted' && $reservation['source'] == 'Airbnb') {
-                    $airbnb++;
-                }
-                if ($reservation['status'] == 'accepted' && $reservation['source'] == 'Booking.com') {
-                    $booking++;
-                }
-                if ($reservation['status'] == 'accepted' && $reservation['source'] == 'Guest24 Services') {
-                    $guest24++;
-                }
+                if ($reservation['status'] == 'accepted'){
+                    if ($reservation['source'] == 'Airbnb') {
+                        $airbnb++;
+                    }
+                    if ($reservation['source'] == 'Booking.com') {
+                        $booking++;
+                    }
+                    if ($reservation['source'] == 'Guest24 Services') {
+                        $guest24++;
+                    }
+                    if ($createdMonth <= $now->month) {
+                        $totalRevenue += $reservation['net_revenue'] - ($reservation['net_revenue'] * $commissionPercentage / 100);
+                    }
 
-                $seriesNetRevenue[] = round($reservation['net_revenue'] - ($reservation['owner_revenue'] * $totalPercentage / 100), 2);
-                $seriesGuests [] = $reservation['guests'];
-                $reservationDates[] = $reservation['created_at'];
-                $reservationListings[] = $reservation['listing_title'];
-                $reservationNights [] = $reservation['nights'];
-            }
+                    $seriesNetRevenue[] = round($reservation['net_revenue'] - ($reservation['net_revenue'] * $commissionPercentage / 100), 2);
+                    $seriesGuests [] = $reservation['guests'];
+                    $reservationDates[] = $reservation['checkIn'];
+                    $reservationListings[] = $reservation['listing_title'];
+                    $reservationNights [] = $reservation['nights'];
+                }
+                elseif($reservation['status'] == 'inquiry') {
+                    $openRevenue += $reservation['net_revenue'] - ($reservation['net_revenue'] * $commissionPercentage / 100);
+                }
         };
 
         return
             [
-                'reservations' => $reservations ?? [],
+                'reservations' => $reservations,
                 'user_total_revenue' => $totalRevenue ?? [],
                 'user_open_revenue' => $openRevenue ?? [],
                 'series_net_revenue' => $seriesNetRevenue ?? [],
