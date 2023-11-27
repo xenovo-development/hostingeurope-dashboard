@@ -46,7 +46,6 @@
                                     </button>
                                 </div>
                                 <div id="external-events" class="mt-3">
-                                    <p class="text-muted mt-3 mb-3"> From here you can make your reservations to your own apartment. Just simply drag and drop your apartment or click in the calendar</p>
                                     <h5 class=" mb-2">My Properties</h5>
                                     @forelse($calendarData['listings'] as $listing)
                                         <div class="external-event bg-info-subtle text-info" data-class="bg-info"><i class="ri-focus-fill me-2 vertical-middle"></i>{{$listing['street']}}</div>
@@ -54,10 +53,17 @@
                                         <div class="external-event bg-info-subtle text-info" data-class="bg-info"><i class="ri-focus-fill me-2 vertical-middle"></i>No listings found</div>
                                     @endforelse
                                 </div>
-
+                                <p class="text-muted mt-3 mb-3"> <del>From here you can make your reservations to your own apartment. Just simply drag and drop your apartment or click in the calendar</del>
+                                    <br>You can not make any reservations from this page until the development process is finished. <i><strong>Please continue reading</strong></i></p>
                                 <div class="mt-4 d-none d-xl-block">
-                                    <h5 class="text-center">Rules</h5>
+                                    <div class="alert alert-warning mb-3 text-center">
+                                        Until the short-term integration process of the application is completed, please refer to the following e-mail addresses for your reservations:
+                                        <br><br>
+                                        <strong><a class="text-info" href="mailto:b.ozturk@hostingeurope.info">b.ozturk@hostingeurope.info</a></strong> <a
+                                            class="text-info" href="mailto:sm.sakarya@hostingeurope.info"><strong>sm.sakarya@hostingeurope.info</strong></a>
+                                    </div>
 
+                                    <h5 class="text-center">Rules</h5>
                                     <ul class="ps-3">
                                         <li class="text-muted mb-3">
                                             You can only make <strong>21</strong> reservations in a month.
@@ -69,12 +75,6 @@
                                             You have <strong>21</strong> days of reservation initiative left.
                                         </li>
                                     </ul>
-                                    <div class="alert alert-warning mb-3 text-center">
-                                            Until the short-term integration process of the application is completed, please refer to the following e-mail addresses for your reservations:
-                                        <br><br>
-                                        <strong><a class="text-info" href="mailto:b.ozturk@hostingeurope.info">b.ozturk@hostingeurope.info</a></strong> <a
-                                            class="text-info" href="mailto:sm.sakarya@hostingeurope.info"><strong>sm.sakarya@hostingeurope.info</strong></a>
-                                        </div>
                                 </div>
 
                             </div> <!-- end col-->
