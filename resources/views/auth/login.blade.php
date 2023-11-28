@@ -196,7 +196,7 @@
                             </div>
 
                             <form method="POST" action="{{ route('login') }}">
-                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                               @csrf
                                 @if (sizeof($errors) > 0)
                                     <ul>
                                         @foreach ($errors->all() as $error)

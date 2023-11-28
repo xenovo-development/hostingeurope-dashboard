@@ -98,6 +98,20 @@
                 </div>
             </li>
             <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#sidebarPagesAuth" aria-expanded="false" aria-controls="sidebarPagesAuth" class="side-nav-link">
+                    <i class="ri-article-line"></i>
+                    <span> Documents </span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="sidebarPagesAuth">
+                    <ul class="side-nav-second-level">
+                        <li>
+                            <a href="{{ route('second', ['pages', 'invoice']) }}">Invoice</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="side-nav-item">
                 <a href="{{ route('second', ['pages', 'profile']) }}" class="side-nav-link">
                     <i class="ri-account-pin-circle-line"></i>
                     <span> Profile </span>

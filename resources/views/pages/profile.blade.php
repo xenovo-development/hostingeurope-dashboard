@@ -64,65 +64,18 @@
                     <div class="card-body">
                         <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
                             <li class="nav-item">
-                                <a href="#aboutme" data-bs-toggle="tab" aria-expanded="false" class="nav-link rounded-start rounded-0 active">
-                                    About
+                                <a href="#settings" data-bs-toggle="tab" aria-expanded="false" class="nav-link rounded-start rounded-0 active">
+                                    Settings
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#settings" data-bs-toggle="tab" aria-expanded="false" class="nav-link rounded-end rounded-0">
-                                    Settings
+                                <a href="#aboutme" data-bs-toggle="tab" aria-expanded="false" class="nav-link rounded-end rounded-0 ">
+                                    About
                                 </a>
                             </li>
                         </ul>
                         <div class="tab-content">
-                            <div class="tab-pane show active" id="aboutme">
-
-                                <h5 class="text-uppercase mb-3"><i class="ri-briefcase-line me-1"></i>
-                                    Listings</h5>
-                                <div class="table-responsive">
-                                    <table class="table table-sm table-centered table-hover table-borderless mb-0">
-                                        <thead class="border-top border-bottom bg-light-subtle border-light">
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Title</th>
-                                                <th>Street</th>
-                                                <th>Total Reservations</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        @forelse($profileData['listings'] as $listing)
-                                            <tr>
-                                                <td>{{$loop->iteration}}</td>
-                                                <td><img src="{{$listing['thumbnail_file']}}" alt="thumbnail_file" class="avatar-xs me-2 rounded-circle" height="24">
-                                                    {{$listing['name']}}</td>
-                                                <td>{{$listing['street']}}</td>
-                                                <td>{{$listing->reservations()->where('status','accepted')->count()}}</td>
-                                                @if($listing['is_listed'])
-                                                <td><span class="badge bg-info-subtle text-success-emphasis">Listed</span></td>
-                                                @else
-                                                    <td><span class="badge bg-warning-subtle text-warning-emphasis">Unlisted</span></td>
-                                                @endif
-                                            </tr>
-                                        @empty
-                                            <tr>
-                                                <td>1</td>
-                                                <td><img src="" alt="thumbnail_file" class="avatar-xs me-2 rounded-circle" height="24">
-                                                    No listings Found</td>
-                                                <td>-</td>
-                                                <td>-</td>
-                                                <td>-</td>
-                                            </tr>
-                                        @endforelse
-                                        </tbody>
-                                    </table>
-                                </div>
-
-
-                            </div> <!-- end tab-pane -->
-                            <!-- end about me section content -->
-
-                            <div class="tab-pane" id="settings">
+                            <div class="tab-pane show active" id="settings">
                                 <form action="/auth/update-user" method="POST">
                                     @csrf
                                     <h5 class="mb-4 text-uppercase"><i class="ri-contacts-book-2-line me-1"></i> Personal Info</h5>
@@ -176,12 +129,55 @@
                                         </div><!-- end col -->
                                     </div> <!-- end row -->
                                     <div class="text-end">
-                                       <button type="submit" class="btn btn-success mt-2"><i class="ri-save-line"></i> Save</button>
+                                        <button type="submit" class="btn btn-success mt-2"><i class="ri-save-line"></i> Save</button>
                                     </div>
                                 </form>
                             </div>
                             <!-- end settings content-->
+                            <div class="tab-pane" id="aboutme">
 
+                                <h5 class="text-uppercase mb-3"><i class="ri-briefcase-line me-1"></i>
+                                    Listings</h5>
+                                <div class="table-responsive">
+                                    <table class="table table-sm table-centered table-hover table-borderless mb-0">
+                                        <thead class="border-top border-bottom bg-light-subtle border-light">
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Title</th>
+                                                <th>Street</th>
+                                                <th>Total Reservations</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        @forelse($profileData['listings'] as $listing)
+                                            <tr>
+                                                <td>{{$loop->iteration}}</td>
+                                                <td><img src="{{$listing['thumbnail_file']}}" alt="thumbnail_file" class="avatar-xs me-2 rounded-circle" height="24">
+                                                    {{$listing['name']}}</td>
+                                                <td>{{$listing['street']}}</td>
+                                                <td>{{$listing->reservations()->where('status','accepted')->count()}}</td>
+                                                @if($listing['is_listed'])
+                                                <td><span class="badge bg-info-subtle text-success-emphasis">Listed</span></td>
+                                                @else
+                                                    <td><span class="badge bg-warning-subtle text-warning-emphasis">Unlisted</span></td>
+                                                @endif
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td>1</td>
+                                                <td><img src="" alt="thumbnail_file" class="avatar-xs me-2 rounded-circle" height="24">
+                                                    No listings Found</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                            </tr>
+                                        @endforelse
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div> <!-- end tab-pane -->
+                            <!-- end about me section content -->
                         </div> <!-- end tab-content -->
                     </div> <!-- end card body -->
                 </div> <!-- end card -->

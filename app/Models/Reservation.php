@@ -109,4 +109,14 @@ class Reservation extends Model
     {
         return $this->belongsTo(Listing::class);
     }
+
+    /**
+     * Get the related transaction.
+     *
+     * @return BelongsTo
+     */
+    public function transaction(): BelongsTo
+    {
+        return $this->hasOne(Transaction::class);
+    }
 }

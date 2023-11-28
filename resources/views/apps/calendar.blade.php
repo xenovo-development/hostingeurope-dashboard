@@ -41,12 +41,11 @@
                         <div class="row">
                             <div class="col-lg-3">
                                 <div class="d-grid">
-                                    <button class="btn btn-lg fs-16 btn-danger" id="btn-new-event">
-                                        <i class="ri-add-circle-fill"></i> Make A Reservation
+                                    <button class="btn btn-lg fs-16 btn-danger disabled" id="btn-new-event">
+                                        <i class="ri-add-circle-fill"></i> Make A Reservation <br> (Coming Soon)
                                     </button>
                                 </div>
                                 <div id="external-events" class="mt-3">
-                                    <p class="text-muted mt-3 mb-3"> From here you can make your reservations to your own apartment. Just simply drag and drop your apartment or click in the calendar</p>
                                     <h5 class=" mb-2">My Properties</h5>
                                     @forelse($calendarData['listings'] as $listing)
                                         <div class="external-event bg-info-subtle text-info" data-class="bg-info"><i class="ri-focus-fill me-2 vertical-middle"></i>{{$listing['street']}}</div>
@@ -54,10 +53,18 @@
                                         <div class="external-event bg-info-subtle text-info" data-class="bg-info"><i class="ri-focus-fill me-2 vertical-middle"></i>No listings found</div>
                                     @endforelse
                                 </div>
-
+{{--                                <del>From here you can make your reservations to your own apartment. Just simply drag and drop your apartment or click in the calendar</del>--}}
+                                <p class="text-muted mt-3 mb-3">
+                                    <br>You can not make any reservations from this page until the development process is finished. <i><strong>Please continue reading</strong></i></p>
                                 <div class="mt-4 d-none d-xl-block">
-                                    <h5 class="text-center">Rules</h5>
+                                    <div class="alert alert-warning mb-3 text-center">
+                                        Until the short-term integration process of the application is completed, please refer to the following e-mail addresses for your reservations:
+                                        <br><br>
+                                        <strong><a class="text-info" href="mailto:b.ozturk@hostingeurope.info">b.ozturk@hostingeurope.info</a></strong> <a
+                                            class="text-info" href="mailto:sm.sakarya@hostingeurope.info"><strong>sm.sakarya@hostingeurope.info</strong></a>
+                                    </div>
 
+                                    <h5 class="text-center">Rules</h5>
                                     <ul class="ps-3">
                                         <li class="text-muted mb-3">
                                             You can only make <strong>21</strong> reservations in a month.
@@ -69,12 +76,6 @@
                                             You have <strong>21</strong> days of reservation initiative left.
                                         </li>
                                     </ul>
-                                    <div class="alert alert-warning mb-3 text-center">
-                                            Until the short-term integration process of the application is completed, please refer to the following e-mail addresses for your reservations:
-                                        <br><br>
-                                        <strong><a class="text-info" href="mailto:b.ozturk@hostingeurope.info">b.ozturk@hostingeurope.info</a></strong> <a
-                                            class="text-info" href="mailto:sm.sakarya@hostingeurope.info"><strong>sm.sakarya@hostingeurope.info</strong></a>
-                                        </div>
                                 </div>
 
                             </div> <!-- end col-->
@@ -102,21 +103,14 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="mb-3">
-                                                <label class="control-label form-label">Event Name</label>
-                                                <input class="form-control" placeholder="Insert Event Name" type="text" name="title" id="event-title" required />
+                                                <input class="form-control" placeholder="Insert Event Name" type="text" name="name" id="event-title" value="{{Auth()->user()['name']}}" required />
                                                 <div class="invalid-feedback">Please provide a valid event name</div>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="mb-3">
-                                                <label class="control-label form-label">Category</label>
                                                 <select class="form-select" name="category" id="event-category" required>
-                                                    <option value="bg-danger" selected>Danger</option>
-                                                    <option value="bg-success">Success</option>
-                                                    <option value="bg-primary">Primary</option>
-                                                    <option value="bg-info">Info</option>
-                                                    <option value="bg-dark">Dark</option>
-                                                    <option value="bg-warning">Warning</option>
+                                                    <option value="bg-primary" selected></option>
                                                 </select>
                                                 <div class="invalid-feedback">Please select a valid event category</div>
                                             </div>
