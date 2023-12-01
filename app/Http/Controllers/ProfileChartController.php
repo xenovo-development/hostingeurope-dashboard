@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection DuplicatedCode */
 
 namespace App\Http\Controllers;
 
@@ -16,6 +16,8 @@ class ProfileChartController extends Controller
      */
     public function index(\DateTime $startDate = null, \DateTime $endDate = null): array
     {
+        $commission = Auth()->user()['commission'];
+
         $listings = Listing::where('user_id', Auth::user()['id'])->get();
         foreach ($listings as $listing) {
             $reservationsArr [] = collect($listing->reservations);
@@ -31,10 +33,22 @@ class ProfileChartController extends Controller
             $monthStart = Carbon::create(date('Y'), $month)->startOfMonth();
             $monthEnd = Carbon::create(date('Y'), $month)->endOfMonth();
 
+            $reservationsThisMonth = $reservations
+                ->whereBetween('checkIn', [$monthStart, $monthEnd])
+                ->where('status', 'accepted');
+
+            $subtotals = 0;
+            $cleaningFees = 0;
+            $chCommissions = 0;
+            foreach ($reservationsThisMonth as $reservation){
+                $subtotals += $reservation['subtotal'];
+                $chCommissions += $reservation['channel_commission'];
+                $cleaningFees += $reservation['cleaning_fee'];
+            }
+            $netRevenue = $subtotals - $cleaningFees - $chCommissions;
+            $monthlyRevenue[] = round($netRevenue - ($netRevenue * $commission / 100) ,2);
             $monthlyBookings [] = $reservations->where('status', 'accepted')
                 ->whereBetween('created_at', [$monthStart->toDate(), $monthEnd->toDate()])->count();
-            $monthlyRevenue[] = $reservations->where('status', 'accepted')
-                ->whereBetween('created_at', [$monthStart->toDate(), $monthEnd->toDate()])->sum('net_revenue');
             $monthNames[]= $monthStart->format('M');
         }
 

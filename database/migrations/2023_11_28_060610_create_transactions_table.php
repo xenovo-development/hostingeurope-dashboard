@@ -14,12 +14,16 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->integer('channel_transaction_id');
-            $table->string('currency');
-            $table->float('amount');
-            $table->date('arrival_date');
-            $table->date('charge_date');
-            $table->boolean('is_completed');
+            $table->string('channel_transaction_id')->nullable();
+            $table->string('currency')->nullable();
+            $table->string('type')->nullable();
+            $table->string('type_description')->nullable();
+            $table->string('charge_type')->nullable();
+            $table->string('charge_status')->nullable();
+            $table->float('amount')->nullable();
+            $table->date('arrival_date')->nullable();
+            $table->date('charge_date')->nullable();
+            $table->boolean('is_completed')->nullable();
             $table->string('code')->nullable();
             $table->string('details')->nullable();
             $table->string('notes')->nullable();

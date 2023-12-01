@@ -295,7 +295,7 @@
                                                 </a>
                                                 <a href="{{route('second',['pages','reservations']).'?listingId='.$listing['id']}}" type="button" class="btn btn-info m-1">
                                                     <i class="ri-bookmark-3-line me-1"></i>
-                                                    <span>Bookings</span>
+                                                    <span>Reservations</span>
                                                 </a>
                                             </div>
                                         </div>

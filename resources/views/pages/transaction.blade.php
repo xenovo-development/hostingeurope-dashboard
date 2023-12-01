@@ -57,7 +57,7 @@
                                     <p class="fs-13"><strong>Issue Date: </strong>
                                         &nbsp;&nbsp;&nbsp; {{\Carbon\Carbon::now()->format('m/d/Y')}}</p>
                                     <p class="fs-13"><strong>Transaction Status: </strong> <span class="badge bg-success float-end">Paid</span></p>
-                                    <p class="fs-13"><strong>Reservation ID: </strong> <span class="float-end">#{{$invoiceData['reservations']->first()['id']}}</span></p>
+                                    <p class="fs-13"><strong>Reservation ID: </strong> <span class="float-end">#{{$transactionData['reservation']['hostify_id']}}</span></p>
                                 </div>
                             </div><!-- end col -->
                         </div>
@@ -97,25 +97,25 @@
                                 <div class="table-responsive">
                                     <table class="table table-sm table-centered table-hover table-borderless mb-0 mt-3">
                                         <thead class="border-top border-bottom bg-light-subtle border-light">
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Service</th>
-                                            <th>Quantity</th>
-                                            <th>Unit Cost</th>
-                                            <th class="text-end">Total</th>
-                                        </tr>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Service</th>
+                                                <th>Quantity</th>
+                                                <th>Unit Cost</th>
+                                                <th class="text-end">Total</th>
+                                            </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>
-                                                <b>Reservation</b> <br/>
-                                                {{$invoiceData['details']}}
-                                            </td>
-                                            <td>1</td>
-                                            <td>{{$invoiceData['currency'] . $invoiceData['without_tax']}}</td>
-                                            <td class="text-end">{{$invoiceData['currency'] . $invoiceData['without_tax']}}</td>
-                                        </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>
+                                                    <b>Reservation</b> <br />
+                                                    {{$transactionData['details']}}
+                                                </td>
+                                                <td>1</td>
+                                                <td>{{$transactionData['currency'] . $transactionData['without_tax']}}</td>
+                                                <td class="text-end">{{$transactionData['currency'] . $transactionData['without_tax']}}</td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div> <!-- end table-responsive-->
@@ -138,10 +138,10 @@
                             </div> <!-- end col -->
                             <div class="col-sm-6">
                                 <div class="float-end mt-3 mt-sm-0">
-                                    <p><b>Sub-total:</b> <span class="float-end">{{$invoiceData['currency'] .$invoiceData['without_tax']}}</span></p>
-                                    <p><b>VAT (12.5):</b> <span class="float-end">{{$invoiceData['currency'] . $invoiceData['tax_subtract']}}</span></p>
-                                    <h3>{{$invoiceData['currency'] . $invoiceData['total_value']}}
-                                        {{$invoiceData['currency']}}</h3>
+                                    <p><b>Sub-total:</b> <span class="float-end">{{$transactionData['currency'] .$transactionData['without_tax']}}</span></p>
+                                    <p><b>VAT (12.5):</b> <span class="float-end">{{$transactionData['currency'] . $transactionData['tax_subtract']}}</span></p>
+                                    <h3>{{$transactionData['currency'] . $transactionData['without_cleaning']}}
+                                        {{$transactionData['currency']}}</h3>
                                 </div>
                                 <div class="clearfix"></div>
                             </div> <!-- end col -->
