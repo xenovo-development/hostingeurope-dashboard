@@ -13,7 +13,6 @@
             <div class="row justify-content-center">
                 <div class="col-xxl-4 col-lg-5">
                     <div class="card">
-
                         <!-- Logo -->
                         <div class="card-header py-4 text-center bg-secondary">
                             <a href="{{ route('any', 'index') }}ml">
