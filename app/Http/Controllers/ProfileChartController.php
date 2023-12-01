@@ -29,34 +29,36 @@ class ProfileChartController extends Controller
             });
         };
 
-        for ($month = 0; $month <= 11; $month++) {
-            $monthStart = Carbon::create(date('Y'), $month)->startOfMonth();
-            $monthEnd = Carbon::create(date('Y'), $month)->endOfMonth();
+       if(!empty($reservations)){
+           for ($month = 0; $month <= 11; $month++) {
+               $monthStart = Carbon::create(date('Y'), $month)->startOfMonth();
+               $monthEnd = Carbon::create(date('Y'), $month)->endOfMonth();
 
-            $reservationsThisMonth = $reservations
-                ->whereBetween('checkIn', [$monthStart, $monthEnd])
-                ->where('status', 'accepted');
+               $reservationsThisMonth = $reservations
+                   ->whereBetween('checkIn', [$monthStart, $monthEnd])
+                   ->where('status', 'accepted');
 
-            $subtotals = 0;
-            $cleaningFees = 0;
-            $chCommissions = 0;
-            foreach ($reservationsThisMonth as $reservation){
-                $subtotals += $reservation['subtotal'];
-                $chCommissions += $reservation['channel_commission'];
-                $cleaningFees += $reservation['cleaning_fee'];
-            }
-            $netRevenue = $subtotals - $cleaningFees - $chCommissions;
-            $monthlyRevenue[] = round($netRevenue - ($netRevenue * $commission / 100) ,2);
-            $monthlyBookings [] = $reservations->where('status', 'accepted')
-                ->whereBetween('created_at', [$monthStart->toDate(), $monthEnd->toDate()])->count();
-            $monthNames[]= $monthStart->format('M');
-        }
+               $subtotals = 0;
+               $cleaningFees = 0;
+               $chCommissions = 0;
+               foreach ($reservationsThisMonth as $reservation){
+                   $subtotals += $reservation['subtotal'];
+                   $chCommissions += $reservation['channel_commission'];
+                   $cleaningFees += $reservation['cleaning_fee'];
+               }
+               $netRevenue = $subtotals - $cleaningFees - $chCommissions;
+               $monthlyRevenue[] = round($netRevenue - ($netRevenue * $commission / 100) ,2);
+               $monthlyBookings [] = $reservations->where('status', 'accepted')
+                   ->whereBetween('created_at', [$monthStart->toDate(), $monthEnd->toDate()])->count();
+               $monthNames[]= $monthStart->format('M');
+           }
+       }
 
         return [
-            'listings' => $listings,
-            'series_bookings_count' => $monthlyBookings,
-            'series_revenue' => $monthlyRevenue,
-            'series_months' => $monthNames,
+            'listings' => $listings ?? '',
+            'series_bookings_count' => $monthlyBookings ?? '',
+            'series_revenue' => $monthlyRevenue ?? '',
+            'series_months' => $monthNames ?? '',
         ];
     }
 }

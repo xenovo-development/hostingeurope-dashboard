@@ -75,6 +75,9 @@ class RoutingController extends Controller
         if($first == 'pages' && $second == 'properties'){
             $propertiesData = (new ListingController())->index();
         }
+        if($first == 'pages' && $second == 'setlistingowner'){
+            $listingOwnerData = (new AdminController())->setListingOwnerIndex();
+        }
         if($first == 'pages' && $second == 'reservations'){
             $reservationsData = (new ReservationsController())->index($listingId);
         }
@@ -94,6 +97,7 @@ class RoutingController extends Controller
     return view($first .'.'. $second, ['mode' => $mode, 'demo' => $demo],)
         ->with('calendarData', $calendarData ?? [])
         ->with('propertiesData', $propertiesData ?? [])
+        ->with('listingOwnerData', $listingOwnerData ?? [])
         ->with('reservationsData', $reservationsData ?? [])
         ->with('profileData', $profileData ?? [])
         ->with('transactionData', $transactionData ?? [])
