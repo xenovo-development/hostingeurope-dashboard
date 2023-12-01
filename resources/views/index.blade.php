@@ -43,10 +43,12 @@
                         </div>
                         <h5 class="text-muted fw-normal mt-0" title="Number of Customers">Accepted Reservations</h5>
                         <h3 class="my-3">{{count($dashboardData['reservations']->where('status','accepted'))}}</h3>
-{{--                        <p class="mb-0 text-muted">--}}
-{{--                            <span class="text-success me-2"><i class="ri-arrow-up-line"></i>{{count($dashboardData['reservations'])}}</span>--}}
-{{--                            <span class="text-nowrap">Since last month</span>--}}
-{{--                        </p>--}}
+                        <p class="mb-0 text-muted">
+                            <span class="text-success me-2">All time</span>
+                            <span class="float-end"><i class="ri-arrow-right-line"></i>
+                            <a href="{{route('second',['pages','reservations']).'?listingId='.$dashboardData['listings']->first()['id']}}">See details</a>
+                            </span>
+                        </p>
                     </div> <!-- end card-body-->
                 </div> <!-- end card-->
             </div> <!-- end col-->
@@ -59,10 +61,12 @@
                         </div>
                         <h5 class="text-muted fw-normal mt-0" title="Average Profit">Profit</h5>
                         <h3 class="my-3">€{{round($dashboardData['user_total_revenue'], 2)}}</h3>
-{{--                        <p class="mb-0 text-muted">--}}
-{{--                            <span class="text-success me-2"><i class="ri-arrow-up-line"></i>€{{$dashboardData['user_total_revenue']}}</span>--}}
-{{--                            <span class="text-nowrap">Since last month</span>--}}
-{{--                        </p>--}}
+                        <p class="mb-0 text-muted">
+                            <span class="text-success me-2">All time</span>
+                            <span class="float-end"><i class="ri-arrow-right-line"></i>
+                            <a href="{{route('second',['pages','reservations']).'?listingId='.$dashboardData['listings']->first()['id']}}">See details</a>
+                            </span>
+                        </p>
                     </div> <!-- end card-body-->
                 </div> <!-- end card-->
             </div> <!-- end col-->
@@ -75,10 +79,12 @@
                         </div>
                         <h5 class="text-muted fw-normal mt-0" title="Awaiting Profit">Pending Profit</h5>
                         <h3 class="my-3">€{{round($dashboardData['user_open_revenue'],2)}}</h3>
-{{--                        <p class="mb-0 text-muted">--}}
-{{--                            <span class="text-success me-2"><i class="ri-arrow-up-line"></i>€{{$dashboardData['user_open_revenue']}}</span>--}}
-{{--                            <span class="text-nowrap">Since last month</span>--}}
-{{--                        </p>--}}
+                        <p class="mb-0 text-muted">
+                            <span class="text-success me-2">All time</span>
+                            <span class="float-end"><i class="ri-arrow-right-line"></i>
+                            <a href="{{route('second',['pages','reservations']).'?listingId='.$dashboardData['listings']->first()['id']}}">See details</a>
+                            </span>
+                        </p>
                     </div> <!-- end card-body-->
                 </div> <!-- end card-->
             </div> <!-- end col-->
@@ -91,10 +97,12 @@
                         </div>
                         <h5 class="text-muted fw-normal mt-0" title="Growth">Listings</h5>
                         <h3 class="my-3">{{count($dashboardData['listings'])}}</h3>
-{{--                        <p class="mb-0 text-muted">--}}
-{{--                            <span class="text-success me-2"><i class="ri-arrow-up-line"></i> {{count($dashboardData['listings'])}}</span>--}}
-{{--                            <span class="text-nowrap">Since last month</span>--}}
-{{--                        </p>--}}
+                        <p class="mb-0 text-muted">
+                            <span class="text-success me-2">Total</span>
+                            <span class="float-end"><i class="ri-arrow-right-line"></i>
+                            <a href="{{route('second',['pages','properties'])}}">See details</a>
+                            </span>
+                        </p>
                     </div> <!-- end card-body-->
                 </div> <!-- end card-->
             </div> <!-- end col-->

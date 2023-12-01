@@ -87,7 +87,7 @@ import 'chart.js/dist/chart.min.js';
                     labels: seriesMonths,
                     datasets: [
                         {
-                            label: "Bookings",
+                            label: "Reservations",
                             backgroundColor: "rgba(93,106,120,0.2)",
                             borderColor: "rgba(93,106,120,0.2)",
                             hoverBackgroundColor: "rgba(93,106,120,0.2)",
@@ -95,7 +95,7 @@ import 'chart.js/dist/chart.min.js';
                             data: seriesBookingsCount,
                         },
                         {
-                            label: "Revenue",
+                            label: "Profit",
                             backgroundColor: gradientStroke,
                             borderColor: gradientStroke,
                             hoverBackgroundColor: gradientStroke,

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Reservation extends Model
 {
@@ -111,12 +112,12 @@ class Reservation extends Model
     }
 
     /**
-     * Get the related transaction.
+     * Get the related transactions.
      *
-     * @return BelongsTo
+     * @return HasMany
      */
-    public function transaction(): BelongsTo
+    public function transactions(): HasMany
     {
-        return $this->hasOne(Transaction::class);
+        return $this->hasMany(Transaction::class);
     }
 }

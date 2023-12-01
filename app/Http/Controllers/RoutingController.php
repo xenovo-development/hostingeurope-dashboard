@@ -67,6 +67,7 @@ class RoutingController extends Controller
         $mode = $request->query('mode');
         $demo = $request->query('demo');
         $listingId = $request->query('listingId');
+        $reservationId = $request->query('reservationId');
 
         if($first == 'apps' && $second == 'calendar'){
             $calendarData = (new CalendarController)->index();
@@ -74,11 +75,20 @@ class RoutingController extends Controller
         if($first == 'pages' && $second == 'properties'){
             $propertiesData = (new ListingController())->index();
         }
+        if($first == 'pages' && $second == 'setlistingowner'){
+            $listingOwnerData = (new AdminController())->setListingOwnerIndex();
+        }
         if($first == 'pages' && $second == 'reservations'){
             $reservationsData = (new ReservationsController())->index($listingId);
         }
         if($first == 'pages' && $second == 'profile'){
             $profileData = (new ProfileChartController())->index();
+        }
+        if($first == 'pages' && $second == 'transaction'){
+            $transactionData = (new TransactionController())->index($reservationId);
+        }
+        if($first == 'pages' && $second == 'invoice'){
+            $invoiceData= (new InvoiceController())->index();
         }
 
         if ($first == "assets")
@@ -87,8 +97,11 @@ class RoutingController extends Controller
     return view($first .'.'. $second, ['mode' => $mode, 'demo' => $demo],)
         ->with('calendarData', $calendarData ?? [])
         ->with('propertiesData', $propertiesData ?? [])
+        ->with('listingOwnerData', $listingOwnerData ?? [])
         ->with('reservationsData', $reservationsData ?? [])
-        ->with('profileData', $profileData ?? []);
+        ->with('profileData', $profileData ?? [])
+        ->with('transactionData', $transactionData ?? [])
+        ->with('invoiceData', $invoiceData ?? []);
     }
 
     /**

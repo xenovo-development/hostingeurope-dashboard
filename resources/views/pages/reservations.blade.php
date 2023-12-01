@@ -3,6 +3,8 @@
 @section('css')
 @endsection
 
+
+
 @section('content')
     <!-- Start Content-->
     <div class="container-fluid">
@@ -31,7 +33,7 @@
             </div>
             <div class="card">
                 <div class="card-body">
-                    <h4 class="header-title">{{$reservationsData['listing']['street'].' - '. $reservationsData['listing']['name']}}</h4>
+                    <h4 class="header-title">{{$reservationsData['listing']['street']}}</h4>
                     <p class="text-muted fs-14">
                         Here you can see all reservations to your listed property.
                     </p>
@@ -40,9 +42,8 @@
                         <table class="table table-striped mb-0">
                             <thead>
                             <tr>
-                                <th scope="col">#</th>
+                                <th scope="col">ID #</th>
                                 <th scope="col">Listing Adress</th>
-                                <th scope="col">Listing Title</th>
                                 <th scope="col">Booking Date</th>
                                 <th scope="col">Source</th>
                                 <th scope="col">Guest</th>
@@ -50,39 +51,49 @@
                                 <th scope="col">Check Out</th>
                                 <th scope="col">Nights</th>
                                 <th scope="col">Status</th>
+                                <th scope="col">Transaction</th>
                                 <th scope="col">Profit</th>
-
                             </tr>
                             </thead>
                             <tbody>
                             @php
-                                $perPage = $reservationsData['reservations']->perPage();
-                                $currentPage = $reservationsData['reservations']->currentPage();
-                                $counterStart = $perPage * ($currentPage - 1);
+
                             @endphp
                             @forelse($reservationsData['reservations'] as $reservation)
                                 @if($reservation['status'] == 'accepted' || $reservation['status'] == 'cancelled')
-                                <tr>
-                                    <th scope="row">{{$counterStart + $loop->iteration}}</th>
-                                    <td class="table-user"><img src="{{$reservation['listing_photo']}}"
-                                                                alt="listing-photo"
-                                                                class="me-2 rounded-circle">{{$reservation->listing->street}}
-                                    </td>
-                                    <td>{{$reservation->listing->name}}</td>
-                                    <td>{{\Carbon\Carbon::parse($reservation['created_at'])->format('M d Y D')}}</td>
-                                    <td>{{$reservation['source']}}</td>
-                                    <td class="table-user"><img src="{{$reservation['guest_photo']}}" alt="guest-photo"
-                                                                class="me-2 rounded-circle">{{$reservation['guest_name']}}
-                                    </td>
-                                    <td>{{ \Carbon\Carbon::parse($reservation['checkIn'])->format('M d Y D') }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($reservation['checkOut'])->format('M d Y D') }}</td>
-                                    <td>{{$reservation['nights']}}</td>
-                                    <td>{{ucfirst($reservation['status'])}}</td>
-                                    <td><span
-                                            class="badge bg-success">{{'€'.round($reservation['net_revenue'] -
-                                            ($reservation['net_revenue'] * Auth()->user()['commission'] / 100),2)}}</span>
-                                    </td>
-                                </tr>
+                                    @php
+                                        $netRevenue = $reservation['subtotal'] - $reservation['channel_commission'] - $reservation->listing['cleaning_fee'];
+                                    @endphp
+                                    <tr>
+                                        <th scope="row">{{$reservation['id']}}</th>
+                                        <td class="table-user"><img src="{{$reservation['listing_photo']}}"
+                                                                    alt="listing-photo"
+                                                                    class="me-2 rounded-circle">{{$reservation->listing->street}}
+                                        </td>
+                                        <td>{{\Carbon\Carbon::parse($reservation['created_at'])->format('M d Y D')}}</td>
+                                        <td>{{$reservation['source']}}</td>
+                                        <td class="table-user"><img src="{{$reservation['guest_photo']}}"
+                                                                    alt="guest-photo"
+                                                                    class="me-2 rounded-circle">{{$reservation['guest_name']}}
+                                        </td>
+                                        <td>{{ \Carbon\Carbon::parse($reservation['checkIn'])->format('M d Y D') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($reservation['checkOut'])->format('M d Y D') }}</td>
+                                        <td>{{$reservation['nights']}}</td>
+                                        <td>{{ucfirst($reservation['status'])}}</td>
+                                        @if(!$reservation->transactions->isEmpty())
+                                            <td>Done
+                                                {{--                                                <a href="{{route('second',['pages','transaction']).'?reservationId='.$reservation['id']}}"--}}
+                                                {{--                                                   class="text-info fs-16 px-1" ><i--}}
+                                                {{--                                                        class="ri-exchange-line" style="font-size: 20px"></i></a>--}}
+                                            </td>
+                                        @else
+                                            <td>Pending</td>
+                                        @endif
+                                        <td><span
+                                                class="badge bg-success">{{'€'.round($netRevenue -
+                                            ($netRevenue * Auth()->user()['commission'] / 100),2)}}</span>
+                                        </td>
+                                    </tr>
                                 @endif
                             @empty
                                 <tr>

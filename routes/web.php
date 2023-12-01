@@ -31,3 +31,4 @@ Route::group(['prefix' => '/', 'middleware' => 'auth'], function () {
         Route::post('/create-user', [RegisteredUserController::class, 'store']);
     });
 });
+
