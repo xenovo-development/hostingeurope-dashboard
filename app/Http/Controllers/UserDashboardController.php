@@ -31,8 +31,8 @@ class UserDashboardController extends Controller
          * Set total and open revenue values && chart series variables.
          */
         foreach ($reservations as $reservation) {
-            $netRevenue = $reservation['subtotal'] - $reservation['channel_commission'] - $reservation->listing['cleaning_fee'];
-            if ($reservation['status'] == 'accepted') {
+            if ($reservation['status'] == 'accepted' && $reservation['subtotal'] != 0) {
+                $netRevenue = $reservation['subtotal'] - $reservation['channel_commission'] - $reservation->listing['cleaning_fee'];
                 if ($reservation['source'] == 'Airbnb') {
                     $airbnb++;
                 }
@@ -44,11 +44,12 @@ class UserDashboardController extends Controller
                 }
                 if ($reservation->transactions && $reservation->transactions->count() > 0) {
                     $totalRevenue += $netRevenue - ($netRevenue * $commission / 100);
-                }else{
+                } else {
                     $openRevenue += $netRevenue - ($netRevenue * $commission / 100);
                 }
 
-                $seriesNetRevenue[] = round($netRevenue - ($netRevenue * $commission / 100),2);
+
+                $seriesNetRevenue[] = round($netRevenue - ($netRevenue * $commission / 100), 2);
                 $seriesGuests [] = $reservation['guests'];
                 $reservationDates[] = $reservation['checkIn'];
                 $reservationListings[] = $reservation['listing_title'];
@@ -69,14 +70,16 @@ class UserDashboardController extends Controller
             $reservationsThisMonth = $reservations
                 ->whereBetween('checkIn', [$monthStart, $monthEnd])
                 ->where('status', 'accepted');
-            /** @noinspection DuplicatedCode */
-            foreach ($reservationsThisMonth as $reservation){
+
+            foreach ($reservationsThisMonth as $reservation) {
+                if ($reservation['subtotal'] != 0) {
                     $subtotals += $reservation['subtotal'];
                     $chCommissions += $reservation['channel_commission'];
                     $cleaningFees += $reservation['cleaning_fee'];
                 }
+            }
             $netRevenue = $subtotals - $cleaningFees - $chCommissions;
-            $monthlyRevenue[] = round($netRevenue - ($netRevenue * $commission / 100) ,2);
+            $monthlyRevenue[] = round($netRevenue - ($netRevenue * $commission / 100), 2);
         }
 
         return

@@ -73,7 +73,7 @@
                                             If you cancel your reservation <strong>two days </strong> or less before the check-in date, <strong>there will be no refund for the reservation fee.</strong>
                                         </li>
                                         <li class="text-muted mb-3">
-                                            Your remaining reservation days entitlement  for this year: <strong class=" text-bg-info rounded">{{Auth()->user()['days']}}</strong>
+                                            Your remaining reservation days entitlement  for this year: <strong class="p-1 text-bg-info rounded">{{Auth()->user()['days']}}</strong>
                                         </li>
                                     </ul>
                                 </div>

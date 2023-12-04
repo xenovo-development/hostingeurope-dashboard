@@ -30,5 +30,7 @@ class DatabaseRefreshCommand extends Command
         $this->call('app:listings-get-command');
         $this->call('app:reservations-get-command');
         $this->call('app:transactions-get-command');
+
+        $this->call('app:set-listings-command');
     }
 }

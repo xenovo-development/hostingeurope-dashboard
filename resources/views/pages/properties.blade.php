@@ -69,7 +69,7 @@
                                         <!-- project card -->
                                         <div class="card bg-light-subtle d-block">
                                             <div class="card-body ">
-                                                <h4>{{$listing['street'] . ' - '. $listing['name']}}</h4>
+                                                <h4>{{$listing['street']}}</h4>
 
                                                 <div class="row">
                                                     <div class="col-md-3">

@@ -72,7 +72,7 @@
                                         </td>
                                         <td>{{\Carbon\Carbon::parse($reservation['created_at'])->format('M d Y D')}}</td>
                                         <td>{{$reservation['source']}}</td>
-                                        <td class="table-user"><img src="{{$reservation['guest_photo']}}"
+                                        <td class="table-user"><img src="{{$reservation['guest_photo'] ?? 'images/Asset 14.png'}}"
                                                                     alt="guest-photo"
                                                                     class="me-2 rounded-circle">{{$reservation['guest_name']}}
                                         </td>
@@ -86,13 +86,21 @@
                                                 {{--                                                   class="text-info fs-16 px-1" ><i--}}
                                                 {{--                                                        class="ri-exchange-line" style="font-size: 20px"></i></a>--}}
                                             </td>
-                                        @else
+                                        @elseif($reservation['subtotal'] == 0)
+                                            <td>No transaction</td>
+                                            @else
                                             <td>Pending</td>
                                         @endif
+                                        @if($reservation['subtotal'] == 0)
+                                            <td><span
+                                                    class="badge bg-success">{{'€ 0,00'}}</span>
+                                            </td>
+                                        @else
                                         <td><span
                                                 class="badge bg-success">{{'€'.round($netRevenue -
                                             ($netRevenue * Auth()->user()['commission'] / 100),2)}}</span>
                                         </td>
+                                        @endif
                                     </tr>
                                 @endif
                             @empty
