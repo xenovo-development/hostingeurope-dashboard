@@ -34,7 +34,7 @@
             </div>
         </div>
 
-        <div class="row row-cols-1 row-cols-lg-4">
+        <div class="row row-cols-1 row-cols-lg-5">
             <div class="col col-md-6">
                 <div class="card widget-flat">
                     <div class="card-body">
@@ -101,6 +101,23 @@
                             <span class="text-success me-2">Total</span>
                             <span class="float-end"><i class="ri-arrow-right-line"></i>
                             <a href="{{route('second',['pages','properties'])}}">See details</a>
+                            </span>
+                        </p>
+                    </div> <!-- end card-body-->
+                </div> <!-- end card-->
+            </div> <!-- end col-->
+            <div class="col col-md-6">
+                <div class="card widget-flat">
+                    <div class="card-body">
+                        <div class="float-end">
+                            <i class="ri-calendar-event-line text-bg-secondary widget-icon"></i>
+                        </div>
+                        <h5 class="text-muted fw-normal mt-0" title="Growth">Available Reservation Days</h5>
+                        <h3 class="my-3">{{Auth()->user()['days']}}</h3>
+                        <p class="mb-0 text-muted">
+                            <span class="text-success me-2">This year</span>
+                            <span class="float-end"><i class="ri-arrow-right-line"></i>
+                            <a href="{{route('second',['apps','calendar'])}}">See calendar</a>
                             </span>
                         </p>
                     </div> <!-- end card-body-->

@@ -28,7 +28,7 @@
             <div class="col-12">
                 <div class="alert alert-warning text-bg-warning border-0" role="alert" >
                     <span style="color: #464f5b;"><strong>Warning! - </strong> Dear host, you can follow all the booking processes of your property from the calendar below.
-                    Our application under development will allow you to make your reservation from this calendar as soon as possible. Please note that this page is in its early access phase and will be much improved in terms of design and functionality in the future.
+                    Our application under development will allow you to make your reservation from this calendar as soon as possible. Please note that this page is in its <strong>early access</strong> phase and will be much improved in terms of design and functionality in the future.
                 Thank you for your patience.</span>
                 </div>
                 @if(!$calendarData['listings'])
@@ -67,13 +67,13 @@
                                     <h5 class="text-center">Rules</h5>
                                     <ul class="ps-3">
                                         <li class="text-muted mb-3">
-                                            You can only make <strong>21</strong> reservations in a month.
+                                            You can only make <strong>40</strong> reservations in a <strong>year.</strong>
                                         </li>
                                         <li class="text-muted mb-3">
-                                            If you cancel your reservation <strong>two days </strong> or less before the check-in date, there will be no refund for the reservation fee.
+                                            If you cancel your reservation <strong>two days </strong> or less before the check-in date, <strong>there will be no refund for the reservation fee.</strong>
                                         </li>
                                         <li class="text-muted mb-3">
-                                            You have <strong>21</strong> days of reservation initiative left.
+                                            Your remaining reservation days entitlement  for this year: <strong class=" text-bg-info rounded">{{Auth()->user()['days']}}</strong>
                                         </li>
                                     </ul>
                                 </div>

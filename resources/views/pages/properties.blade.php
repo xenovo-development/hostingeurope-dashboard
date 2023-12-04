@@ -87,9 +87,9 @@
                                                     </div>
                                                     <!-- end col -->
                                                     <div class="col-md-9">
-                                                        <div class="row d-flex flex-wrap  justify-content-sm-start">
+                                                        <div class="row d-flex flex-wrap  justify-content-start">
                                                             <!-- start state -->
-                                                            <div class="col-md-auto">
+                                                            <div class="col-md-2">
                                                                 <p class="mt-2 mb-1 text-muted">Type</p>
                                                                 <div class="d-flex align-items-start">
                                                                     @if($listing['property_type']=='Apartment')
@@ -106,7 +106,7 @@
                                                             </div>
                                                             <!-- end state -->
                                                             <!-- start street -->
-                                                            <div class="col-md-auto">
+                                                            <div class="col-md-2">
                                                                 <p class="mt-2 mb-1 text-muted">Street</p>
                                                                 <div class="d-flex align-items-start">
                                                                     <i class="ri-map-pin-line fs-18 text-success me-1"></i>
@@ -119,7 +119,7 @@
                                                             </div>
                                                             <!-- end street -->
                                                             <!-- start title -->
-                                                            <div class="col-md-auto">
+                                                            <div class="col-md-2">
                                                                 <p class="mt-2 mb-1 text-muted">Listing Title</p>
                                                                 <div class="d-flex align-items-start">
                                                                     <i class="ri-double-quotes-l fs-18 text-success me-1"></i>
@@ -132,7 +132,7 @@
                                                             </div>
                                                             <!-- end title -->
                                                             <!-- start city -->
-                                                            <div class="col-md-auto">
+                                                            <div class="col-md-2">
                                                                 <p class="mt-2 mb-1 text-muted">City</p>
                                                                 <div class="d-flex align-items-start">
                                                                     <i class="ri-earth-line fs-18 text-success me-1"></i>
@@ -145,7 +145,7 @@
                                                             </div>
                                                             <!-- end city -->
                                                             <!-- start country -->
-                                                            <div class="col-md-auto">
+                                                            <div class="col-md-2">
                                                                 <p class="mt-2 mb-1 text-muted">Country</p>
                                                                 <div class="d-flex align-items-start">
                                                                     <i class="ri-earth-line fs-18 text-success me-1"></i>
@@ -158,7 +158,7 @@
                                                             </div>
                                                             <!-- end country -->
                                                             <!-- start minimum nights -->
-                                                            <div class="col-md-auto">
+                                                            <div class="col-md-2">
                                                                 <p class="mt-2 mb-1 text-muted">Minimum Nights</p>
                                                                 <div class="d-flex align-items-start">
                                                                     <i class="ri-moon-fill fs-18 text-success me-1"></i>
@@ -171,7 +171,7 @@
                                                             </div>
                                                             <!-- end minimum nights -->
                                                             <!-- start maximum nights -->
-                                                            <div class="col-md-auto">
+                                                            <div class="col-md-2">
                                                                 <p class="mt-2 mb-1 text-muted">Maximum Nights</p>
                                                                 <div class="d-flex align-items-start">
                                                                     <i class="ri-moon-fill fs-18 text-success me-1"></i>
@@ -184,7 +184,7 @@
                                                             </div>
                                                             <!-- end maximum nights -->
                                                             <!-- start beds -->
-                                                            <div class="col-md-auto">
+                                                            <div class="col-md-2">
                                                                 <p class="mt-2 mb-1 text-muted">Beds</p>
                                                                 <div class="d-flex align-items-start">
                                                                     <i class="ri-hotel-bed-line fs-18 text-success me-1"></i>
@@ -197,7 +197,7 @@
                                                             </div>
                                                             <!-- end beds -->
                                                             <!-- start bedrooms -->
-                                                            <div class="col-md-auto">
+                                                            <div class="col-md-2">
                                                                 <p class="mt-2 mb-1 text-muted">Bedrooms</p>
                                                                 <div class="d-flex align-items-start">
                                                                     <i class="ri-home-office-line fs-18 text-success me-1"></i>
@@ -210,7 +210,7 @@
                                                             </div>
                                                             <!-- end bedrooms -->
                                                             <!-- start person capacity -->
-                                                            <div class="col-md-auto">
+                                                            <div class="col-md-2">
                                                                 <p class="mt-2 mb-1 text-muted">Person Capacity</p>
                                                                 <div class="d-flex align-items-start">
                                                                     <i class="ri-team-line fs-18 text-success me-1"></i>
@@ -223,7 +223,7 @@
                                                             </div>
                                                             <!-- end person capacity -->
                                                             <!-- start checkin -->
-                                                            <div class="col-md-auto">
+                                                            <div class="col-md-2">
                                                                 <p class="mt-2 mb-1 text-muted">Checkin</p>
                                                                 <div class="d-flex align-items-start">
                                                                     <i class="ri-time-line fs-18 text-success me-1"></i>
@@ -236,7 +236,7 @@
                                                             </div>
                                                             <!-- end checkin -->
                                                             <!-- start checkin start -->
-                                                            <div class="col-md-auto">
+                                                            <div class="col-md-2">
                                                                 <p class="mt-2 mb-1 text-muted">Check Out</p>
                                                                 <div class="d-flex align-items-start">
                                                                     <i class="ri-time-line fs-18 text-success me-1"></i>

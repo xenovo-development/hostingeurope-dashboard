@@ -29,24 +29,25 @@ class ReservationsGetCommand extends Command
     public function handle()
     {
         $client = new GuzzleHttp\Client();
-        $baseUrl = 'https://api-rms.hostify.com/reservations';
+        $baseUrl = 'https://api-rms.hostify.com/reservations?per_page=1500';
         $page = 1;
-        $startDate = '2023-10-01';
         $headers =
             [
                 'x-api-key' => 'FuyE21ljFXjwkz7SKMvmHsCGGoZLyf9S',
             ];
+        $listings = Listing::all()->keyBy('id');
+        $count = 0;
         while (true) {
-            $url = $baseUrl . '?page=' . $page . '&start_date=' . $startDate;
+            $url = $baseUrl . '&page=' . $page;
             $response = $client->request('GET', $url, ['headers' => $headers]);
             $data = json_decode($response->getBody(), true);
 
             foreach ($data['reservations'] as $reservation) {
-                $listing = Listing::find($reservation['listing_id']);
-                if ($listing) {
-                        Reservation::updateOrCreate(
-                            ['hostify_id'=>$reservation['id']],
-                            [
+                if (isset($listings[strval($reservation['listing_id'])])) {
+                    $count++;
+                    Reservation::updateOrCreate(
+                        ['hostify_id' => $reservation['id']],
+                        [
                             'currency' => $reservation['currency'],
                             'price_per_night' => $reservation['price_per_night'],
                             'base_price' => $reservation['base_price'],
@@ -100,7 +101,7 @@ class ReservationsGetCommand extends Command
                             'created_at' => $reservation['created_at'],
                             'city_tax' => $reservation['city_tax'],
                             'channel_reservation_id' => $reservation['channel_reservation_id'],
-                            'listing_id' => $listing['id'],
+                            'listing_id' => $listings[strval($reservation['listing_id'])]['id'],
                             'listing_nickname' => $reservation['listing_nickname'],
                             'channel_listing_id' => $reservation['channel_listing_id'],
                             'listing_channel_id' => $reservation['listing_channel_id'],
@@ -130,12 +131,13 @@ class ReservationsGetCommand extends Command
                             'custom_fields' => json_encode($reservation['custom_fields'], true),
                             'vat_amount' => $reservation['vat_amount'],
                         ]
-                        );
-                    }
+                    );
+                }
             }
             if (!$data['reservations']) {
                 break;
             }
+            var_dump($count);
             $page++;
         }
     }

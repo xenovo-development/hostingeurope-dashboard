@@ -2,11 +2,10 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Listing;
 use App\Models\Reservation;
 use App\Models\Transaction;
-use Illuminate\Console\Command;
 use GuzzleHttp;
+use Illuminate\Console\Command;
 
 class TransactionsGetCommand extends Command
 {
@@ -30,42 +29,42 @@ class TransactionsGetCommand extends Command
     public function handle()
     {
         $client = new GuzzleHttp\Client();
-        $baseUrl = 'https://api-rms.hostify.com/transactions';
+        $baseUrl = 'https://api-rms.hostify.com/transactions?per_page=3500';
         $page = 1;
         $headers =
             [
                 'x-api-key' => 'FuyE21ljFXjwkz7SKMvmHsCGGoZLyf9S'
             ];
+        $reservations = Reservation::all()->keyBy('hostify_id');
+        $count = 0;
 
         while (true) {
-            $url = $baseUrl . '?page=' . $page;
+            $url = $baseUrl . '&page=' . $page;
             $response = $client->request('GET', $url, ['headers' => $headers]);
-            $data = json_decode($response->getBody(),true);
-
+            $data = json_decode($response->getBody(), true);
             foreach ($data['transactions'] as $transaction) {
-                $reservation = Reservation::where('hostify_id', $transaction['reservation_id'])->first();
-                if($reservation){
+                if (isset($reservations[strval($transaction['reservation_id'])])) {
+                    $count++;
                     Transaction::updateOrCreate(
                         ['id' => $transaction['id'],],
                         [
-                            'channel_transaction_id'=>$transaction['channel_transaction_id'],
-                            'currency'=>$transaction['currency'],
-                            'amount'=>$transaction['amount'],
-                            'type'=>$transaction['type'],
-                            'type_description'=>$transaction['type_description'],
-                            'charge_type'=>$transaction['charge_type'],
-                            'charge_status'=>$transaction['charge_status'],
-                            'arrival_date'=>$transaction['arrival_date'],
-                            'charge_date'=>$transaction['charge_date'],
-                            'is_completed'=>$transaction['is_completed'],
-                            'code'=>$transaction['code'],
-                            'details'=>$transaction['details'],
-                            'notes'=>$transaction['notes'],
-                            'payout_type'=>$transaction['payout_type'],
-                            'source'=>$transaction['source'],
-
-                            'listing_id'=>$reservation->listing->id,
-                            'reservation_id'=>$reservation['id'],
+                            'channel_transaction_id' => $transaction['channel_transaction_id'],
+                            'currency' => $transaction['currency'],
+                            'amount' => $transaction['amount'],
+                            'type' => $transaction['type'],
+                            'type_description' => $transaction['type_description'],
+                            'charge_type' => $transaction['charge_type'],
+                            'charge_status' => $transaction['charge_status'],
+                            'arrival_date' => $transaction['arrival_date'],
+                            'charge_date' => $transaction['charge_date'],
+                            'is_completed' => $transaction['is_completed'],
+                            'code' => $transaction['code'],
+                            'details' => $transaction['details'],
+                            'notes' => $transaction['notes'],
+                            'payout_type' => $transaction['payout_type'],
+                            'source' => $transaction['source'],
+                            'listing_id' => $reservations[strval($transaction['reservation_id'])]['listing_id'],
+                            'reservation_id' => $reservations[strval($transaction['reservation_id'])]['id'],
                         ]);
                 }
             }
@@ -73,6 +72,7 @@ class TransactionsGetCommand extends Command
             if (!$data['transactions']) {
                 break;
             }
+            var_dump($count);
             $page++;
         }
     }

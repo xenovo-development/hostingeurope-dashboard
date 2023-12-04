@@ -28,14 +28,14 @@ class ListingsGetCommand extends Command
     public function handle()
     {
         $client = new GuzzleHttp\Client();
-        $baseUrl = 'https://api-rms.hostify.com/listings';
+        $baseUrl = 'https://api-rms.hostify.com/listings?per_page=5000';
         $page = 1;
         $headers =
             [
                 'x-api-key' => 'FuyE21ljFXjwkz7SKMvmHsCGGoZLyf9S'
             ];
         while (true) {
-            $url = $baseUrl . '?page=' . $page;
+            $url = $baseUrl . '&page=' . $page;
             $response = $client->request('GET', $url, ['headers' => $headers]);
             $data = json_decode($response->getBody(), true);
 
