@@ -121,6 +121,6 @@
                 </div> <!-- end card body-->
             </div> <!-- end card -->
         </div><!-- end col-->
-        {{$reservationsData['reservations']->links('vendor.pagination.bootstrap-5')}}
+        {{$reservationsData['reservations']->withQueryString()->links('vendor.pagination.bootstrap-5')}}
     </div> <!-- container -->
 @endsection

@@ -4,6 +4,11 @@
     @vite(['node_modules/daterangepicker/daterangepicker.css', 'node_modules/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css'])
 @endsection
 
+@php
+    $dateParam = request()->query('date');
+    $dates = $dateParam ? explode('-', $dateParam) : null;
+@endphp
+
 @section('content')
     <!-- Start Content-->
     <div class="container-fluid">
@@ -29,7 +34,7 @@
             </div>
         </div>
 
-        <div class="row row-cols-1 row-cols-lg-4">
+        <div class="row row-cols-1 row-cols-xl-3">
             <div class="col col-md-6">
                 <div class="card widget-flat">
                     <div class="card-body">
@@ -37,10 +42,16 @@
                             <i class="ri-group-line text-bg-info widget-icon"></i>
                         </div>
                         <h5 class="text-muted fw-normal mt-0" title="Number of Customers">Accepted Reservations</h5>
-                        <h3 class="my-3">{{$dashboardData['reservations_count']}}</h3>
+                        <h3 class="my-3">{{$analyticsData['reservations']->count()}}</h3>
                         <p class="mb-0 text-muted">
-                            <span class="text-success me-2"><i class="ri-arrow-up-line"></i>{{$dashboardData['reservations_count']}}</span>
-                            <span class="text-nowrap">Since last month</span>
+                            @if($dates && count($dates) === 2)
+                                <span class="text-success me-2">From this property (Between {{ $dates[0] }} and {{ $dates[1] }})</span>
+                            @else
+                                <span class="text-success me-2">From this property (All time)</span>
+                                <span class="float-end"><i class="ri-arrow-right-line"></i>
+                            <a href="{{route('second',['pages','reservations']).'?listingId='.$analyticsData['listing']['id']}}">See details</a>
+                            </span>
+                            @endif
                         </p>
                     </div> <!-- end card-body-->
                 </div> <!-- end card-->
@@ -52,11 +63,17 @@
                         <div class="float-end">
                             <i class="ri-exchange-dollar-line text-bg-primary widget-icon"></i>
                         </div>
-                        <h5 class="text-muted fw-normal mt-0" title="Average Revenue">Revenue</h5>
-                        <h3 class="my-3">€{{$dashboardData['user_total_revenue']}}</h3>
+                        <h5 class="text-muted fw-normal mt-0" title="Average Revenue">Profit</h5>
+                        <h3 class="my-3">{{$analyticsData['currency'].$analyticsData['total_revenue']}}</h3>
                         <p class="mb-0 text-muted">
-                            <span class="text-success me-2"><i class="ri-arrow-up-line"></i>€{{$dashboardData['user_total_revenue']}}</span>
-                            <span class="text-nowrap">Since last month</span>
+                            @if($dates && count($dates) === 2)
+                                <span class="text-success me-2">From this property (Between {{ $dates[0] }} and {{ $dates[1] }})</span>
+                            @else
+                                <span class="text-success me-2">From this property (All time)</span>
+                                <span class="float-end"><i class="ri-arrow-right-line"></i>
+                            <a href="{{route('second',['pages','reservations']).'?listingId='.$analyticsData['listing']['id']}}">See details</a>
+                            </span>
+                            @endif
                         </p>
                     </div> <!-- end card-body-->
                 </div> <!-- end card-->
@@ -69,26 +86,16 @@
                             <i class="ri-exchange-dollar-line text-bg-primary widget-icon"></i>
                         </div>
                         <h5 class="text-muted fw-normal mt-0" title="Average Revenue">Open Revenue</h5>
-                        <h3 class="my-3">€{{$dashboardData['user_open_revenue']}}</h3>
+                        <h3 class="my-3">{{$analyticsData['currency'].$analyticsData['open_revenue']}}</h3>
                         <p class="mb-0 text-muted">
-                            <span class="text-success me-2"><i class="ri-arrow-up-line"></i>€{{$dashboardData['user_open_revenue']}}</span>
-                            <span class="text-nowrap">Since last month</span>
-                        </p>
-                    </div> <!-- end card-body-->
-                </div> <!-- end card-->
-            </div> <!-- end col-->
-
-            <div class="col col-md-6">
-                <div class="card widget-flat">
-                    <div class="card-body">
-                        <div class="float-end">
-                            <i class="ri-line-chart-line text-bg-success widget-icon"></i>
-                        </div>
-                        <h5 class="text-muted fw-normal mt-0" title="Growth">Listings</h5>
-                        <h3 class="my-3">{{$dashboardData['user_listing_count']}}</h3>
-                        <p class="mb-0 text-muted">
-                            <span class="text-success me-2"><i class="ri-arrow-up-line"></i> 4.87%</span>
-                            <span class="text-nowrap">Since last month</span>
+                            @if($dates && count($dates) === 2)
+                                <span class="text-success me-2">From this property (Between {{ $dates[0] }} and {{ $dates[1] }})</span>
+                            @else
+                                <span class="text-success me-2">From this property (All time)</span>
+                                <span class="float-end"><i class="ri-arrow-right-line"></i>
+                            <a href="{{route('second',['pages','reservations']).'?listingId='.$analyticsData['listing']['id']}}">See details</a>
+                            </span>
+                            @endif
                         </p>
                     </div> <!-- end card-body-->
                 </div> <!-- end card-->
@@ -99,56 +106,7 @@
         <div class="col-xl-4 col-lg-6">
             <div class="card">
                 <div class="d-flex card-header justify-content-between align-items-center">
-                    <h4 class="header-title">Sessions by Browser</h4>
-                    <div class="dropdown">
-                        <a href="#" class="dropdown-toggle arrow-none card-drop p-0" data-bs-toggle="dropdown"
-                           aria-expanded="false">
-                            <i class="ri-more-2-fill"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end">
-                            <a href="javascript:void(0);" class="dropdown-item">Refresh Report</a>
-                            <a href="javascript:void(0);" class="dropdown-item">Export Report</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-body pt-0">
-                    <div id="sessions-browser" class="apex-charts" data-colors="#16a7e9"></div>
-
-                    <div class="mt-1 text-center">
-                        <ul class="list-inline mb-0">
-                            <li class="list-inline-item"><img class="ms-3 pe-1"
-                                                              src="/images/browsers/chrome.png" height="18"
-                                                              alt="chrome"><span class="align-middle">45.87%</span></li>
-                            <li class="list-inline-item"><img class="ms-3 pe-1"
-                                                              src="/images/browsers/firefox.png" height="18"
-                                                              alt="chrome"><span class="align-middle">3.25%</span></li>
-                            <li class="list-inline-item"><img class="ms-3 pe-1"
-                                                              src="/images/browsers/safari.png" height="18"
-                                                              alt="chrome"><span class="align-middle">9.68%</span></li>
-                            <li class="list-inline-item"><img class="ms-3 pe-1"
-                                                              src="/images/browsers/web.png" height="18"
-                                                              alt="chrome"><span class="align-middle">36.87%</span></li>
-                        </ul>
-                    </div>
-                </div> <!-- end card-body-->
-            </div> <!-- end card-->
-        </div> <!-- end col-->
-
-        <div class="col-xl-4 col-lg-6">
-            <div class="card">
-                <div class="d-flex card-header justify-content-between align-items-center">
-                    <h4 class="header-title">Sessions by Operating System</h4>
-                    <div class="dropdown">
-                        <a href="#" class="dropdown-toggle arrow-none card-drop p-0" data-bs-toggle="dropdown"
-                           aria-expanded="false">
-                            <i class="ri-more-2-fill"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end">
-                            <a href="javascript:void(0);" class="dropdown-item">Refresh Report</a>
-                            <a href="javascript:void(0);" class="dropdown-item">Export Report</a>
-                        </div>
-                    </div>
+                    <h4 class="header-title">Reservations by Listing Channel</h4>
                 </div>
 
                 <div class="card-body pt-0">
@@ -156,17 +114,23 @@
                     </div>
 
                     <div class="row text-center mt-2">
-                        <div class="col-6">
+                        <div class="col-4">
                             <h4 class="fw-normal">
-                                <span>8,285</span>
+                                <span>{{$analyticsData['reservations']->where('source','Airbnb')->count()}}</span>
                             </h4>
-                            <p class="text-muted mb-0">Online System</p>
+                            <p class="text-muted mb-0">Airbnb</p>
                         </div>
-                        <div class="col-6">
+                        <div class="col-4">
                             <h4 class="fw-normal">
-                                <span>3,534</span>
+                                <span>{{$analyticsData['reservations']->where('source','Booking.com')->count()}}</span>
                             </h4>
-                            <p class="text-muted mb-0">Offline System</p>
+                            <p class="text-muted mb-0">Booking.com</p>
+                        </div>
+                        <div class="col-4">
+                            <h4 class="fw-normal">
+                                <span>{{$analyticsData['reservations']->where('source','Guest24 Services')->count()}}</span>
+                            </h4>
+                            <p class="text-muted mb-0">Guest24 Services</p>
                         </div>
                     </div>
 
@@ -176,17 +140,7 @@
         <div class="col-xl-4 col-lg-12">
             <div class="card">
                 <div class="d-flex card-header justify-content-between align-items-center">
-                    <h4 class="header-title">Views Per Minute</h4>
-                    <div class="dropdown">
-                        <a href="#" class="dropdown-toggle arrow-none card-drop p-0" data-bs-toggle="dropdown"
-                           aria-expanded="false">
-                            <i class="ri-more-2-fill"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end">
-                            <a href="javascript:void(0);" class="dropdown-item">Refresh Report</a>
-                            <a href="javascript:void(0);" class="dropdown-item">Export Report</a>
-                        </div>
-                    </div>
+                    <h4 class="header-title">Reservation lengths by month </h4>
                 </div>
 
                 <div class="card-body pt-0">
@@ -196,37 +150,49 @@
                         <table class="table table-sm mb-0">
                             <thead>
                             <tr>
-                                <th>Page</th>
-                                <th>Views</th>
-                                <th>Bounce Rate</th>
+                                <th>Month</th>
+                                <th>Days</th>
+                                <th>Reservations</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>
-                                    <a href="javascript:void(0);"
-                                       class="text-muted">/adminto/dashboard-analytics</a>
-                                </td>
-                                <td>25</td>
-                                <td>87.5%</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="javascript:void(0);" class="text-muted">/attex/dashboard-crm</a>
-                                </td>
-                                <td>15</td>
-                                <td>21.48%</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="javascript:void(0);" class="text-muted">/ubold/dashboard</a>
-                                </td>
-                                <td>10</td>
-                                <td>63.59%</td>
-                            </tr>
+                                <tr>
+                                    <td>
+                                        <a href="javascript:void(0);"
+                                           class="text-muted">January</a>
+                                    </td>
+                                    <td>25</td>
+                                    <td>87.5%</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="javascript:void(0);"
+                                           class="text-muted">January</a>
+                                    </td>
+                                    <td>25</td>
+                                    <td>87.5%</td>
+                                </tr><tr>
+                                    <td>
+                                        <a href="javascript:void(0);"
+                                           class="text-muted">January</a>
+                                    </td>
+                                    <td>25</td>
+                                    <td>87.5%</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+        </div> <!-- end col-->
+        <div class="col-xl-4 col-lg-12">
+            <div class="card">
+                <div class="d-flex card-header justify-content-between align-items-center">
+                    <h4 class="header-title">Monthly occupancy rate </h4>
+                </div>
+
+                <div class="card-body pt-0">
+                    <div id="occupancy" class="apex-charts" data-colors="#16a7e9"></div>
                 </div> <!-- end card-body-->
             </div> <!-- end card-->
         </div> <!-- end col-->
@@ -335,7 +301,7 @@
                 <div class="d-flex card-header justify-content-between align-items-center">
                     <h4 class="header-title">Channels</h4>
                     <a href="javascript:void(0);" class="btn btn-sm btn-light">Export <i
-                            class="ri-download-line ms-1"></i></a>
+                                class="ri-download-line ms-1"></i></a>
                 </div>
 
                 <div class="card-body p-0">
@@ -415,7 +381,7 @@
                 <div class="d-flex card-header justify-content-between align-items-center">
                     <h4 class="header-title">Social Media Traffic</h4>
                     <a href="javascript:void(0);" class="btn btn-sm btn-light">Export <i
-                            class="ri-download-line ms-1"></i></a>
+                                class="ri-download-line ms-1"></i></a>
                 </div>
 
                 <div class="card-body p-0">
@@ -492,7 +458,7 @@
                 <div class="d-flex card-header justify-content-between align-items-center">
                     <h4 class="header-title">Engagement Overview</h4>
                     <a href="javascript:void(0);" class="btn btn-sm btn-light">Export <i
-                            class="ri-download-line ms-1"></i></a>
+                                class="ri-download-line ms-1"></i></a>
                 </div>
 
                 <div class="card-body p-0">
@@ -548,4 +514,9 @@
 
 @section('script')
     @vite(['resources/js/pages/demo.dashboard-analytics.js'])
+    <script type="text/javascript">
+        let channels = @json($analyticsData['channels']);
+        let reservationLengths = @json($analyticsData['monthly_reservation_lengths']);
+        let months = @json($analyticsData['month_names']);
+    </script>
 @endsection

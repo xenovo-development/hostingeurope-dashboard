@@ -245,5 +245,5 @@ cashflowChart.render();
 
 //default date range picker
 $('#dash-daterange').daterangepicker({
-    singleDatePicker: true
+    singleDatePicker: false
 });

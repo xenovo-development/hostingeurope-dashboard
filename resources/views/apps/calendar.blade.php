@@ -2,6 +2,8 @@
 
 @section('css')
     @vite(['node_modules/fullcalendar/main.min.css'])
+    @vite(['node_modules/flatpickr/dist/flatpickr.min.css'])
+
 @endsection
 
 @section('content')
@@ -18,7 +20,7 @@
                             <li class="breadcrumb-item active">Calendar</li>
                         </ol>
                     </div>
-                    <h4 class="page-title">Calendar <span class="text-muted">(Beta)</span></h4>
+                    <h4 class="page-title">Calendar</h4>
                 </div>
             </div>
         </div>
@@ -26,56 +28,62 @@
 
         <div class="row">
             <div class="col-12">
-                <div class="alert alert-warning text-bg-warning border-0" role="alert" >
-                    <span style="color: #464f5b;"><strong>Warning! - </strong> Dear host, you can follow all the booking processes of your property from the calendar below.
-                    Our application under development will allow you to make your reservation from this calendar as soon as possible. Please note that this page is in its <strong>early access</strong> phase and will be much improved in terms of design and functionality in the future.
-                Thank you for your patience.</span>
-                </div>
                 @if(!$calendarData['listings'])
-                <div class="alert alert-danger text-bg-danger border-0" role="alert">
-                    <strong>Error! - </strong> No listings found.
-                </div>
+                    <div class="alert alert-danger text-bg-danger border-0" role="alert">
+                        <strong>Error! - </strong> No listings found.
+                    </div>
                 @endif
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-3">
                                 <div class="d-grid">
-                                    <button class="btn btn-lg fs-16 btn-danger disabled" id="btn-new-event">
-                                        <i class="ri-add-circle-fill"></i> Make A Reservation <br> (Coming Soon)
+                                    <button class="btn btn-lg fs-16 btn-danger" id="btn-new-event">
+                                        <i class="ri-add-circle-fill"></i> Make A Reservation <br>
                                     </button>
                                 </div>
                                 <div id="external-events" class="mt-3">
+                                    <p class="text-center"> Your remaining reservation days for this year: <strong
+                                            class="p-1 text-bg-info rounded">{{Auth()->user()['days']}}</strong></p>
+                                    <p></p>
                                     <h5 class=" mb-2">My Properties</h5>
                                     @forelse($calendarData['listings'] as $listing)
-                                        <div class="external-event bg-info-subtle text-info" data-class="bg-info"><i class="ri-focus-fill me-2 vertical-middle"></i>{{$listing['street']}}</div>
+                                        <div class="external-event bg-info-subtle text-info" data-class="bg-info"><i
+                                                class="ri-focus-fill me-2 vertical-middle"></i>{{$listing['street']}}
+                                        </div>
                                     @empty
-                                        <div class="external-event bg-info-subtle text-info" data-class="bg-info"><i class="ri-focus-fill me-2 vertical-middle"></i>No listings found</div>
+                                        <div class="external-event bg-info-subtle text-info" data-class="bg-info"><i
+                                                class="ri-focus-fill me-2 vertical-middle"></i>No listings found
+                                        </div>
                                     @endforelse
                                 </div>
-{{--                                <del>From here you can make your reservations to your own apartment. Just simply drag and drop your apartment or click in the calendar</del>--}}
-                                <p class="text-muted mt-3 mb-3">
-                                    <br>You can not make any reservations from this page until the development process is finished. <i><strong>Please continue reading</strong></i></p>
                                 <div class="mt-4 d-none d-xl-block">
-                                    <div class="alert alert-warning mb-3 text-center">
-                                        Until the short-term integration process of the application is completed, please refer to the following e-mail addresses for your reservations:
-                                        <br><br>
-                                        <strong><a class="text-info" href="mailto:b.ozturk@hostingeurope.info">b.ozturk@hostingeurope.info</a></strong> <a
-                                            class="text-info" href="mailto:sm.sakarya@hostingeurope.info"><strong>sm.sakarya@hostingeurope.info</strong></a>
-                                    </div>
-
                                     <h5 class="text-center">Rules</h5>
                                     <ul class="ps-3">
-                                        <li class="text-muted mb-3">
-                                            You can only make <strong>40</strong> reservations in a <strong>year.</strong>
+                                        <li class="text-muted mb-3">From here you can make your reservations to your own
+                                            apartment. Just simply drag and drop your apartment or click in the calendar
                                         </li>
                                         <li class="text-muted mb-3">
-                                            If you cancel your reservation <strong>two days </strong> or less before the check-in date, <strong>there will be no refund for the reservation fee.</strong>
+                                            It is not possible to make reservations for the next <strong>twenty days</strong> from today's date.
                                         </li>
                                         <li class="text-muted mb-3">
-                                            Your remaining reservation days entitlement  for this year: <strong class="p-1 text-bg-info rounded">{{Auth()->user()['days']}}</strong>
+                                            It is not possible to make more than <strong>forty</strong> reservations in a
+                                            <strong>year.</strong>
+                                        </li>
+                                        <li class="text-muted mb-3">
+                                            If you cancel your reservation <strong>two days </strong> or less before the
+                                            check-in date, <strong>there will be no refund for the reservation
+                                                fee.</strong>
                                         </li>
                                     </ul>
+
+                                    <div class="alert alert-warning mb-3 text-center">
+                                        Do you have any questions or any problems that you need to contact us about?
+                                        Feel free to send a contact mail to us;
+                                        <br><br>
+                                        <a
+                                            class="text-info" href="mailto:sm.sakarya@hostingeurope.info"><strong>sm.sakarya@hostingeurope.info</strong></a>
+                                    </div>
                                 </div>
 
                             </div> <!-- end col-->
@@ -94,44 +102,116 @@
                 <div class="modal fade" id="event-modal" tabindex="-1">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <form class="needs-validation" name="event-form" id="form-event" novalidate>
+                            <form action="/reservations/store" method="POST" class="needs-validation" name="event-form"
+                                  id="form-event" novalidate>
+                                @csrf
                                 <div class="modal-header py-3 px-4 border-bottom-0">
                                     <h5 class="modal-title" id="modal-title">Event</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body px-4 pb-4 pt-0">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="mb-3">
-                                                <input class="form-control" placeholder="Insert Event Name" type="text" name="name" id="event-title" value="{{Auth()->user()['name']}}" required />
-                                                <div class="invalid-feedback">Please provide a valid event name</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="mb-3">
-                                                <select class="form-select" name="category" id="event-category" required>
-                                                    <option value="bg-primary" selected></option>
-                                                </select>
-                                                <div class="invalid-feedback">Please select a valid event category</div>
-                                            </div>
-                                        </div>
+                                    <div class="text-center">
+                                        <img class="img-fluid" src="/images/Asset 14.png" alt="logo">
                                     </div>
                                     <div class="row">
-                                        <div class="col-6">
-                                            <button type="button" class="btn btn-danger" id="btn-delete-event">Delete</button>
+                                        <div class="col-12">
+                                            <div class="mb-3">
+                                                <label for="name">Name</label>
+                                                <input class="form-control" type="text" name="name" id="name"
+                                                       value="{{Auth()->user()['name']}}" required/>
+                                                <div class="invalid-feedback">Invalid username</div>
+                                            </div>
                                         </div>
-                                        <div class="col-6 text-end">
-                                            <button type="button" class="btn btn-light me-1" data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-success" id="btn-save-event">Save</button>
+                                        <div class="input-group mb-3">
+                                            <label class="input-group-text" for="listing-select">Property</label>
+                                            <select class="form-select" id="listing-select" name="listing-select" required>
+                                                <option value="" selected>Choose...</option>
+                                                @foreach($calendarData['listings'] as $listing)
+                                                    <option
+                                                        value="{{$listing['street']}}">{{$listing['street']}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                            <div class="mb-3">
+                                                <label for="date">Check-in , Check-out</label>
+                                                <input value="" class="form-control text" name="date" id="date"
+                                                       required>
+                                                <div class="invalid-feedback">Please select a valid check-in and check-out date
+                                                </div>
+                                            </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <button type="button" class="btn btn-danger" id="btn-delete-event">Delete
+                                            </button>
+                                        </div>
+                                        <div class="col-8 text-end">
+                                            <button type="button" class="btn btn-light me-1" data-bs-dismiss="modal">
+                                                Cancel
+                                            </button>
+                                            <button type="submit" class="btn btn-success" id="btn-save-event">Make
+                                                Reservation
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
                             </form>
                         </div> <!-- end modal-content-->
-                    </div> <!-- end modal dialog-->
+                    </div><!-- end modal dialog-->
                 </div>
                 <!-- end modal-->
+                <div class="modal fade" id="loading-modal" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <h4 class="text-center mt-xxl-4">Sending reservation request...</h4>
+                            <div class="text-center mb-3 mt-3">
+                                <div class="spinner-border avatar-lg text-primary m-2"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <div id="notice-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-body p-4">
+                            <div class="text-center">
+                                <i class="ri-alert-line h1 text-warning"></i>
+                                <h4 class="mt-2">Are you sure?</h4>
+                                <p class="mt-3">Are you sure you want to send a reservation request? <strong class="text-danger">You cant
+                                        cancel once you make your reservation!</strong></p>
+                                <div class="row col-sm-auto">
+                                    <div class="col">
+                                        <label class="" for="reservation-name">Name</label>
+                                        <h5 class="text-info" id="reservation-name"></h5>
+                                    </div>
+                                    <div class="col">
+                                        <label for="property-name">Property</label>
+                                        <h5 class="text-info" id="property-name"></h5>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="checkIn">Check-in</label>
+                                        <h5 class="text-info " id="check-in"></h5>
+                                    </div>
+                                    <div class="col">
+                                        <label for="checkIn">Check-out</label>
+                                        <h5 class="text-info" id="check-out"></h5>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-danger my-2" data-bs-dismiss="modal"
+                                        id="cancel-btn">Cancel
+                                </button>
+                                <button type="button" class="btn btn-warning my-2" data-bs-dismiss="modal"
+                                        id="accept-btn">Accept
+                                </button>
+                            </div>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
             <!-- end col-12 -->
         </div> <!-- end row -->
 

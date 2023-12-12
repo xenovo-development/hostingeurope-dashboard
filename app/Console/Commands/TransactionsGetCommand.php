@@ -29,7 +29,7 @@ class TransactionsGetCommand extends Command
     public function handle()
     {
         $client = new GuzzleHttp\Client();
-        $baseUrl = 'https://api-rms.hostify.com/transactions?per_page=3500';
+        $baseUrl = 'https://api-rms.hostify.com/transactions?per_page=1500';
         $page = 1;
         $headers =
             [

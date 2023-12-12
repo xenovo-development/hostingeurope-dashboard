@@ -38,17 +38,17 @@
                     </p>
 
                     <div class="row">
-                        <div class="col-sm-2 mb-2 mb-sm-0">
+                        <div class="col-sm-3 mb-2 mb-sm-0">
                             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
                                  aria-orientation="vertical">
-                                @forelse($propertiesData['listings'] as $listing)
-
-                                    <a class="nav-link {{$loop->first ? 'active':''}}" id="v-pills-{{$listing['id']}}-tab"
+                                @forelse($listingData['listings'] as $listing)
+                                    <a class="nav-link mt-2 {{$loop->first ? 'active':''}}"
+                                       id="v-pills-{{$listing['id']}}-tab"
                                        data-bs-toggle="pill"
                                        href="#v-pills-{{$listing['id']}}" role="tab"
                                        aria-controls="v-pills-{{$listing['id']}}"
                                        aria-selected="{{$loop->first ? 'true':'false'}}">
-                                        {{$listing['street']??'Hürriyet Caddesi'}}
+                                        {{$listing['name']}}
                                     </a>
                                 @empty
                                     <a class="nav-link active show" id="v-pills-home-tab" data-bs-toggle="pill"
@@ -60,16 +60,16 @@
                             </div>
                         </div> <!-- end col-->
 
-                        <div class="col-sm-10">
+                        <div class="col-sm-9">
                             <div class="tab-content" id="v-pills-tabContent">
-                                @forelse($propertiesData['listings'] as $listing)
+                                @forelse($listingData['listings'] as $listing)
                                     <div class="tab-pane fade {{$loop->first ? 'active show':''}}"
                                          id="v-pills-{{$listing['id']}}" role="tabpanel"
                                          aria-labelledby="v-pills-{{$listing['id']}}-tab">
                                         <!-- project card -->
                                         <div class="card bg-light-subtle d-block">
                                             <div class="card-body ">
-                                                <h4>{{$listing['street'] ?? 'Hürriyet Caddesi'}}</h4>
+                                                <h4>{{$listing['street'] . ' - '. $listing['name']}}</h4>
 
                                                 <div class="row">
                                                     <div class="col-md-3">
@@ -84,6 +84,11 @@
                                                             </div>
                                                         </div>
                                                         <!-- end listing -->
+                                                        <h5 class="mt-3">Tags:</h5>
+
+                                                        <p class="text-muted mb-4">
+                                                            {{json_decode($listing['tags'])}}
+                                                        </p>
                                                     </div>
                                                     <!-- end col -->
                                                     <div class="col-md-9">
@@ -118,6 +123,19 @@
                                                                 </div>
                                                             </div>
                                                             <!-- end street -->
+                                                            <!-- start title -->
+                                                            <div class="col-md-2">
+                                                                <p class="mt-2 mb-1 text-muted">Listing Title</p>
+                                                                <div class="d-flex align-items-start">
+                                                                    <i class="ri-double-quotes-l fs-18 text-success me-1"></i>
+                                                                    <div class="w-100">
+                                                                        <h5 class="mt-1">
+                                                                            {{$listing['name'] ?? 'No data'}}
+                                                                        </h5>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- end title -->
                                                             <!-- start city -->
                                                             <div class="col-md-2">
                                                                 <p class="mt-2 mb-1 text-muted">City</p>
@@ -144,19 +162,6 @@
                                                                 </div>
                                                             </div>
                                                             <!-- end country -->
-                                                            <!-- start title -->
-                                                            <div class="col-md-2">
-                                                                <p class="mt-2 mb-1 text-muted">Listing Title</p>
-                                                                <div class="d-flex align-items-start">
-                                                                    <i class="ri-double-quotes-l fs-18 text-success me-1"></i>
-                                                                    <div class="w-100">
-                                                                        <h5 class="mt-1">
-                                                                            {{$listing['name'] ?? 'No data'}}
-                                                                        </h5>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!-- end title -->
                                                             <!-- start minimum nights -->
                                                             <div class="col-md-2">
                                                                 <p class="mt-2 mb-1 text-muted">Minimum Nights</p>
@@ -252,26 +257,26 @@
                                                     </div>
                                                 </div>
                                                 <!-- end row -->
-
-                                                <h5 class="mt-3">Tags:</h5>
-
-                                                <p class="text-muted mb-4">
-                                                    {{json_decode($listing['tags'])}}
-                                                </p>
-
                                                 <div class="col col-auto d-flex justify-content-end">
-                                                    <a href="{{route('second',['apps','calendar'])}}" type="button" class="btn btn-success m-1">
-                                                        <i class="ri-calendar-event-line me-1"></i>
-                                                        <span>Calendar</span>
-                                                    </a>
-                                                    <a href="{{route('second',['pages','reservations']).'?listingId='.$listing['id']}}" type="button" class="btn btn-info m-1">
-                                                        <i class="ri-bookmark-3-line me-1"></i>
-                                                        <span>Reservations</span>
-                                                    </a>
-                                                    <a href="{{route('second',['pages','analytics']).'?listingId='.$listing['id']}}" type="button" class="btn btn-success m-1">
-                                                        <i class="ri-bar-chart-line me-1"></i>
-                                                        <span>Analytics</span>
-                                                    </a>
+                                                    <div class="dropdown btn-group">
+                                                        <button class="btn btn-light dropdown-toggle" type="button"
+                                                                data-bs-toggle="dropdown" aria-haspopup="true"
+                                                                aria-expanded="false" id="animated-preview">
+                                                            Set owner
+                                                        </button>
+                                                        <div class="dropdown-menu dropdown-menu-animated">
+                                                            @foreach($listingData['users'] as $user)
+                                                                <form action="{{route('listing.owner')}}" method="POST">
+                                                                    @csrf
+                                                                    <input type="hidden" value="{{$user['id']}}"
+                                                                           name="user_id">
+                                                                    <input type="hidden" value="{{$listing['id']}}"
+                                                                           name="listing_id">
+                                                                    <button type="submit" class="dropdown-item">{{$user['name']}}</button>
+                                                                </form>
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <!-- end card-body-->
@@ -290,5 +295,6 @@
                 <!-- end row-->
             </div> <!-- end card-body -->
         </div> <!-- end card-->
+    {{$listingData['listings']->links('vendor.pagination.bootstrap-5')}}
 @endsection
 

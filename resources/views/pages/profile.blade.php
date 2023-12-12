@@ -27,21 +27,24 @@
             <div class="col-xl-4 col-lg-5">
                 <div class="card text-center">
                     <div class="card-body">
-                        <img src="/images/logo-dark.png" class="rounded-pill avatar-xl img-thumbnail object-fit-scale" alt="profile-image">
+                        <img src="/images/logo-dark.png" class="rounded-pill avatar-xl img-thumbnail object-fit-scale"
+                             alt="profile-image">
 
                         <h4 class="mb-1 mt-2">{{Auth::user()['name'] }}</h4>
                         <p class="text-muted">{{Auth::user()['role']}}</p>
 
                         <div class="text-start mt-3">
-                            <p class="text-muted mb-2"><strong>Full Name :</strong> <span class="ms-2">{{ \Illuminate\Support\Facades\Auth::user()['name'] }}</span></p>
-
-                            <p class="text-muted mb-2"><strong>Email :</strong> <span class="ms-2 ">{{ \Illuminate\Support\Facades\Auth::user()['email'] }}</span></p>
-
-                            <p class="text-muted mb-1"><strong>User Type :</strong> <span class="ms-2">{{Auth::user()['role']}}</span></p>
+                            <p class="text-muted mb-2"><strong>Full Name :</strong> <span
+                                    class="ms-2">{{ \Illuminate\Support\Facades\Auth::user()['name'] }}</span></p>
+                            <p class="text-muted mb-2"><strong>Email :</strong> <span
+                                    class="ms-2 ">{{ \Illuminate\Support\Facades\Auth::user()['email'] }}</span></p>
+                            <p class="text-muted mb-1"><strong>Phone :</strong> <span
+                                    class="ms-2">{{Auth::user()['phone']}}</span></p>
+                            <p class="text-muted mb-1"><strong>User Type :</strong> <span
+                                    class="ms-2">{{Auth::user()['role']}}</span></p>
                         </div>
                     </div> <!-- end card-body -->
                 </div> <!-- end card -->
-
 
 
             </div> <!-- end col-->
@@ -64,12 +67,14 @@
                     <div class="card-body">
                         <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
                             <li class="nav-item">
-                                <a href="#settings" data-bs-toggle="tab" aria-expanded="false" class="nav-link rounded-start rounded-0 active">
+                                <a href="#settings" data-bs-toggle="tab" aria-expanded="false"
+                                   class="nav-link rounded-start rounded-0 active">
                                     Settings
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#aboutme" data-bs-toggle="tab" aria-expanded="false" class="nav-link rounded-end rounded-0 ">
+                                <a href="#aboutme" data-bs-toggle="tab" aria-expanded="false"
+                                   class="nav-link rounded-end rounded-0 ">
                                     About
                                 </a>
                             </li>
@@ -78,7 +83,8 @@
                             <div class="tab-pane show active" id="settings">
                                 <form action="/auth/update-user" method="POST">
                                     @csrf
-                                    <h5 class="mb-4 text-uppercase"><i class="ri-contacts-book-2-line me-1"></i> Personal Info</h5>
+                                    <h5 class="mb-4 text-uppercase"><i class="ri-contacts-book-2-line me-1"></i>
+                                        Personal Info</h5>
                                     @if (sizeof($errors) > 0)
                                         <ul>
                                             @foreach ($errors->all() as $error)
@@ -90,13 +96,17 @@
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label for="username" class="form-label">Name</label>
-                                                <input type="text" class="form-control" id="username" placeholder="Enter password" value="{{Auth()->user()['name']}}" name="name">
+                                                <input type="text" class="form-control" id="username"
+                                                       placeholder="Enter password" value="{{Auth()->user()['name']}}"
+                                                       name="name">
                                             </div>
                                         </div> <!-- end col -->
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label for="useremail" class="form-label">Email Address</label>
-                                                <input type="email" class="form-control" id="useremail" placeholder="Enter email" value="{{Auth()->user()['email']}}" readonly="readonly" name="email">
+                                                <input type="email" class="form-control" id="useremail"
+                                                       placeholder="Enter email" value="{{Auth()->user()['email']}}"
+                                                       readonly="readonly" name="email">
                                             </div>
                                         </div><!-- end col -->
                                     </div> <!-- end row -->
@@ -104,13 +114,16 @@
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label for="password" class="form-label">Password</label>
-                                                <input type="password" class="form-control" id="password" placeholder="Enter password" name="old_password">
+                                                <input type="password" class="form-control" id="password"
+                                                       placeholder="Enter password" name="old_password">
                                             </div>
                                         </div> <!-- end col -->
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label for="password_confirmation" class="form-label">Password Confirmation</label>
-                                                <input type="password" class="form-control" id="password_confirmation" placeholder="Enter password" name="old_password_confirmation">
+                                                <label for="password_confirmation" class="form-label">Password
+                                                    Confirmation</label>
+                                                <input type="password" class="form-control" id="password_confirmation"
+                                                       placeholder="Enter password" name="old_password_confirmation">
                                             </div>
                                         </div><!-- end col -->
                                     </div> <!-- end row -->
@@ -118,18 +131,24 @@
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label for="newpassword" class="form-label">New Password</label>
-                                                <input type="password" class="form-control" id="newpassword" placeholder="Enter new password" name="password">
+                                                <input type="password" class="form-control" id="newpassword"
+                                                       placeholder="Enter new password" name="password">
                                             </div>
                                         </div> <!-- end col -->
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label for="newpassword_confirmation" class="form-label">Password Confirmation</label>
-                                                <input type="password" class="form-control" id="newpassword_confirmation" placeholder="Enter new password" name="password_confirmation">
+                                                <label for="newpassword_confirmation" class="form-label">Password
+                                                    Confirmation</label>
+                                                <input type="password" class="form-control"
+                                                       id="newpassword_confirmation" placeholder="Enter new password"
+                                                       name="password_confirmation">
                                             </div>
                                         </div><!-- end col -->
                                     </div> <!-- end row -->
                                     <div class="text-end">
-                                        <button type="submit" class="btn btn-success mt-2"><i class="ri-save-line"></i> Save</button>
+                                        <button type="submit" class="btn btn-success mt-2"><i class="ri-save-line"></i>
+                                            Save
+                                        </button>
                                     </div>
                                 </form>
                             </div>
@@ -141,34 +160,43 @@
                                 <div class="table-responsive">
                                     <table class="table table-sm table-centered table-hover table-borderless mb-0">
                                         <thead class="border-top border-bottom bg-light-subtle border-light">
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Street</th>
-                                                <th>City</th>
-                                                <th>Total Reservations</th>
-                                                <th>Status</th>
-                                            </tr>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Street</th>
+                                            <th>City</th>
+                                            <th>Total Reservations</th>
+                                            <th>Status</th>
+                                        </tr>
                                         </thead>
                                         <tbody>
                                         @forelse($profileData['listings'] as $listing)
                                             <tr>
                                                 <td>{{$loop->iteration}}</td>
-                                                <td><img src="{{$listing['thumbnail_file']}}" alt="thumbnail_file" class="avatar-xs me-2 rounded-circle" height="24">
-                                                    <a href="{{route('second',['pages','properties'])}}">{{$listing['street']}}</a></td>
+                                                <td><img src="{{$listing['thumbnail_file']}}" alt="thumbnail_file"
+                                                         class="avatar-xs me-2 rounded-circle" height="24">
+                                                    <a href="{{route('second',['pages','properties'])}}">{{$listing['street']}}</a>
+                                                </td>
                                                 <td>{{$listing['city']}}</td>
-                                                <td><a href="{{route('second',['pages','reservations']).'?listingId='.$listing['id']}}">
-                                                        {{$listing->reservations()->where('status','accepted')->count()}}</a></td>
+                                                <td>
+                                                    <a href="{{route('second',['pages','reservations']).'?listingId='.$listing['id']}}">
+                                                        {{$listing->reservations()->where('status','accepted')->count()}}</a>
+                                                </td>
                                                 @if($listing['is_listed'])
-                                                <td><span class="badge bg-info-subtle text-success-emphasis">Listed</span></td>
+                                                    <td><span
+                                                            class="badge bg-info-subtle text-success-emphasis">Listed</span>
+                                                    </td>
                                                 @else
-                                                    <td><span class="badge bg-warning-subtle text-warning-emphasis">Unlisted</span></td>
+                                                    <td><span class="badge bg-warning-subtle text-warning-emphasis">Unlisted</span>
+                                                    </td>
                                                 @endif
                                             </tr>
                                         @empty
                                             <tr>
                                                 <td>1</td>
-                                                <td><img src="" alt="thumbnail_file" class="avatar-xs me-2 rounded-circle" height="24">
-                                                    No listings Found</td>
+                                                <td><img src="" alt="thumbnail_file"
+                                                         class="avatar-xs me-2 rounded-circle" height="24">
+                                                    No listings Found
+                                                </td>
                                                 <td>-</td>
                                                 <td>-</td>
                                                 <td>-</td>

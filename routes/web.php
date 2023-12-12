@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\UpdateUserController;
+use App\Http\Controllers\ReservationsController;
 use App\Http\Controllers\RoutingController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +31,12 @@ Route::group(['prefix' => '/', 'middleware' => 'auth'], function () {
     Route::group(['prefix' => '/auth'], function () {
         Route::post('/update-user', [UpdateUserController::class, 'store']);
         Route::post('/create-user', [RegisteredUserController::class, 'store']);
+    });
+    Route::group(['prefix' => '/reservations'], function () {
+        Route::post('/store', [ReservationsController::class, 'store']);
+    });
+     Route::group(['prefix' => '/listing'], function () {
+        Route::post('/owner', [AdminController::class,'setOwner'])->name('listing.owner');
     });
 });
 

@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Listing;
-use App\Models\Reservation;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Auth\ImpersonateController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RoutingController extends Controller
 {
@@ -40,23 +38,25 @@ class RoutingController extends Controller
      */
     public function root(Request $request, $first)
     {
-
-        /**
-         * User Dashboard (index) page data mount.
-         */
-        if($first == 'index'){
-            $dashboardData = (new UserDashboardController)->index();
-        };
-
-
         $mode = $request->query('mode');
         $demo = $request->query('demo');
+
+        $date = $request->query('date');
+        $userId = $request->query('userId');
+
+        switch ($first) {
+            case 'index' :
+                $dashboardData = (new UserDashboardController)->index($date ?? null);
+                break;
+            case 'impersonate':
+                return (new ImpersonateController())->impersonate($userId);
+        }
 
         if ($first == "assets")
             return redirect('home');
 
         return view($first, ['mode' => $mode, 'demo' => $demo])
-            ->with('dashboardData',$dashboardData);
+            ->with('dashboardData', $dashboardData);
     }
 
     /**
@@ -69,39 +69,54 @@ class RoutingController extends Controller
         $listingId = $request->query('listingId');
         $reservationId = $request->query('reservationId');
 
-        if($first == 'apps' && $second == 'calendar'){
-            $calendarData = (new CalendarController)->index();
-        }
-        if($first == 'pages' && $second == 'properties'){
-            $propertiesData = (new ListingController())->index();
-        }
-        if($first == 'pages' && $second == 'setlistingowner'){
-            $listingOwnerData = (new AdminController())->setListingOwnerIndex();
-        }
-        if($first == 'pages' && $second == 'reservations'){
-            $reservationsData = (new ReservationsController())->index($listingId);
-        }
-        if($first == 'pages' && $second == 'profile'){
-            $profileData = (new ProfileChartController())->index();
-        }
-        if($first == 'pages' && $second == 'transaction'){
-            $transactionData = (new TransactionController())->index($reservationId);
-        }
-        if($first == 'pages' && $second == 'invoice'){
-            $invoiceData= (new InvoiceController())->index();
+        $caseKey = $first . '/' . $second;
+
+        switch ($caseKey) {
+            case 'apps/calendar':
+                $calendarData = (new CalendarController)->index();
+                break;
+
+            case 'pages/properties':
+                $propertiesData = (new ListingController())->index();
+                break;
+
+            case 'pages/listings':
+                $listingData = (new AdminController())->listingIndex();
+                break;
+
+            case 'pages/reservations':
+                $reservationsData = (new ReservationsController())->index($listingId);
+                break;
+
+            case 'pages/profile':
+                $profileData = (new ProfileChartController())->index();
+                break;
+
+            case 'pages/transaction':
+                $transactionData = (new TransactionController())->index($reservationId);
+                break;
+
+            case 'pages/invoice':
+                $invoiceData = (new InvoiceController())->index();
+                break;
+
+            case 'pages/analytics':
+                $analyticsData = (new AnalyticsController())->index($listingId);
+                break;
         }
 
         if ($first == "assets")
             return redirect('home');
 
-    return view($first .'.'. $second, ['mode' => $mode, 'demo' => $demo],)
-        ->with('calendarData', $calendarData ?? [])
-        ->with('propertiesData', $propertiesData ?? [])
-        ->with('listingOwnerData', $listingOwnerData ?? [])
-        ->with('reservationsData', $reservationsData ?? [])
-        ->with('profileData', $profileData ?? [])
-        ->with('transactionData', $transactionData ?? [])
-        ->with('invoiceData', $invoiceData ?? []);
+        return view($first . '.' . $second, ['mode' => $mode, 'demo' => $demo],)
+            ->with('calendarData', $calendarData ?? [])
+            ->with('propertiesData', $propertiesData ?? [])
+            ->with('listingData', $listingData ?? [])
+            ->with('reservationsData', $reservationsData ?? [])
+            ->with('profileData', $profileData ?? [])
+            ->with('transactionData', $transactionData ?? [])
+            ->with('invoiceData', $invoiceData ?? [])
+            ->with('analyticsData', $analyticsData ?? []);
     }
 
     /**
@@ -109,8 +124,6 @@ class RoutingController extends Controller
      */
     public function thirdLevel(Request $request, $first, $second, $third)
     {
-
-
         $mode = $request->query('mode');
         $demo = $request->query('demo');
 

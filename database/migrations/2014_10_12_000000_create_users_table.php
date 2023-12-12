@@ -19,6 +19,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->integer('commission');
+            $table->string('phone');
             $table->integer('days')->default(40);
             $table->rememberToken();
             $table->timestamps();

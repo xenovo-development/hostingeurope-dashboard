@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\Factory\CurrencyFactory;
 use App\Models\Reservation;
-use App\Models\Transaction;
 
 class TransactionController extends Controller
 {
@@ -28,15 +28,7 @@ class TransactionController extends Controller
         $taxPercentage = 12.5;
         $taxSubtract = ($originalValue * $taxPercentage)/100;
         $withoutTax = round(($originalValue - $taxSubtract),2);
-
-        switch($reservation['currency']){
-            case 'EUR' : $currency = '€';
-                break;
-            case 'USD' : $currency = '$';
-                break;
-            case 'TRY' : $currency = '₺';
-                break;
-        }
+        $currency = (new CurrencyFactory())->setCurrency($reservation);
         return [
             'reservation' => $reservation,
             'original_value'=>$originalValue,

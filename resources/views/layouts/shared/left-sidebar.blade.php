@@ -56,8 +56,10 @@
                     <div class="collapse" id="sidebarPagesAuth">
                         <ul class="side-nav-second-level">
                             <li>
-                                <a href="{{ route('second', ['auth', 'login']) }}">Create new user</a>
-                                <a href="{{ route('second', ['auth', 'login']) }}">Set listing</a>
+                                <a href="{{ route('second', ['pages', 'listings']) }}">Listings</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('first', ['pages', 'listings']) }}">Listings</a>
                             </li>
                         </ul>
                     </div>
@@ -91,7 +93,7 @@
                     <ul class="side-nav-second-level">
                         <li>
                             @foreach(App\Models\Listing::where('user_id',Auth()->user()['id'])->get() as $listing)
-                                <a href="{{route('second', ['pages', 'reservations']).'?listingId='.$listing['id'] }}">{{$listing['street'].' - '.$listing['city']}}</a>
+                                <a href="{{route('second', ['pages', 'reservations']).'?listingId='.$listing['id'] }}">{{$listing['street']}}</a>
                             @endforeach
                         </li>
                     </ul>

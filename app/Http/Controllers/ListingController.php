@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Listing;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ListingController extends Controller
@@ -17,7 +16,7 @@ class ListingController extends Controller
     }
 
     /**
-     * Return the listings data.
+     * Return the listing data.
      *
      * @return array{listings: mixed}
      */

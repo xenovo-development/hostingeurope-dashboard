@@ -2,63 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\Factory\MonthlyProfitChartDataFactory;
 use App\Models\Listing;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+
 class ProfileChartController extends Controller
 {
     /**
      * Return the chart data.
      *
-     * @param \DateTime|null $startDate
-     * @param \DateTime|null $endDate
      * @return array{listings: mixed}
      */
-    public function index(\DateTime $startDate = null, \DateTime $endDate = null): array
+    public function index($date = null): array
     {
-        $commission = Auth()->user()['commission'];
-
         $listings = Listing::where('user_id', Auth::user()['id'])->get();
-        foreach ($listings as $listing) {
-            $reservationsArr [] = collect($listing->reservations);
-        };
+        $reservations = $listings->flatMap->reservations;
 
-        if(isset($reservationsArr)) {
-            $reservations = collect($reservationsArr)->flatMap(function ($collection) {
-                return $collection;
-            });
-        };
-
-       if(!empty($reservations)){
-           for ($month = 0; $month <= 11; $month++) {
-               $monthStart = Carbon::create(date('Y'), $month)->startOfMonth();
-               $monthEnd = Carbon::create(date('Y'), $month)->endOfMonth();
-
-               $reservationsThisMonth = $reservations
-                   ->whereBetween('checkIn', [$monthStart, $monthEnd])
-                   ->where('status', 'accepted');
-
-               $subtotals = 0;
-               $cleaningFees = 0;
-               $chCommissions = 0;
-               foreach ($reservationsThisMonth as $reservation){
-                   $subtotals += $reservation['subtotal'];
-                   $chCommissions += $reservation['channel_commission'];
-                   $cleaningFees += $reservation['cleaning_fee'];
-               }
-               $netRevenue = $subtotals - $cleaningFees - $chCommissions;
-               $monthlyRevenue[] = round($netRevenue - ($netRevenue * $commission / 100) ,2);
-               $monthlyBookings [] = $reservations->where('status', 'accepted')
-                   ->whereBetween('created_at', [$monthStart->toDate(), $monthEnd->toDate()])->count();
-               $monthNames[]= $monthStart->format('M');
-           }
-       }
+        if (!empty($reservations)) {
+            $monthlyProfitChartData = (new MonthlyProfitChartDataFactory())->getData($reservations);
+        }
 
         return [
             'listings' => $listings ?? '',
-            'series_bookings_count' => $monthlyBookings ?? '',
-            'series_revenue' => $monthlyRevenue ?? '',
-            'series_months' => $monthNames ?? '',
+            'series_bookings_count' => $monthlyProfitChartData['monthlyBookings'] ?? '',
+            'series_revenue' => $monthlyProfitChartData['monthlyRevenue'] ?? '',
+            'series_months' => $monthlyProfitChartData['monthNames'] ?? '',
         ];
     }
 }

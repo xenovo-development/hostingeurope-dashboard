@@ -30,6 +30,7 @@ class SetListingsCommand extends Command
         $this->setListingOwner(149389,'Danny Hinken');
         $this->setListingOwner(152885,'Dorit Lehmann');
         $this->setListingOwner(152633,'Petra Lehmann');
+        $this->setListingOwner(154599,'Petra Lehmann');
     }
 
     /**

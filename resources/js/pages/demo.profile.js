@@ -77,6 +77,9 @@ import 'chart.js/dist/chart.min.js';
 
             //barchart
             if ($('#high-performing-product').length > 0) {
+                var seriesMonthsJS = seriesMonths.map(dateStr => new Date(dateStr));
+                var monthNames = seriesMonthsJS.map(date => date.toLocaleString('en-US', { month: 'long' }));
+
                 // create gradient
                 var ctx = document.getElementById('high-performing-product').getContext("2d");
                 var gradientStroke = ctx.createLinearGradient(0, 500, 0, 150);
@@ -84,7 +87,7 @@ import 'chart.js/dist/chart.min.js';
                 gradientStroke.addColorStop(1, "#3e60d5");
 
                 var barChart = {
-                    labels: seriesMonths,
+                    labels: monthNames,
                     datasets: [
                         {
                             label: "Reservations",

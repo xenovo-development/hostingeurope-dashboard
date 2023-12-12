@@ -11,16 +11,20 @@ class CalendarController extends Controller
     public function index()
     {
         $listings = Listing::where('user_id', Auth::user()['id'])->get();
-        foreach ($listings as $listing) {
-            $reservations = $listing->reservations()->where('status', 'accepted')->get();
-        }
+        $reservationsflat = $listings->flatMap->reservations;
+        $reservations = $reservationsflat->where('status','accepted');
         if(isset($reservations)) {
             foreach ($reservations as $reservation) {
                 $calendarReservations[] = [
-                    'title' => $reservation['guest_name'] . ' - ' . $reservation->listing->street,
+                    'title' => $reservation->listing->street,
                     'start' => $reservation['checkIn'],
                     'end' => $reservation['checkOut'],
-                    'class-name' => 'bg-primary'
+                    'class-name' => 'bg-primary',
+                    'editable'=>false,
+                    'interactive'=>false,
+                    'extendedProps' => [
+                        'preventClick' => true,
+                    ]
                 ];
             }
         }
@@ -30,6 +34,7 @@ class CalendarController extends Controller
         return [
             'listings'=>$listings,
             'reservations'=>$calendarReservations ?? [],
+            'reservation_dates'=>$reservationDates ?? [],
         ];
     }
 }
