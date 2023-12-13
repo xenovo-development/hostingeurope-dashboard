@@ -12,6 +12,10 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    public function index()
+    {
+        return User::all();
+    }
     /**
      * Render the create user view
      *

@@ -15,7 +15,8 @@ import bootstrapPlugin from '@fullcalendar/bootstrap';
 import 'fullcalendar/main.min.js'
 import 'flatpickr/dist/flatpickr.js'
 const today = new Date();
-const oneWeekLater = new Date().setDate(today.getDate() + 7);
+const oneWeekLater = new Date().setDate(today.getDate() + 6);
+console.log(oneWeekLater.toLocaleString())
 var fp = $('#date').flatpickr({
     minDate: oneWeekLater,
     mode: "range",
@@ -31,6 +32,7 @@ var fp = $('#date').flatpickr({
                 to: reservation.end
             };
         });
+        console.log(flatpickrDisableFormat)
         fp.set("disable",flatpickrDisableFormat);
     };
     $('#listing-select').on('change', function (){
@@ -80,7 +82,7 @@ var fp = $('#date').flatpickr({
 
             this.$modal.show();
             this.$calendarObj.unselect();
-            fp.setDate([this.$newEventData.start,this.$newEventData.end]);
+            fp.setDate([this.$newEventData.startStr,this.$newEventData.endStr]);
             console.log(this.$newEventData.start);
         },
 
@@ -95,7 +97,8 @@ var fp = $('#date').flatpickr({
             this.$selectedEvent = eventResizeInfo.event;
             $("#listing-select").val(this.$selectedEvent.title);
             handleListingChange(this.$selectedEvent.title);
-            fp.setDate([this.$selectedEvent.start,this.$selectedEvent.end]);
+            fp.setDate([this.$selectedEvent.startStr,(new Date(this.$selectedEvent.end))-1]);
+            console.log(this.$selectedEvent.end);
         },
 
         /* Initializing */
@@ -123,8 +126,8 @@ var fp = $('#date').flatpickr({
             $this.$calendarObj = new Calendar($this.$calendar[0], {
                 plugins: [dayGridPlugin, bootstrapPlugin, interactionPlugin, listPlugin, timeGridPlugin],
                 slotDuration: '00:15:00', /* If we want to split day time each 15minutes */
-                slotMinTime: '08:00:00',
-                slotMaxTime: '19:00:00',
+                slotMinTime: '00:00:00',
+                slotMaxTime: '00:00:00',
                 themeSystem: 'bootstrap',
                 bootstrapFontAwesome: false,
                 buttonText: {
@@ -165,14 +168,14 @@ var fp = $('#date').flatpickr({
                 },
                 selectOverlap: false,
                 eventDrop: function (info) {
-                    if (info.event.start < oneWeekLater && info.event.title === info.draggedEl.textContent) {
+                    if (info.event.start <= oneWeekLater && info.event.title === info.draggedEl.textContent) {
                         info.revert();
                     } else {
                         $this.onResize(info);
                     }
                 },
                 eventResize: function (info) {
-                    if (info.event.start < oneWeekLater) {
+                    if (info.event.start <= oneWeekLater) {
                         info.revert();
                     } else {
                         $this.onResize(info);

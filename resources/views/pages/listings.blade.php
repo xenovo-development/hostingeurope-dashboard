@@ -22,12 +22,15 @@
             </div>
         </div>
         <!-- end page title -->
-        <div class="alert alert-warning text-bg-warning border-0" role="alert">
-                    <span
-                        style="color: #464f5b;"><strong>Warning! - </strong> Dear host, This page represents the <strong>beta</strong>
-                        stage of its development. Please note that this page is in its early access phase and will be much improved in terms of design and functionality in the future.
-                        Thank you for your patience.</span>
+        <div class="col-xl-12 mb-3 mt-3">
+
+            <form action="">
+                <div class="input-group">
+                    <span class="ri-search-line search-icon"></span><input type="search" name="search" class="form-control dropdown-toggle" placeholder="Search..." id="top-search">
+                </div>
+            </form>
         </div>
+
         <div class="col-xl-12">
             <div class="card">
                 <div class="card-body">

@@ -64,7 +64,7 @@
                                             apartment. Just simply drag and drop your apartment or click in the calendar
                                         </li>
                                         <li class="text-muted mb-3">
-                                            It is not possible to make reservations for the next <strong>twenty days</strong> from today's date.
+                                            It is not possible to make reservations for the next <strong>seven days</strong> from today's date.
                                         </li>
                                         <li class="text-muted mb-3">
                                             It is not possible to make more than <strong>forty</strong> reservations in a

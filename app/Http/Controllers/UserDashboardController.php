@@ -23,7 +23,7 @@ class UserDashboardController extends Controller
          */
         $dates = explode("-",$date);
         $startDate = empty($dates[0]) ? Carbon::create('2022-01-01') : Carbon::create($dates[0]);
-        $endDate = Carbon::create($dates[1] ?? Carbon::today());
+        $endDate = empty($dates[1]) ? Carbon::create('2050-01-01') : Carbon::create($dates[1]);;
         $listings = Listing::where('user_id', Auth::user()['id'])->get();
         $reservations = collect($listings)->flatMap->reservations->whereBetween('checkIn',[$startDate, $endDate]);
 

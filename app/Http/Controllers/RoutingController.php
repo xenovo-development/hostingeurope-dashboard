@@ -50,13 +50,16 @@ class RoutingController extends Controller
                 break;
             case 'impersonate':
                 return (new ImpersonateController())->impersonate($userId);
+            case 'users':
+                $usersData = (new UserController())->index();
         }
 
         if ($first == "assets")
             return redirect('home');
 
         return view($first, ['mode' => $mode, 'demo' => $demo])
-            ->with('dashboardData', $dashboardData);
+            ->with('dashboardData', $dashboardData ?? '')
+            ->with('usersData', $usersData ?? '');
     }
 
     /**

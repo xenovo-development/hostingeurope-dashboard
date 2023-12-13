@@ -40,7 +40,7 @@ class ReservationsChartDataFactory
                 }
 
 
-                $seriesNetRevenue[] = round($netRevenue - ($netRevenue * $commission / 100), 2);
+                $seriesNetRevenue[] = round($netRevenue - ($netRevenue * $commission / 100), 2) ?? 0;
                 $seriesGuests [] = $reservation['guests'];
                 $reservationDates[] = $reservation['checkIn'];
                 $reservationListings[] = $reservation['listing_title'];
@@ -49,16 +49,16 @@ class ReservationsChartDataFactory
         };
 
         return [
-            'airbnb' => $airbnb,
-            'booking' => $booking,
-            'guest24' => $guest24,
-            'totalRevenue' => $totalRevenue,
-            'openRevenue' => $openRevenue,
-            'seriesNetRevenue' => $seriesNetRevenue,
-            'seriesGuests' => $seriesGuests,
-            'reservationDates' => $reservationDates,
-            'reservationListings' => $reservationListings,
-            'reservationNights' => $reservationNights,
+            'airbnb' => $airbnb ?? 0,
+            'booking' => $booking ?? 0,
+            'guest24' => $guest24 ?? 0,
+            'totalRevenue' => $totalRevenue ?? 0,
+            'openRevenue' => $openRevenue ?? 0,
+            'seriesNetRevenue' => $seriesNetRevenue ?? 0,
+            'seriesGuests' => $seriesGuests ?? 0,
+            'reservationDates' => $reservationDates ?? 'No data',
+            'reservationListings' => $reservationListings ?? 'No data',
+            'reservationNights' => $reservationNights ?? 0,
         ];
     }
 }

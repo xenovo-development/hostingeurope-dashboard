@@ -17,12 +17,12 @@ class ImpersonateController extends Controller
      * @param $id
      * @return Application|\Illuminate\Foundation\Application|RedirectResponse|Redirector
      */
-    public function impersonate($id): \Illuminate\Foundation\Application|Redirector|RedirectResponse|Application
+    public function impersonate(Request $request): \Illuminate\Foundation\Application|Redirector|RedirectResponse|Application
     {
         session(['impersonate' => auth()->id()]);
-        Auth::loginUsingId($id);
+        Auth::loginUsingId($request['user_id'], true);
 
-        return redirect('/home');
+        return redirect('index')->with('success', 'Successfully logged in as user. You can go back to your user via dropdown menu at the top right corner of the screen');
     }
 
     /**
@@ -32,9 +32,9 @@ class ImpersonateController extends Controller
      */
     public function leave(): \Illuminate\Foundation\Application|Redirector|RedirectResponse|Application
     {
-        Auth::loginUsingId(session('impersonate'));
+        Auth::loginUsingId(session('impersonate'), true);
         session()->forget('impersonate');
 
-        return redirect('/home');
+        return redirect('index')->with('success', 'Successfully logged in back to the main account.');
     }
 }

@@ -46,21 +46,26 @@
 
             <li class="side-nav-title">Navigation</li>
 
-            @if(Auth::user()['role']==='Admin')
+            @if(Auth::user()['role']==='Admin' || Auth::user()['role']==='Sales')
                 <li class="side-nav-item">
-                    <a data-bs-toggle="collapse" href="#sidebarPagesAuth" aria-expanded="false" aria-controls="sidebarPagesAuth" class="side-nav-link">
+                    <a data-bs-toggle="collapse" href="#sidebarPagesAuth" aria-expanded="false"
+                       aria-controls="sidebarPagesAuth" class="side-nav-link">
                         <i class="ri-shield-user-line"></i>
                         <span> Admin </span>
                         <span class="menu-arrow"></span>
                     </a>
                     <div class="collapse" id="sidebarPagesAuth">
                         <ul class="side-nav-second-level">
-                            <li>
-                                <a href="{{ route('second', ['pages', 'listings']) }}">Listings</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('first', ['pages', 'listings']) }}">Listings</a>
-                            </li>
+                            @if(Auth::user()['role']==='Admin' || Auth::user()['role']==='Sales')
+                                <li>
+                                    <a href="{{ route('second', ['pages', 'listings']) }}">Listings</a>
+                                </li>
+                            @endif
+                            @if(Auth::user()['role']==='Admin' || Auth::user()['role']==='Sales')
+                                <li>
+                                    <a href="{{ route('any','users') }}">Clients</a>
+                                </li>
+                            @endif
                         </ul>
                     </div>
                 </li>
@@ -84,7 +89,8 @@
                 </a>
             </li>
             <li class="side-nav-item">
-                <a data-bs-toggle="collapse" href="#sidebarPagesReservations" aria-expanded="false"  aria-controls="sidebarPagesReservations"class="side-nav-link">
+                <a data-bs-toggle="collapse" href="#sidebarPagesReservations" aria-expanded="false"
+                   aria-controls="sidebarPagesReservations" class="side-nav-link">
                     <i class="ri-bookmark-3-line"></i>
                     <span> Reservations </span>
                     <span class="menu-arrow"></span>
@@ -99,30 +105,30 @@
                     </ul>
                 </div>
 
-{{--            <li class="side-nav-item">--}}
-{{--                <a href="{{ route('second', ['pages', 'invoice']) }}" class="side-nav-link">--}}
-{{--                    <i class="ri-folder-5-line"></i>--}}
-{{--                    <span> Invoice </span>--}}
-{{--                </a>--}}
-{{--            </li>--}}
+            {{--            <li class="side-nav-item">--}}
+            {{--                <a href="{{ route('second', ['pages', 'invoice']) }}" class="side-nav-link">--}}
+            {{--                    <i class="ri-folder-5-line"></i>--}}
+            {{--                    <span> Invoice </span>--}}
+            {{--                </a>--}}
+            {{--            </li>--}}
 
-{{--            <li class="side-nav-item">--}}
-{{--                <a data-bs-toggle="collapse" href="#sidebarPagesDocuments" aria-expanded="false" aria-controls="sidebarPagesDocuments" class="side-nav-link">--}}
-{{--                    <i class="ri-article-line"></i>--}}
-{{--                    <span> Documents </span>--}}
-{{--                    <span class="menu-arrow"></span>--}}
-{{--                </a>--}}
-{{--                <div class="collapse" id="sidebarPagesDocuments">--}}
-{{--                    <ul class="side-nav-second-level">--}}
-{{--                        <li>--}}
-{{--                            <a href="{{ route('second', ['pages', 'invoice']) }}">Guide</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="{{ route('second', ['pages', 'invoice']) }}">Info</a>--}}
-{{--                        </li>--}}
-{{--                    </ul>--}}
-{{--                </div>--}}
-{{--            </li>--}}
+            {{--            <li class="side-nav-item">--}}
+            {{--                <a data-bs-toggle="collapse" href="#sidebarPagesDocuments" aria-expanded="false" aria-controls="sidebarPagesDocuments" class="side-nav-link">--}}
+            {{--                    <i class="ri-article-line"></i>--}}
+            {{--                    <span> Documents </span>--}}
+            {{--                    <span class="menu-arrow"></span>--}}
+            {{--                </a>--}}
+            {{--                <div class="collapse" id="sidebarPagesDocuments">--}}
+            {{--                    <ul class="side-nav-second-level">--}}
+            {{--                        <li>--}}
+            {{--                            <a href="{{ route('second', ['pages', 'invoice']) }}">Guide</a>--}}
+            {{--                        </li>--}}
+            {{--                        <li>--}}
+            {{--                            <a href="{{ route('second', ['pages', 'invoice']) }}">Info</a>--}}
+            {{--                        </li>--}}
+            {{--                    </ul>--}}
+            {{--                </div>--}}
+            {{--            </li>--}}
             <li class="side-nav-item">
                 <a href="{{ route('second', ['pages', 'profile']) }}" class="side-nav-link">
                     <i class="ri-account-pin-circle-line"></i>
@@ -131,96 +137,96 @@
             </li>
 
 
-{{--            <li class="side-nav-item">--}}
-{{--                <a data-bs-toggle="collapse" href="#sidebarEmail" aria-expanded="false" aria-controls="sidebarEmail" class="side-nav-link">--}}
-{{--                    <i class="ri-mail-line"></i>--}}
-{{--                    <span> Email </span>--}}
-{{--                    <span class="menu-arrow"></span>--}}
-{{--                </a>--}}
-{{--                <div class="collapse" id="sidebarEmail">--}}
-{{--                    <ul class="side-nav-second-level">--}}
-{{--                        <li>--}}
-{{--                            <a href="{{ route('second', ['email', 'inbox']) }}">Inbox</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="{{ route('second', ['email', 'read']) }}">Read Email</a>--}}
-{{--                        </li>--}}
-{{--                    </ul>--}}
-{{--                </div>--}}
-{{--            </li>--}}
+            {{--            <li class="side-nav-item">--}}
+            {{--                <a data-bs-toggle="collapse" href="#sidebarEmail" aria-expanded="false" aria-controls="sidebarEmail" class="side-nav-link">--}}
+            {{--                    <i class="ri-mail-line"></i>--}}
+            {{--                    <span> Email </span>--}}
+            {{--                    <span class="menu-arrow"></span>--}}
+            {{--                </a>--}}
+            {{--                <div class="collapse" id="sidebarEmail">--}}
+            {{--                    <ul class="side-nav-second-level">--}}
+            {{--                        <li>--}}
+            {{--                            <a href="{{ route('second', ['email', 'inbox']) }}">Inbox</a>--}}
+            {{--                        </li>--}}
+            {{--                        <li>--}}
+            {{--                            <a href="{{ route('second', ['email', 'read']) }}">Read Email</a>--}}
+            {{--                        </li>--}}
+            {{--                    </ul>--}}
+            {{--                </div>--}}
+            {{--            </li>--}}
 
-{{--            <li class="side-nav-item">--}}
-{{--                <a data-bs-toggle="collapse" href="#sidebarTasks" aria-expanded="false" aria-controls="sidebarTasks" class="side-nav-link">--}}
-{{--                    <i class="ri-task-line"></i>--}}
-{{--                    <span> Tasks </span>--}}
-{{--                    <span class="menu-arrow"></span>--}}
-{{--                </a>--}}
-{{--                <div class="collapse" id="sidebarTasks">--}}
-{{--                    <ul class="side-nav-second-level">--}}
-{{--                        <li>--}}
-{{--                            <a href="{{ route('second', ['task', 'list']) }}">List</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="{{ route('second', ['task', 'details']) }}">Details</a>--}}
-{{--                        </li>--}}
-{{--                    </ul>--}}
-{{--                </div>--}}
-{{--            </li>--}}
+            {{--            <li class="side-nav-item">--}}
+            {{--                <a data-bs-toggle="collapse" href="#sidebarTasks" aria-expanded="false" aria-controls="sidebarTasks" class="side-nav-link">--}}
+            {{--                    <i class="ri-task-line"></i>--}}
+            {{--                    <span> Tasks </span>--}}
+            {{--                    <span class="menu-arrow"></span>--}}
+            {{--                </a>--}}
+            {{--                <div class="collapse" id="sidebarTasks">--}}
+            {{--                    <ul class="side-nav-second-level">--}}
+            {{--                        <li>--}}
+            {{--                            <a href="{{ route('second', ['task', 'list']) }}">List</a>--}}
+            {{--                        </li>--}}
+            {{--                        <li>--}}
+            {{--                            <a href="{{ route('second', ['task', 'details']) }}">Details</a>--}}
+            {{--                        </li>--}}
+            {{--                    </ul>--}}
+            {{--                </div>--}}
+            {{--            </li>--}}
 
-{{--            <li class="side-nav-item">--}}
-{{--                <a href="{{ route('second', ['apps', 'kanban']) }}" class="side-nav-link">--}}
-{{--                    <i class="ri-list-check-3"></i>--}}
-{{--                    <span> Kanban Board </span>--}}
-{{--                </a>--}}
-{{--            </li>--}}
+            {{--            <li class="side-nav-item">--}}
+            {{--                <a href="{{ route('second', ['apps', 'kanban']) }}" class="side-nav-link">--}}
+            {{--                    <i class="ri-list-check-3"></i>--}}
+            {{--                    <span> Kanban Board </span>--}}
+            {{--                </a>--}}
+            {{--            </li>--}}
 
-{{--            <li class="side-nav-item">--}}
-{{--                <a data-bs-toggle="collapse" href="#sidebarPagesAuth" aria-expanded="false" aria-controls="sidebarPagesAuth" class="side-nav-link">--}}
-{{--                    <i class="ri-shield-user-line"></i>--}}
-{{--                    <span> Auth Pages </span>--}}
-{{--                    <span class="menu-arrow"></span>--}}
-{{--                </a>--}}
-{{--                <div class="collapse" id="sidebarPagesAuth">--}}
-{{--                    <ul class="side-nav-second-level">--}}
-{{--                        <li>--}}
-{{--                            <a href="{{ route('second', ['auth', 'login']) }}">Login</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="{{ route('second', ['auth', 'login-2']) }}">Login 2</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="{{ route('second', ['auth', 'register']) }}">Register</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="{{ route('second', ['auth', 'register-2']) }}">Register 2</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="{{ route('second', ['auth', 'logout']) }}">Logout</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="{{ route('second', ['auth', 'logout-2']) }}">Logout 2</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="{{ route('second', ['auth', 'recoverpw']) }}">Recover Password</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="{{ route('second', ['auth', 'recoverpw-2']) }}">Recover Password 2</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="{{ route('second', ['auth', 'lock-screen']) }}">Lock Screen</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="{{ route('second', ['auth', 'lock-screen-2']) }}">Lock Screen 2</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="{{ route('second', ['auth', 'confirm-mail']) }}">Confirm Mail</a>--}}
-{{--                        </li>--}}
-{{--                        <li>--}}
-{{--                            <a href="{{ route('second', ['auth', 'confirm-mail-2']) }}">Confirm Mail 2</a>--}}
-{{--                        </li>--}}
-{{--                    </ul>--}}
-{{--                </div>--}}
-{{--            </li>--}}
+            {{--            <li class="side-nav-item">--}}
+            {{--                <a data-bs-toggle="collapse" href="#sidebarPagesAuth" aria-expanded="false" aria-controls="sidebarPagesAuth" class="side-nav-link">--}}
+            {{--                    <i class="ri-shield-user-line"></i>--}}
+            {{--                    <span> Auth Pages </span>--}}
+            {{--                    <span class="menu-arrow"></span>--}}
+            {{--                </a>--}}
+            {{--                <div class="collapse" id="sidebarPagesAuth">--}}
+            {{--                    <ul class="side-nav-second-level">--}}
+            {{--                        <li>--}}
+            {{--                            <a href="{{ route('second', ['auth', 'login']) }}">Login</a>--}}
+            {{--                        </li>--}}
+            {{--                        <li>--}}
+            {{--                            <a href="{{ route('second', ['auth', 'login-2']) }}">Login 2</a>--}}
+            {{--                        </li>--}}
+            {{--                        <li>--}}
+            {{--                            <a href="{{ route('second', ['auth', 'register']) }}">Register</a>--}}
+            {{--                        </li>--}}
+            {{--                        <li>--}}
+            {{--                            <a href="{{ route('second', ['auth', 'register-2']) }}">Register 2</a>--}}
+            {{--                        </li>--}}
+            {{--                        <li>--}}
+            {{--                            <a href="{{ route('second', ['auth', 'logout']) }}">Logout</a>--}}
+            {{--                        </li>--}}
+            {{--                        <li>--}}
+            {{--                            <a href="{{ route('second', ['auth', 'logout-2']) }}">Logout 2</a>--}}
+            {{--                        </li>--}}
+            {{--                        <li>--}}
+            {{--                            <a href="{{ route('second', ['auth', 'recoverpw']) }}">Recover Password</a>--}}
+            {{--                        </li>--}}
+            {{--                        <li>--}}
+            {{--                            <a href="{{ route('second', ['auth', 'recoverpw-2']) }}">Recover Password 2</a>--}}
+            {{--                        </li>--}}
+            {{--                        <li>--}}
+            {{--                            <a href="{{ route('second', ['auth', 'lock-screen']) }}">Lock Screen</a>--}}
+            {{--                        </li>--}}
+            {{--                        <li>--}}
+            {{--                            <a href="{{ route('second', ['auth', 'lock-screen-2']) }}">Lock Screen 2</a>--}}
+            {{--                        </li>--}}
+            {{--                        <li>--}}
+            {{--                            <a href="{{ route('second', ['auth', 'confirm-mail']) }}">Confirm Mail</a>--}}
+            {{--                        </li>--}}
+            {{--                        <li>--}}
+            {{--                            <a href="{{ route('second', ['auth', 'confirm-mail-2']) }}">Confirm Mail 2</a>--}}
+            {{--                        </li>--}}
+            {{--                    </ul>--}}
+            {{--                </div>--}}
+            {{--            </li>--}}
         </ul>
         <!--- End Sidemenu -->
         <div class="clearfix"></div>
