@@ -1,4 +1,4 @@
-@extends('layouts.vertical', ['page_title' => 'Users', 'mode' => $mode ?? '', 'demo' => $demo ?? ''])
+@extends('layouts.vertical', ['page_title' => 'Clients', 'mode' => $mode ?? '', 'demo' => $demo ?? ''])
 
 @section('css')
 @endsection
@@ -38,44 +38,46 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Client</th>
+                                <th>Role</th>
                                 <th>E-Mail</th>
-                                <th>Listings</th>
+                                <th>Listings <span class="text-muted">(Hostify ID's)</span></th>
                                 <th>Log in</th>
                             </tr>
                             </thead>
                             <tbody>
-
                             @foreach($usersData as $user)
-
-                                    <tr>
-                                <td>{{$user['id']}}</td>
-                                <td class="table-user">
-                                    <img src="/images/logo-dark.png" alt="table-user" class="me-2 rounded-circle" />
-                                    {{$user['name']}}
-                                </td>
-                                <td>{{$user['email']}}</td>
-                                        <td>
-                                            @php $count = 0; @endphp
-                                            @forelse($user->listings as $listing)
-                                                <span tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-content="{{$listing['name']}}" title="{{$listing['street']}}">
+                                <tr>
+                                    <td>{{$user['id']}}</td>
+                                    <td class="table-user">
+                                        <img src="/images/logo-dark.png" alt="table-user" class="me-2 rounded-circle"/>
+                                        {{$user['name']}}
+                                    </td>
+                                    <td>{{$user['role']}}</td>
+                                    <td>{{$user['email']}}</td>
+                                    <td>
+                                        @php $count = 0; @endphp
+                                        @forelse($user->listings as $listing)
+                                            <span tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover"
+                                                  data-bs-content="{{$listing['name']}}" title="{{$listing['street']}}">
                                                     {{$listing->id}}
                                                 </span>
-                                                @if(++$count == 10 && !$loop->last)
-                                                    <br>
-                                                    @php $count = 0; @endphp
-                                                @endif
-                                            @empty
-                                                No Listings.
-                                            @endforelse
-                                        </td>
-                                <td>
-                                    <form action="impersonate/user" method="POST">
-                                        @csrf
-                                        <input type="hidden" name="user_id" value="{{$user['id']}}">
-                                    <button type="submit" class="btn btn-light"> <i class="ri-login-circle-line"></i></button>
-                                    </form>
-                                </td>
-                            </tr>
+                                            @if(++$count == 15 && !$loop->last)
+                                                <br>
+                                                @php $count = 0; @endphp
+                                            @endif
+                                        @empty
+                                            No Listings.
+                                        @endforelse
+                                    </td>
+                                    <td>
+                                        <form action="impersonate/user" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="user_id" value="{{$user['id']}}">
+                                            <button type="submit" class="btn btn-light"><i
+                                                    class="ri-login-circle-line"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
                             @endforeach
                             </tbody>
                         </table>

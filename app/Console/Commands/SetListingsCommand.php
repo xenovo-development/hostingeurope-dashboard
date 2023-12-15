@@ -31,10 +31,10 @@ class SetListingsCommand extends Command
         $this->setListingOwner(152885,'Dorit Lehmann');
         $this->setListingOwner(152633,'Petra Lehmann');
         $this->setListingOwner(154599,'Petra Lehmann');
-        $this->setListingOwner(138622,'CW Group');
-        $this->setListingOwner(148477,'CW Group');
-        $this->setListingOwner(148460,'CW Group');
-        $this->setListingOwner(148509,'CW Group');
+        $this->setListingOwner(138622,'CW Grup');
+        $this->setListingOwner(148477,'CW Grup');
+        $this->setListingOwner(148460,'CW Grup');
+        $this->setListingOwner(148509,'CW Grup');
         $this->setListingOwner(138612,'Zednet');
         $this->setListingOwner(138601,'Rotbraun');
         $this->setListingOwner(138617,'Blue Palm H.S.');

@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 class MonthlyProfitChartDataFactory
 {
     /**
-     * Regular month variables for monthly profit charts
+     * Regular month variables for monthly revenue charts
      *
      * @param Collection $reservations
      * @return array[]
@@ -25,7 +25,7 @@ class MonthlyProfitChartDataFactory
             $chCommissions = 0;
             $reservationLength = 0;
             $reservationsThisMonth = $reservations
-                ->whereBetween('created_at', [$monthStart, $monthEnd])
+                ->whereBetween('checkIn', [$monthStart, $monthEnd])
                 ->where('status', 'accepted');
             foreach ($reservationsThisMonth as $reservation) {
                 if ($reservation['subtotal'] && $reservation->transactions->count() > 0) {
@@ -34,13 +34,13 @@ class MonthlyProfitChartDataFactory
                     $reservationLength += $checkOut->diff($checkIn)->days;
                     $subtotals += $reservation['subtotal'];
                     $chCommissions += $reservation['channel_commission'];
-                    $cleaningFees += $reservation['cleaning_fee'];
+                    $cleaningFees += $reservation->listing['cleaning_fee'];
                 }
             }
             $monthlyReservations [] = $reservationsThisMonth;
             $netRevenue = $subtotals - $cleaningFees - $chCommissions;
             $monthlyBookings [] = $reservationsThisMonth->count();
-            $monthlyRevenue[] = round($netRevenue - ($netRevenue * $commission / 100), 2);
+            $monthlyRevenue[] = round($netRevenue , 2);
             $monthNames[] = $monthStart;
             $monthlyReservationLength[] = $reservationLength;
         }

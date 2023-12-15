@@ -22,14 +22,14 @@
             </div>
         </div>
         <!-- end page title -->
-        <div class="col-xl-12 mb-3 mt-3">
+{{--        <div class="col-xl-12 mb-3 mt-3">--}}
 
-            <form action="">
-                <div class="input-group">
-                    <span class="ri-search-line search-icon"></span><input type="search" name="search" class="form-control dropdown-toggle" placeholder="Search..." id="top-search">
-                </div>
-            </form>
-        </div>
+{{--            <form action="">--}}
+{{--                <div class="input-group">--}}
+{{--                    <span class="ri-search-line search-icon"></span><input type="search" name="search" class="form-control dropdown-toggle" placeholder="Search..." id="top-search">--}}
+{{--                </div>--}}
+{{--            </form>--}}
+{{--        </div>--}}
 
         <div class="col-xl-12">
             <div class="card">

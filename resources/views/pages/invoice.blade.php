@@ -15,10 +15,10 @@
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Hosting Europe</a></li>
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Reservations</a></li>
-                            <li class="breadcrumb-item active">Transaction</li>
+                            <li class="breadcrumb-item active">Invoice</li>
                         </ol>
                     </div>
-                    <h4 class="page-title">Transaction</h4>
+                    <h4 class="page-title">Invoice</h4>
                 </div>
             </div>
         </div>
@@ -35,7 +35,7 @@
                                 <img src="/images/logo-dark.png" alt="dark logo" height="60">
                             </div>
                             <div class="float-end">
-                                <h4 class="m-0 d-print-none">Transaction</h4>
+                                <h4 class="m-0 d-print-none">Invoice</h4>
                             </div>
                         </div>
 
@@ -45,8 +45,9 @@
                                 <div class="float-start mt-3">
                                     <p><b>Hosting Europe</b></p>
                                     <address>
-                                        Hosting Europe Şirket Resmi Ünvan<br>
-                                        Hosting Europe Şirket Resmi Adres<br>
+                                        2nd Floor College House 17 <br>King Edwards Road
+                                        HA4 7AE <br>Ruislip, London
+                                        United Kingdom<br>
                                         <abbr title="Phone">Phone:</abbr> (123) 456-7890
                                     </address>
                                 </div>
@@ -56,8 +57,8 @@
                                 <div class="mt-3 float-sm-end">
                                     <p class="fs-13"><strong>Issue Date: </strong>
                                         &nbsp;&nbsp;&nbsp; {{\Carbon\Carbon::now()->format('m/d/Y')}}</p>
-                                    <p class="fs-13"><strong>Transaction Status: </strong> <span class="badge bg-success float-end">Paid</span></p>
-                                    <p class="fs-13"><strong>Reservation ID: </strong> <span class="float-end">#{{$invoiceData['reservations']->first()['id']}}</span></p>
+                                    {{--                                    <p class="fs-13"><strong>Transaction Status: </strong> <span class="badge bg-success float-end">Paid</span></p>--}}
+                                    {{--                                    <p class="fs-13"><strong>Reservation ID: </strong> <span class="float-end">#{{$invoiceData['reservations']->first()['id']}}</span></p>--}}
                                 </div>
                             </div><!-- end col -->
                         </div>
@@ -110,11 +111,14 @@
                                             <td>1</td>
                                             <td>
                                                 <b>Reservation</b> <br/>
-                                                {{$invoiceData['details']}}
+                                                Reservation subtotals
+                                                from {{\Carbon\Carbon::create(\Request::query('start'))->format('D, d M Y ')}}
+                                                to {{\Carbon\Carbon::create(\Request::query('end'))->format('D, d M Y ')}}
+                                                .
                                             </td>
                                             <td>1</td>
-                                            <td>{{$invoiceData['currency'] . $invoiceData['without_tax']}}</td>
-                                            <td class="text-end">{{$invoiceData['currency'] . $invoiceData['without_tax']}}</td>
+                                            <td>{{$invoiceData['currency'] . $invoiceData['total_value']}}</td>
+                                            <td class="text-end">{{$invoiceData['currency'] . $invoiceData['total_value']}}</td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -138,10 +142,14 @@
                             </div> <!-- end col -->
                             <div class="col-sm-6">
                                 <div class="float-end mt-3 mt-sm-0">
-                                    <p><b>Sub-total:</b> <span class="float-end">{{$invoiceData['currency'] .$invoiceData['without_tax']}}</span></p>
-                                    <p><b>VAT (12.5):</b> <span class="float-end">{{$invoiceData['currency'] . $invoiceData['tax_subtract']}}</span></p>
-                                    <h3>{{$invoiceData['currency'] . $invoiceData['total_value']}}
-                                        {{$invoiceData['currency']}}</h3>
+                                    <p><b>Sub-total:</b> <span
+                                            class="float-end">{{$invoiceData['currency'] .$invoiceData['total_value']}}</span>
+                                    </p>
+                                    <p><b>Hosting Europe Commission (%{{$invoiceData['commission']}}): </b> <span
+                                            class="float-end"> {{$invoiceData['currency'] . $invoiceData['commission_subtract']}}</span>
+                                    </p>
+                                    <h3 class="float-end">{{$invoiceData['currency'] . $invoiceData['final_sum']}}
+                                    </h3>
                                 </div>
                                 <div class="clearfix"></div>
                             </div> <!-- end col -->
@@ -150,7 +158,8 @@
 
                         <div class="d-print-none mt-4">
                             <div class="text-end">
-                                <a href="javascript:window.print()" class="btn btn-primary"><i class="ri-printer-line"></i> Print</a>
+                                <a href="javascript:window.print()" class="btn btn-primary"><i
+                                        class="ri-printer-line"></i> Print</a>
                                 <a href="javascript:void(0);" class="btn btn-info">Download</a>
                             </div>
                         </div>

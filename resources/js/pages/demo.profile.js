@@ -98,7 +98,7 @@ import 'chart.js/dist/chart.min.js';
                             data: seriesBookingsCount,
                         },
                         {
-                            label: "Profit",
+                            label: "Revenue",
                             backgroundColor: gradientStroke,
                             borderColor: gradientStroke,
                             hoverBackgroundColor: gradientStroke,

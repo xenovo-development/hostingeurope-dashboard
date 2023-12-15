@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Listing;
 use App\Models\Reservation;
+use DateTime;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -36,75 +37,83 @@ class ReservationsController extends Controller
      * @param Request $request
      * @return RedirectResponse
      * @throws GuzzleException
+     * @throws \Exception
      */
     public function store(Request $request): RedirectResponse
     {
-        $listing = Listing::where('street',$request['listing-select'])->firstOrFail();
-        $dates = explode(',',$request['date']);
         $user = Auth::user();
-        $client = new GuzzleHttp\Client();
-        $url = 'https://api-rms.hostify.com/reservations';
-        $headers =
-            [
-                'x-api-key' => 'FuyE21ljFXjwkz7SKMvmHsCGGoZLyf9S',
+        $dates = explode('to',$request['date']);
+        $date1 = new DateTime($dates[0]);
+        $date2 = new DateTime($dates[1]);
+        $interval = $date1->diff($date2)->days;
+        if($user['days'] > $interval){
+            $listing = Listing::where('street',$request['listing-select'])->firstOrFail();
+            $client = new GuzzleHttp\Client();
+            $url = 'https://api-rms.hostify.com/reservations';
+            $headers =
+                [
+                    'x-api-key' => 'FuyE21ljFXjwkz7SKMvmHsCGGoZLyf9S',
+                ];
+            $params = [
+                'listing_id'=>$listing['id'],
+                'start_date'=>$dates[0],
+                'end_date'=>$dates[1],
+                'guests'=>0,
+                'pets'=>0,
+                'name'=>$request['name'],
+                'email'=>Auth::user()['email'],
+                'phone'=>Auth::user()['phone'],
+                'total_price'=>0,
+                'status'=>'accepted',
+                'source'=>'Direct',
+                'channel_commission'=>0,
+                'skip_restrictions'=>true,
             ];
-        $params = [
-            'listing_id'=>$listing['id'],
-            'start_date'=>$dates[0],
-            'end_date'=>$dates[1],
-            'guests'=>0,
-            'pets'=>0,
-            'name'=>$request['name'],
-            'email'=>Auth::user()['email'],
-            'phone'=>Auth::user()['phone'],
-            'total_price'=>0,
-            'status'=>'accepted',
-            'source'=>'Direct',
-            'channel_commission'=>0,
-            'skip_restrictions'=>true,
-        ];
-        $response = $client->request('POST', $url, ['headers' => $headers,'json'=>$params]);
-        $data = json_decode($response->getBody(), true);
+            $response = $client->request('POST', $url, ['headers' => $headers,'json'=>$params]);
+            $data = json_decode($response->getBody(), true);
 
-        $reservation = new Reservation();
+            $reservation = new Reservation();
 
-        $reservation->fill([
-            'id'=>$data['reservation']['id'],
-            'currency'=>$data['reservation']['currency'],
-            'price_per_night'=>$data['reservation']['price_per_night'],
-            'base_price'=>$data['reservation']['base_price'],
-            'security_price'=>$data['reservation']['security_price'],
-            'cleaning_fee'=>$data['reservation']['cleaning_fee'],
-            'channel_commission'=>$data['reservation']['channel_commission'],
-            'service_charge'=>$data['reservation']['service_charge'],
-            'subtotal'=>$data['reservation']['subtotal'],
-            'payout_price'=>$data['reservation']['payout_price'],
-            'transaction_fee'=>$data['reservation']['transaction_fee'],
-            'sum_refunds'=>$data['reservation']['sum_refunds'],
-            'revenue'=>$data['reservation']['revenue'],
-            'owner_revenue'=>$data['reservation']['owner_revenue'],
-            'net_revenue'=>$data['reservation']['net_revenue'],
-            'channel_reservation_id'=>$data['reservation']['channel_reservation_id'],
-            'source'=>$data['reservation']['source'],
-            'status_code'=>$data['reservation']['status_code'],
-            'status'=>$data['reservation']['status'],
-            'status_description'=>$data['reservation']['status_description'],
-            'confirmation_code'=>$data['reservation']['confirmation_code'],
-            'nights'=>$data['reservation']['nights'],
-            'checkIn'=>$data['reservation']['checkIn'],
-            'checkOut'=>$data['reservation']['checkOut'],
-            'guests'=>$data['reservation']['guests'],
-            'guest_name'=>$request['name'],
-            'adults'=>$data['reservation']['adults'],
-            'confirmed_at'=>$data['reservation']['confirmed_at'],
-            'updated_at'=>$data['reservation']['updated_at'],
-            'is_manual'=>$data['reservation']['is_manual'],
-            'listing_id'=>$data['reservation']['listing_id'],
-        ]);
-       $listing->reservations()->save($reservation);
-       $user['days'] -= $data['reservation']['nights'];
-       $user->save();
+            $reservation->fill([
+                'id'=>$data['reservation']['id'],
+                'currency'=>$data['reservation']['currency'],
+                'price_per_night'=>$data['reservation']['price_per_night'],
+                'base_price'=>$data['reservation']['base_price'],
+                'security_price'=>$data['reservation']['security_price'],
+                'cleaning_fee'=>$data['reservation']['cleaning_fee'],
+                'channel_commission'=>$data['reservation']['channel_commission'],
+                'service_charge'=>$data['reservation']['service_charge'],
+                'subtotal'=>$data['reservation']['subtotal'],
+                'payout_price'=>$data['reservation']['payout_price'],
+                'transaction_fee'=>$data['reservation']['transaction_fee'],
+                'sum_refunds'=>$data['reservation']['sum_refunds'],
+                'revenue'=>$data['reservation']['revenue'],
+                'owner_revenue'=>$data['reservation']['owner_revenue'],
+                'net_revenue'=>$data['reservation']['net_revenue'],
+                'channel_reservation_id'=>$data['reservation']['channel_reservation_id'],
+                'source'=>$data['reservation']['source'],
+                'status_code'=>$data['reservation']['status_code'],
+                'status'=>$data['reservation']['status'],
+                'status_description'=>$data['reservation']['status_description'],
+                'confirmation_code'=>$data['reservation']['confirmation_code'],
+                'nights'=>$data['reservation']['nights'],
+                'checkIn'=>$data['reservation']['checkIn'],
+                'checkOut'=>$data['reservation']['checkOut'],
+                'guests'=>$data['reservation']['guests'],
+                'guest_name'=>$request['name'],
+                'adults'=>$data['reservation']['adults'],
+                'confirmed_at'=>$data['reservation']['confirmed_at'],
+                'updated_at'=>$data['reservation']['updated_at'],
+                'is_manual'=>$data['reservation']['is_manual'],
+                'listing_id'=>$data['reservation']['listing_id'],
+            ]);
+            $listing->reservations()->save($reservation);
+            $user['days'] -= $data['reservation']['nights'];
+            $user->save();
 
-       return back()->with('success', 'Reservation created!');
+            return back()->with('success', 'Reservation created!');
+        }else{
+            return back()->with('danger','You do not have enough reservation days left for this reservation.');
+        }
     }
 }

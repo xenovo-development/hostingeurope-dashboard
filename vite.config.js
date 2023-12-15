@@ -98,6 +98,8 @@ export default defineConfig({
                 'resources/js/pages/demo.bootstrapicons.js',
                 'resources/js/pages/demo.remixicons.js',
 
+                //Reservations js
+                'resources/js/pages/reservations.js',
 
                 // Apex Chart
                 'resources/js/pages/demo.apex-area.js',

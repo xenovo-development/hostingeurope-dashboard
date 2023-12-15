@@ -22,6 +22,8 @@ class User extends Authenticatable
         'email',
         'role',
         'days',
+        'contract_start',
+        'contract_end',
         'commission',
         'phone',
         'password',

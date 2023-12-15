@@ -278,7 +278,6 @@
                                         </div>
                                         <!-- end card-->
                                     </div>
-
                                     <!-- end card-->
                                 @empty
                                     No Listings Found.
@@ -286,9 +285,11 @@
                             </div> <!-- end tab-content-->
                         </div>
                     </div> <!-- end col-->
+
                 </div>
                 <!-- end row-->
             </div> <!-- end card-body -->
         </div> <!-- end card-->
+    {{$propertiesData['listings']->withQueryString()->links('vendor.pagination.bootstrap-5')}}
 @endsection
 

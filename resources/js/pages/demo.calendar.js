@@ -15,8 +15,7 @@ import bootstrapPlugin from '@fullcalendar/bootstrap';
 import 'fullcalendar/main.min.js'
 import 'flatpickr/dist/flatpickr.js'
 const today = new Date();
-const oneWeekLater = new Date().setDate(today.getDate() + 6);
-console.log(oneWeekLater.toLocaleString())
+const oneWeekLater = new Date().setDate(today.getDate() + 1);
 var fp = $('#date').flatpickr({
     minDate: oneWeekLater,
     mode: "range",
@@ -98,7 +97,6 @@ var fp = $('#date').flatpickr({
             $("#listing-select").val(this.$selectedEvent.title);
             handleListingChange(this.$selectedEvent.title);
             fp.setDate([this.$selectedEvent.startStr,(new Date(this.$selectedEvent.end))-1]);
-            console.log(this.$selectedEvent.end);
         },
 
         /* Initializing */

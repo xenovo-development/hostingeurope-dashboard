@@ -10,14 +10,19 @@ import 'daterangepicker/daterangepicker.js';
 import ApexCharts from 'apexcharts/dist/apexcharts.min.js';
 
 //XYZ - Reservation Analysis Chart
-let formattedDates = reservationDates.map(function(date) {
-    return new Date(date).toLocaleDateString('en-EN', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric'
-    });
-});
 let options = {
+    noData: {
+        text: 'No data.',
+        align: 'center',
+        verticalAlign: 'middle',
+        offsetX: 0,
+        offsetY: 0,
+        style: {
+            color: undefined,
+            fontSize: '14px',
+            fontFamily: undefined
+        }
+    },
     series: [{
         name: 'Guests',
         type: 'column',
@@ -25,16 +30,16 @@ let options = {
     }, {
         name: 'Reserved Nights',
         type: 'column',
-        data: reservationNights,
+        data: reservationNights
     }, {
-        name: 'Net Profit',
+        name: 'Net Revenue',
         type: 'line',
-        data: seriesNetProfit
+        data: seriesNetRevenue
     }],
     chart: {
         height: 500,
         type: 'line',
-        stacked: false
+        stacked: false,
     },
     dataLabels: {
         enabled: false
@@ -43,13 +48,13 @@ let options = {
         width: [1, 1, 4]
     },
     title: {
-        text: 'XYZ - Reservation Analysis (Total)',
+        text: 'XYZ - Reservation Analysis (Last 30)',
         align: 'left',
         offsetX: 110
     },
     xaxis:
         {
-            categories: formattedDates,
+            categories: reservationDates,
             type: 'categories',
         },
     yaxis: [
@@ -78,7 +83,7 @@ let options = {
             }
         },
         {
-            seriesName: 'Income',
+            seriesName: 'Revenue',
             opposite: true,
             axisTicks: {
                 show: true,
@@ -100,7 +105,7 @@ let options = {
             },
         },
         {
-            seriesName: 'Profit',
+            seriesName: 'Revenue',
             opposite: true,
             axisTicks: {
                 show: true,
@@ -115,7 +120,7 @@ let options = {
                 },
             },
             title: {
-                text: "Net Profit (minus commissions)",
+                text: "Net Revenue (minus commissions)",
                 style: {
                     color: '#FEB019',
                 }
@@ -171,11 +176,11 @@ for (let i = 29; i >= 0; i--) {
 }
 
 
-//Cash flow(Profit) chart
+//Cash flow(Revenue) chart
 let cashflowOptions = {
     series: [{
-        name: 'Income',
-        data: seriesMonthlyProfit
+        name: 'Revenue',
+        data: seriesMonthlyRevenue
     }],
     chart: {
         type: 'area',
@@ -197,7 +202,7 @@ let cashflowOptions = {
         size: 0,
     },
     title: {
-        text: 'Profit (Monthly)',
+        text: 'Revenue (Monthly)',
         align: 'left'
     },
     fill: {
@@ -217,7 +222,7 @@ let cashflowOptions = {
             // },
         },
         title: {
-            text: 'Profit'
+            text: 'Revenue'
         },
     },
     xaxis: {
@@ -245,5 +250,15 @@ cashflowChart.render();
 
 //default date range picker
 $('#dash-daterange').daterangepicker({
-    singleDatePicker: false
+    autoUpdateInput: false,
+    singleDatePicker: false,
+});
+
+$('#dash-daterange').on('apply.daterangepicker', function(ev, picker) {
+    $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+    $(this).closest('form').submit();
+});
+
+$('#dash-daterange').on('cancel.daterangepicker', function(ev, picker) {
+    $(this).val('');
 });

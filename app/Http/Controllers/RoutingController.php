@@ -51,6 +51,7 @@ class RoutingController extends Controller
             case 'impersonate':
                 return (new ImpersonateController())->impersonate($userId);
             case 'users':
+
                 $usersData = (new UserController())->index();
         }
 
@@ -58,7 +59,7 @@ class RoutingController extends Controller
             return redirect('home');
 
         return view($first, ['mode' => $mode, 'demo' => $demo])
-            ->with('dashboardData', $dashboardData ?? '')
+            ->with('dashboardData', $dashboardData ?? null)
             ->with('usersData', $usersData ?? '');
     }
 
@@ -71,6 +72,8 @@ class RoutingController extends Controller
         $demo = $request->query('demo');
         $listingId = $request->query('listingId');
         $reservationId = $request->query('reservationId');
+        $start = $request->query('start');
+        $end = $request->query('end');
 
         $caseKey = $first . '/' . $second;
 
@@ -100,7 +103,7 @@ class RoutingController extends Controller
                 break;
 
             case 'pages/invoice':
-                $invoiceData = (new InvoiceController())->index();
+                $invoiceData = (new InvoiceController())->getInvoice($start,$end);
                 break;
 
             case 'pages/analytics':

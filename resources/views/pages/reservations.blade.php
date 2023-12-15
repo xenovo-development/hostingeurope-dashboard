@@ -38,8 +38,7 @@
                         Here you can see all reservations to your listed property.
                     </p>
 
-                    <div class="table-responsive">
-                        <table class="table table-striped mb-0">
+                        <table id="reservatiosns-table" class="table table-striped w-100 nowrap">
                             <thead>
                             <tr>
                                 <th scope="col">ID #</th>
@@ -52,13 +51,13 @@
                                 <th scope="col">Nights</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Transaction</th>
-                                <th scope="col">Profit</th>
+                                <th scope="col">Revenue</th>
                             </tr>
                             </thead>
                             <tbody>
                             @php
 
-                            @endphp
+                                @endphp
                             @forelse($reservationsData['reservations'] as $reservation)
                                 @if($reservation['status'] == 'accepted' || $reservation['status'] == 'cancelled')
                                     @php
@@ -72,9 +71,10 @@
                                         </td>
                                         <td>{{\Carbon\Carbon::parse($reservation['created_at'])->format('M d Y D')}}</td>
                                         <td>{{$reservation['source']}}</td>
-                                        <td class="table-user"><img src="{{$reservation['guest_photo'] ?? 'images/Asset 14.png'}}"
-                                                                    alt="guest-photo"
-                                                                    class="me-2 rounded-circle">{{$reservation['guest_name']}}
+                                        <td class="table-user"><img
+                                                src="{{$reservation['guest_photo'] ?? 'images/Asset 14.png'}}"
+                                                alt="guest-photo"
+                                                class="me-2 rounded-circle">{{$reservation['guest_name']}}
                                         </td>
                                         <td>{{ \Carbon\Carbon::parse($reservation['checkIn'])->format('M d Y D') }}</td>
                                         <td>{{ \Carbon\Carbon::parse($reservation['checkOut'])->format('M d Y D') }}</td>
@@ -88,7 +88,7 @@
                                             </td>
                                         @elseif($reservation['subtotal'] == 0)
                                             <td>No transaction</td>
-                                            @else
+                                        @else
                                             <td>Pending</td>
                                         @endif
                                         @if($reservation['subtotal'] == 0)
@@ -96,10 +96,9 @@
                                                     class="badge bg-success">{{'€ 0,00'}}</span>
                                             </td>
                                         @else
-                                        <td><span
-                                                class="badge bg-success">{{'€'.round($netRevenue -
-                                            ($netRevenue * Auth()->user()['commission'] / 100),2)}}</span>
-                                        </td>
+                                            <td><span
+                                                    class="badge bg-success">{{'€'.round($reservation['subtotal'] -$reservation['channel_commission'] - $reservation->listing['cleaning_fee'],2)}}</span>
+                                            </td>
                                         @endif
                                     </tr>
                                 @endif
@@ -116,11 +115,12 @@
                             @endforelse
                             </tbody>
                         </table>
-                    </div> <!-- end table-responsive-->
-
                 </div> <!-- end card body-->
             </div> <!-- end card -->
         </div><!-- end col-->
         {{$reservationsData['reservations']->withQueryString()->links('vendor.pagination.bootstrap-5')}}
     </div> <!-- container -->
+@endsection
+@section('script')
+    @vite(['resources/js/pages/reservations.js'])
 @endsection

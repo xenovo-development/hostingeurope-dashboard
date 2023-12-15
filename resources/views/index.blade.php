@@ -19,7 +19,7 @@
                     <div class="page-title-right">
                         <form class="d-flex">
                             <div class="input-group">
-                                <input type="text" class="form-control shadow border-0" id="dash-daterange" name="date">
+                                <input value="" class="form-control shadow border-0" id="dash-daterange" name="date" style="width: 14rem;" placeholder="{{\Request::query('date') ?? 'MM/DD/YYYY - MM/DD/YYYY'}}">
                                 <span class="input-group-text bg-danger border-danger text-white">
                                     <i class="ri-calendar-todo-fill fs-13"></i>
                                 </span>
@@ -27,9 +27,9 @@
                             <a href="index" class="btn btn-info ms-2 flex-shrink-0">
                                 <i class="ri-refresh-line"></i> Reset
                             </a>
-                            <button type="submit" class="btn btn-success ms-2 flex-shrink-0">
-                                <i class="ri-send-plane-fill"></i> Change Date
-                            </button>
+{{--                            <button type="submit" class="btn btn-success ms-2 flex-shrink-0">--}}
+{{--                                <i class="ri-send-plane-fill"></i> Change Date--}}
+{{--                            </button>--}}
                         </form>
                     </div>
                     <h4 class="page-title">Dashboard <span class="text-muted">(Beta)</span></h4>
@@ -42,7 +42,7 @@
             </div>
         </div>
 
-        <div class="row row-cols-1 row-cols-lg-5">
+        <div class="row row-cols-1 row-cols-lg-3">
             <div class="col col-md-6">
                 <div class="card widget-flat">
                     <div class="card-body">
@@ -51,75 +51,127 @@
                         </div>
                         <h5 class="text-muted fw-normal mt-0" title="Number of Customers">Accepted Reservations</h5>
                         <h3 class="my-3">{{count($dashboardData['reservations']->where('status','accepted'))}}</h3>
-                            <p class="mb-0 text-muted">
-                                @if($dates && count($dates) === 2)
-                                    <span class="text-success me-2">Between {{ $dates[0] }} and {{ $dates[1] }}</span>
-                                @else
-                                    <span class="text-success me-2">All time</span>
-                                    <span class="float-end"><i class="ri-arrow-right-line"></i>
-                            <a href="{{route('second',['pages','reservations']).'?listingId='.$dashboardData['listings']->first()['id']}}">See details</a>
+                        <p class="mb-0 text-muted">
+                            @if($dates && count($dates) === 2)
+                                <strong class="text-info me-2">Between {{ $dates[0] }} and {{ $dates[1] }}</strong>
+                            @else
+                                <strong class="text-info me-2">All time</strong>
+                                <span class="float-end"><i class="ri-arrow-right-line"></i>
+                                    @if($dashboardData && $dashboardData['listings'] && $dashboardData['listings']->first())
+                                        <a href="{{ route('second', ['pages', 'reservations']) . '?listingId=' . $dashboardData['listings']->first()['id'] }}">See details</a>
+                                    @endif
+                                    @endif
                             </span>
-                                @endif
-                            </p>
+                        </p>
                     </div> <!-- end card-body-->
                 </div> <!-- end card-->
             </div> <!-- end col-->
 
+{{--            <div class="col col-md-6">--}}
+{{--                <div class="card widget-flat">--}}
+{{--                    <div class="card-body">--}}
+{{--                        <div class="float-end">--}}
+{{--                            <i class="ri-exchange-dollar-line text-bg-primary widget-icon"></i>--}}
+{{--                        </div>--}}
+{{--                        <h5 class="text-muted fw-normal mt-0" title="Average Revenue">Net Revenue</h5>--}}
+{{--                        <h3 class="my-3">€{{ number_format($dashboardData['user_total_revenue'], 2, '.', '') }}</h3>--}}
+{{--                        <p class="mb-0 text-muted">--}}
+{{--                            @if($dates && count($dates) === 2)--}}
+{{--                                <strong class="text-info me-2">Between {{ $dates[0] }} and {{ $dates[1] }}</strong>--}}
+{{--                            @else--}}
+{{--                                <strong class="text-info me-2">All time</strong>--}}
+{{--                                <span class="float-end"><i class="ri-arrow-right-line"></i>--}}
+{{--                                         @if($dashboardData && $dashboardData['listings'] && $dashboardData['listings']->first())--}}
+{{--                                        <a href="{{ route('second', ['pages', 'reservations']) . '?listingId=' . $dashboardData['listings']->first()['id'] }}">See details</a>--}}
+{{--                                    @endif--}}
+{{--                                    @endif--}}
+{{--                            </span>--}}
+{{--                        </p>--}}
+{{--                    </div> <!-- end card-body-->--}}
+{{--                </div> <!-- end card-->--}}
+{{--            </div> <!-- end col-->--}}
             <div class="col col-md-6">
                 <div class="card widget-flat">
                     <div class="card-body">
                         <div class="float-end">
                             <i class="ri-exchange-dollar-line text-bg-primary widget-icon"></i>
                         </div>
-                        <h5 class="text-muted fw-normal mt-0" title="Average Profit">Profit</h5>
-                        <h3 class="my-3">€{{ number_format($dashboardData['user_total_revenue'], 2, '.', '') }}</h3>
+                        <h5 class="text-muted fw-normal mt-0" title="Awaiting revenue">Revenue</h5>
+                        <h3 class="my-3">€{{ number_format($dashboardData['user_total_raw_revenue'], 2, '.', '') }}</h3>
                         <p class="mb-0 text-muted">
                             @if($dates && count($dates) === 2)
-                                <span class="text-success me-2">Between {{ $dates[0] }} and {{ $dates[1] }}</span>
+                                <strong class="text-info me-2">Between {{ $dates[0] }} and {{ $dates[1] }}</strong>
                             @else
-                                <span class="text-success me-2">All time</span>
+                                <strong class="text-info me-2">All time</strong>
                                 <span class="float-end"><i class="ri-arrow-right-line"></i>
-                            <a href="{{route('second',['pages','reservations']).'?listingId='.$dashboardData['listings']->first()['id']}}">See details</a>
+                                     @if($dashboardData && $dashboardData['listings'] && $dashboardData['listings']->first())
+                                        <a href="{{ route('second', ['pages', 'reservations']) . '?listingId=' . $dashboardData['listings']->first()['id'] }}">See details</a>
+                                    @endif
                             </span>
                             @endif
                         </p>
                     </div> <!-- end card-body-->
                 </div> <!-- end card-->
             </div> <!-- end col-->
-
             <div class="col col-md-6">
                 <div class="card widget-flat">
                     <div class="card-body">
                         <div class="float-end">
                             <i class="ri-exchange-dollar-line text-bg-primary widget-icon"></i>
                         </div>
-                        <h5 class="text-muted fw-normal mt-0" title="Awaiting Profit">Pending Profit</h5>
-                        <h3 class="my-3">€{{ number_format($dashboardData['user_open_revenue'], 2, '.', '') }}</h3>
+                        <h5 class="text-muted fw-normal mt-0" title="Awaiting revenue">Upcoming Revenue</h5>
+                        <h3 class="my-3">€{{ number_format($dashboardData['user_open_raw_revenue'], 2, '.', '') }}</h3>
                         <p class="mb-0 text-muted">
                             @if($dates && count($dates) === 2)
-                                <span class="text-success me-2">Between {{ $dates[0] }} and {{ $dates[1] }}</span>
+                                <strong class="text-info me-2">Between {{ $dates[0] }} and {{ $dates[1] }}</strong>
                             @else
-                                <span class="text-success me-2">All time</span>
+                                <strong class="text-info me-2">All time</strong>
                                 <span class="float-end"><i class="ri-arrow-right-line"></i>
-                            <a href="{{route('second',['pages','reservations']).'?listingId='.$dashboardData['listings']->first()['id']}}">See details</a>
+                                     @if($dashboardData && $dashboardData['listings'] && $dashboardData['listings']->first())
+                                        <a href="{{ route('second', ['pages', 'reservations']) . '?listingId=' . $dashboardData['listings']->first()['id'] }}">See details</a>
+                                    @endif
                             </span>
                             @endif
                         </p>
                     </div> <!-- end card-body-->
                 </div> <!-- end card-->
             </div> <!-- end col-->
-
+{{--            <div class="col col-md-6">--}}
+{{--                <div class="card widget-flat">--}}
+{{--                    <div class="card-body">--}}
+{{--                        <div class="float-end">--}}
+{{--                            <i class="ri-exchange-dollar-line text-bg-primary widget-icon"></i>--}}
+{{--                        </div>--}}
+{{--                        <h5 class="text-muted fw-normal mt-0" title="Awaiting revenue">Hosting Europe Commission</h5>--}}
+{{--                        <h3 class="my-3">€{{ number_format($dashboardData['hosting_europe_commission'], 2, '.', '') }}</h3>--}}
+{{--                        <p class="mb-0 text-muted">--}}
+{{--                            @if($dates && count($dates) === 2)--}}
+{{--                                <strong class="text-info me-2">Between {{ $dates[0] }} and {{ $dates[1] }}</strong>--}}
+{{--                            @else--}}
+{{--                                <strong class="text-info me-2">All time</strong>--}}
+{{--                                <span class="float-end"><i class="ri-arrow-right-line"></i>--}}
+{{--                                     @if($dashboardData && $dashboardData['listings'] && $dashboardData['listings']->first())--}}
+{{--                                        <a href="{{ route('second', ['pages', 'reservations']) . '?listingId=' . $dashboardData['listings']->first()['id'] }}">See details</a>--}}
+{{--                                    @endif--}}
+{{--                            </span>--}}
+{{--                            @endif--}}
+{{--                        </p>--}}
+{{--                    </div> <!-- end card-body-->--}}
+{{--                </div> <!-- end card-->--}}
+{{--            </div> <!-- end col-->--}}
+        </div> <!-- end row -->
+        <div class="row row-cols-1 row-cols-lg-3">
             <div class="col col-md-6">
                 <div class="card widget-flat">
                     <div class="card-body">
                         <div class="float-end">
-                            <i class="ri-line-chart-line text-bg-success widget-icon"></i>
+                            <i class="ri-home-office-line text-bg-success widget-icon"></i>
                         </div>
                         <h5 class="text-muted fw-normal mt-0" title="Growth">Listings</h5>
-                        <h3 class="my-3">{{count($dashboardData['listings'])}}</h3>
+                        <h3 class="my-3">{{count($dashboardData['listings']) ?? 0}}</h3>
                         <p class="mb-0 text-muted">
-                                <span class="text-success me-2">Total</span>
-                                <span class="float-end"><i class="ri-arrow-right-line"></i>
+                            <strong class="text-info me-2">Total</strong>
+                            <span class="float-end"><i class="ri-arrow-right-line"></i>
                             <a href="{{route('second',['pages','properties'])}}">See details</a>
                             </span>
                         </p>
@@ -135,7 +187,7 @@
                         <h5 class="text-muted fw-normal mt-0" title="Growth">Available Reservation Days</h5>
                         <h3 class="my-3">{{Auth()->user()['days']}}</h3>
                         <p class="mb-0 text-muted">
-                                <span class="text-success me-2">This Year</span>
+                            <strong class="text-info me-2">This year</strong>
                             <span class="float-end"><i class="ri-arrow-right-line"></i>
                             <a href="{{route('second',['apps','calendar'])}}">See calendar</a>
                             </span>
@@ -143,7 +195,26 @@
                     </div> <!-- end card-body-->
                 </div> <!-- end card-->
             </div> <!-- end col-->
-        </div> <!-- end row -->
+            @php
+                $contractEndDate = \Carbon\Carbon::create(Auth()->user()['contract_end']);
+                $today = \Carbon\Carbon::now();
+                $daysDifference = $contractEndDate->diffInDays($today, true);
+            @endphp
+            <div class="col col-md-6">
+                <div class="card widget-flat">
+                    <div class="card-body">
+                        <div class="float-end">
+                            <i class="ri-calendar-event-line text-bg-secondary widget-icon"></i>
+                        </div>
+                        <h5 class="text-muted fw-normal mt-0" title="Growth">Days left for contract</h5>
+                        <h3 class="my-3">{{$daysDifference}}</h3>
+                        <p class="mb-0 text-muted">
+                            <strong class="text-info me-2">Ending date : {{\Carbon\Carbon::create(Auth()->user()['contract_end'])->format('D, d M Y')}}</strong>
+                        </p>
+                    </div> <!-- end card-body-->
+                </div> <!-- end card-->
+            </div> <!-- end col-->
+        </div><!-- end row -->
         <div class="row">
             <div class="col col-4">
                 <div class="card">
@@ -156,11 +227,11 @@
                 </div>
             </div>
             <div class="col col-md-8">
-            <div class="card">
-                <div class="card-body">
-                    <div class="chart" id="cashflow-chart"></div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="chart" id="cashflow-chart"></div>
+                    </div>
                 </div>
-            </div>
             </div> <!-- end col -->
         </div>
 
@@ -176,17 +247,21 @@
     </div><!-- end row -->
     <!-- container -->
 @endsection
-
+@php
+    $seriesGuests = array_slice(is_array($dashboardData['series_guests']) ? $dashboardData['series_guests'] : [], -30);
+    $seriesNetRevenue = array_slice(is_array($dashboardData['series_net_revenue']) ? $dashboardData['series_net_revenue'] : [], -30);
+    $reservationNights = array_slice(is_array($dashboardData['reservation_nights']) ? $dashboardData['reservation_nights'] : [], -30);
+@endphp
 @section('script')
     @vite(['resources/js/pages/dashboard.js'])
     <script>
-        let seriesGuests = @json($dashboardData['series_guests']);
-        let seriesNetProfit = @json($dashboardData['series_net_revenue']);
+        let seriesGuests = @json($seriesGuests ?? $dashboardData['series_guests']);
+        let seriesNetRevenue = @json($seriesNetRevenue ?? $dashboardData['series_net_revenue']);
         let seriesMonths = @json($dashboardData['series_months']);
-        let seriesMonthlyProfit = @json($dashboardData['series_monthly_profit']);
+        let seriesMonthlyRevenue = @json($dashboardData['series_monthly_revenue']);
         let reservationDates = @json($dashboardData['reservation_dates']);
         let reservationListings = @json($dashboardData['reservation_listings']);
-        let reservationNights = @json($dashboardData['reservation_nights']);
+        let reservationNights = @json($reservationNights ?? $dashboardData['reservation_nights']);
         let seriesPievals = @json($dashboardData['series_pievals'])
     </script>
 @endsection
