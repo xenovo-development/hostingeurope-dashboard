@@ -104,6 +104,9 @@ class RoutingController extends Controller
 
             case 'pages/invoice':
                 $invoiceData = (new InvoiceController())->getInvoice($start,$end);
+                if($invoiceData['final_sum'] == 0){
+                    return redirect('tables/invoices')->with('warning','No invoice data for given month.');
+                }
                 break;
 
             case 'pages/analytics':

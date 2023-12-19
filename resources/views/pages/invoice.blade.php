@@ -19,6 +19,8 @@
                         </ol>
                     </div>
                     <h4 class="page-title">Invoice</h4>
+                    <p class="text-muted">* To save the invoice as PDF file, please select "Save as PDF" from "Printer"
+                        selection menu. </p>
                 </div>
             </div>
         </div>
@@ -26,7 +28,7 @@
 
         <div class="row">
             <div class="col-12">
-                <div class="card">
+                <div class="card" id="invoice-content">
                     <div class="card-body">
 
                         <!-- Invoice Logo-->
@@ -68,26 +70,28 @@
                             <div class="col-4">
                                 <h6>Billing Address</h6>
                                 <address>
-                                    {{Auth()->user()['name']}}<br>
-                                    795 Folsom Ave, Suite 600<br>
-                                    San Francisco, CA 94107<br>
+                                    Hosting Europe <br>
+                                    2nd Floor College House 17 <br>King Edwards Road
+                                    HA4 7AE <br>Ruislip, London
+                                    United Kingdom<br>
                                     <abbr title="Phone">Phone:</abbr> (123) 456-7890
                                 </address>
                             </div> <!-- end col-->
 
                             <div class="col-4">
-                                <h6>Shipping Address</h6>
+                                <h6>Receiver Address</h6>
                                 <address>
                                     {{Auth()->user()['name']}}<br>
-                                    795 Folsom Ave, Suite 600<br>
-                                    San Francisco, CA 94107<br>
-                                    <abbr title="Phone">Phone:</abbr> (123) 456-7890
+                                    {{$invoiceData['listings']->first()['street']}}<br>
+                                    {{$invoiceData['listings']->first()['city'].', '.$invoiceData['listings']->first()['country'].', '.$invoiceData['listings']->first()['zipcode']}}
+                                    94107<br>
+                                    <abbr title="Phone">Phone:</abbr> {{Auth()->user()['phone']}}
                                 </address>
                             </div> <!-- end col-->
 
                             <div class="col-4">
                                 <div class="text-sm-end">
-                                    {!! QrCode::size(100)->generate(Request::fullUrl()); !!}
+                                    {{ QrCode::size(100)->generate(Request::fullUrl()) }}
                                 </div>
                             </div> <!-- end col-->
                         </div>
@@ -108,17 +112,19 @@
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <td>1</td>
-                                            <td>
-                                                <b>Reservation</b> <br/>
-                                                Reservation subtotals
-                                                from {{\Carbon\Carbon::create(\Request::query('start'))->format('D, d M Y ')}}
-                                                to {{\Carbon\Carbon::create(\Request::query('end'))->format('D, d M Y ')}}
-                                                .
-                                            </td>
-                                            <td>1</td>
-                                            <td>{{$invoiceData['currency'] . $invoiceData['total_value']}}</td>
-                                            <td class="text-end">{{$invoiceData['currency'] . $invoiceData['total_value']}}</td>
+                                            @isset($invoiceData['currency'])
+                                                <td>1</td>
+                                                <td>
+                                                    <b>Reservation</b> <br/>
+                                                    Reservation subtotals
+                                                    from {{\Carbon\Carbon::create(\Request::query('start'))->format('D, d M Y ')}}
+                                                    to {{\Carbon\Carbon::create(\Request::query('end'))->format('D, d M Y ')}}
+                                                    .
+                                                </td>
+                                                <td>1</td>
+                                                <td>{{$invoiceData['currency'] . $invoiceData['total_value']}}</td>
+                                                <td class="text-end">{{$invoiceData['currency'] . $invoiceData['total_value']}}</td>
+                                            @endisset
                                         </tr>
                                         </tbody>
                                     </table>
@@ -159,8 +165,8 @@
                         <div class="d-print-none mt-4">
                             <div class="text-end">
                                 <a href="javascript:window.print()" class="btn btn-primary"><i
-                                        class="ri-printer-line"></i> Print</a>
-                                <a href="javascript:void(0);" class="btn btn-info">Download</a>
+                                        class="ri-printer-line"></i> Print & Download</a>
+                                {{--                                <a class="btn btn-info" id="download-btn">Download</a>--}}
                             </div>
                         </div>
                         <!-- end buttons -->
@@ -172,4 +178,7 @@
         <!-- end row -->
 
     </div> <!-- container -->
+@endsection
+@section('script')
+    @vite(['resources/js/pages/invoice.js'])
 @endsection

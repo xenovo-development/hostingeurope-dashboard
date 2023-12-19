@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Listing;
 use App\Models\Reservation;
 use Carbon\Carbon;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 
 class InvoiceController extends Controller
@@ -14,16 +15,16 @@ class InvoiceController extends Controller
      *
      * @param $start
      * @param  $end
-     * @return array
+     * @return array|RedirectResponse
      */
-    public function getInvoice($start,$end): array
+    public function getInvoice($start,$end): array|\Illuminate\Http\RedirectResponse
     {
         $listings = Listing::where('user_id', Auth::user()['id'])->get();
         $reservations = collect($listings)->flatMap->reservations
             ->whereBetween('checkIn', [$start, $end])
             ->where('status','accepted');
         $commission = Auth::user()['commission'];
-        if ($reservations->count() != 0){
+        if ($reservations->count() !== 0){
             $totalRevenue = 0;
             switch ($reservations->first()['currency']) {
                 case 'EUR' :
@@ -53,6 +54,7 @@ class InvoiceController extends Controller
 
         return [
             'reservations' => $reservations ?? '0',
+            'listings'=> $listings,
             'total_value' => (round($totalRevenue,2)) ?? '0',
             'commission' => $commission ?? '0',
             'currency' => $currency ?? '0',

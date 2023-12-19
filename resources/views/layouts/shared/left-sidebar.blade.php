@@ -7,7 +7,7 @@
             <img class="h-40" src="/images/Asset 16.png" alt="logo">
         </span>
         <span class="logo-sm">
-            <img src="/images/logo-sm.png" alt="small logo">
+            <img src="/images/Asset 16.png" alt="small logo">
         </span>
     </a>
 
