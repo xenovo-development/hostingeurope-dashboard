@@ -1,6 +1,14 @@
 @extends('layouts.vertical', ['page_title' => 'Clients', 'mode' => $mode ?? '', 'demo' => $demo ?? ''])
 
 @section('css')
+    @vite([
+      'node_modules/datatables.net-bs5/css/dataTables.bootstrap5.min.css',
+      'node_modules/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css',
+      'node_modules/datatables.net-fixedcolumns-bs5/css/fixedColumns.bootstrap5.min.css',
+      'node_modules/datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5.min.css',
+      'node_modules/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css',
+      'node_modules/datatables.net-select-bs5/css/select.bootstrap5.min.css',
+  ])
 @endsection
 
 @section('content')
@@ -33,7 +41,7 @@
                     </p>
 
                     <div class="table-responsive-sm">
-                        <table class="table table-striped table-centered mb-0">
+                        <table class="table table-striped table-centered mb-0" id="users-table">
                             <thead>
                             <tr>
                                 <th>ID</th>
@@ -73,7 +81,7 @@
                                         <form action="impersonate/user" method="POST">
                                             @csrf
                                             <input type="hidden" name="user_id" value="{{$user['id']}}">
-                                            <button type="submit" class="btn btn-light"><i
+                                            <button type="submit" class="btn btn-soft-info"><i
                                                     class="ri-login-circle-line"></i></button>
                                         </form>
                                     </td>
@@ -88,4 +96,7 @@
         </div><!-- end col-->
 
     </div> <!-- container -->
+@endsection
+@section('script')
+    @vite(['resources/js/users.js'])
 @endsection

@@ -2,6 +2,7 @@
  * Theme: Hosting Europe -  Dashboard
  * Author: Emin Çomoğlu
  * Module/App: Data tables
+ * Page: Users
  */
 
 
@@ -15,9 +16,9 @@ $(document).ready(function () {
     "use strict";
 
     // Scroll Vertical Datatable
-    new DataTable('#reservations-table', {
+    new DataTable('#users-table', {
         responsive:true,
-        paging:true,
+        paging:false,
         "language": {
             "paginate": {
                 "previous": "<i class='ri-arrow-left-s-line'>",

@@ -79,7 +79,8 @@ export default defineConfig({
 
                 // Pages
                 'resources/js/pages/demo.profile.js',
-                'resources/js/pages/invoice.js',
+                'resources/js/users.js',
+                'resources/js/listings.js',
 
                 // Task js
                 'resources/js/pages/demo.tasks.js',

@@ -1,9 +1,15 @@
 @extends('layouts.vertical', ['page_title' => 'Reservations', 'mode' => $mode ?? '', 'demo' => $demo ?? ''])
 
 @section('css')
+    @vite([
+      'node_modules/datatables.net-bs5/css/dataTables.bootstrap5.min.css',
+      'node_modules/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css',
+      'node_modules/datatables.net-fixedcolumns-bs5/css/fixedColumns.bootstrap5.min.css',
+      'node_modules/datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5.min.css',
+      'node_modules/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css',
+      'node_modules/datatables.net-select-bs5/css/select.bootstrap5.min.css',
+  ])
 @endsection
-
-
 
 @section('content')
     <!-- Start Content-->
@@ -31,14 +37,14 @@
                         stage of its development. Please note that this page is in its early access phase and will be much improved in terms of design and functionality in the future.
                         Thank you for your patience.</span>
             </div>
+
             <div class="card">
                 <div class="card-body">
                     <h4 class="header-title">{{$reservationsData['listing']['street']}}</h4>
                     <p class="text-muted fs-14">
                         Here you can see all reservations to your listed property.
                     </p>
-
-                        <table id="reservatiosns-table" class="table table-striped w-100 nowrap">
+                        <table id="reservations-table" class="table table-striped nowrap w-100">
                             <thead>
                             <tr>
                                 <th scope="col">ID #</th>
@@ -64,7 +70,7 @@
                                         $netRevenue = $reservation['subtotal'] - $reservation['channel_commission'] - $reservation->listing['cleaning_fee'];
                                     @endphp
                                     <tr>
-                                        <th scope="row">{{$reservation['id']}}</th>
+                                        <td>{{$reservation['id']}}</td>
                                         <td class="table-user"><img src="{{$reservation['listing_photo']}}"
                                                                     alt="listing-photo"
                                                                     class="me-2 rounded-circle">{{$reservation->listing->street}}
@@ -118,7 +124,6 @@
                 </div> <!-- end card body-->
             </div> <!-- end card -->
         </div><!-- end col-->
-        {{$reservationsData['reservations']->withQueryString()->links('vendor.pagination.bootstrap-5')}}
     </div> <!-- container -->
 @endsection
 @section('script')

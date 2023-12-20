@@ -1,6 +1,14 @@
 @extends('layouts.vertical', ['page_title' => 'Properties', 'mode' => $mode ?? '', 'demo' => $demo ?? ''])
 
 @section('css')
+    @vite([
+        'node_modules/datatables.net-bs5/css/dataTables.bootstrap5.min.css',
+        'node_modules/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css',
+        'node_modules/datatables.net-fixedcolumns-bs5/css/fixedColumns.bootstrap5.min.css',
+        'node_modules/datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5.min.css',
+        'node_modules/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css',
+        'node_modules/datatables.net-select-bs5/css/select.bootstrap5.min.css',
+    ])
 @endsection
 
 @section('content')
@@ -22,282 +30,132 @@
             </div>
         </div>
         <!-- end page title -->
-{{--        <div class="col-xl-12 mb-3 mt-3">--}}
 
-{{--            <form action="">--}}
-{{--                <div class="input-group">--}}
-{{--                    <span class="ri-search-line search-icon"></span><input type="search" name="search" class="form-control dropdown-toggle" placeholder="Search..." id="top-search">--}}
-{{--                </div>--}}
-{{--            </form>--}}
-{{--        </div>--}}
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header-title">Listings</h4>
+                        <p class="text-muted fs-14">
+                            All the listings with their bound users. You can change it by clicking the user name.
+                        </p>
 
-        <div class="col-xl-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex header-title bg-secondary-subtle"></div>
-                    <h4 class="header-title">My Listings</h4>
-                    <p class="text-muted fs-14">
-                        All of your listings are listed below.
-                    </p>
+                        <table id="listings-table" class="table table-striped dt-responsive nowrap w-100">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Type</th>
+                                <th>Street</th>
+                                <th>Title</th>
+                                <th>City</th>
+                                <th>Country</th>
+                                <th>Min Night</th>
+                                <th>Max Night</th>
+                                <th>Beds</th>
+                                <th>Bedrooms</th>
+                                <th>Capacity</th>
+                                <th>CheckIn</th>
+                                <th>CheckOut</th>
+                                <th>Tags</th>
+                                <th>Owner</th>
+                            </tr>
+                            </thead>
 
-                    <div class="row">
-                        <div class="col-sm-3 mb-2 mb-sm-0">
-                            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
-                                 aria-orientation="vertical">
-                                @forelse($listingData['listings'] as $listing)
-                                    <a class="nav-link mt-2 {{$loop->first ? 'active':''}}"
-                                       id="v-pills-{{$listing['id']}}-tab"
-                                       data-bs-toggle="pill"
-                                       href="#v-pills-{{$listing['id']}}" role="tab"
-                                       aria-controls="v-pills-{{$listing['id']}}"
-                                       aria-selected="{{$loop->first ? 'true':'false'}}">
-                                        {{$listing['name']}}
-                                    </a>
-                                @empty
-                                    <a class="nav-link active show" id="v-pills-home-tab" data-bs-toggle="pill"
-                                       role="tab" aria-controls="v-pills-home"
-                                       aria-selected="true">
-                                        No properties found
-                                    </a>
-                                @endforelse
-                            </div>
-                        </div> <!-- end col-->
 
-                        <div class="col-sm-9">
-                            <div class="tab-content" id="v-pills-tabContent">
-                                @forelse($listingData['listings'] as $listing)
-                                    <div class="tab-pane fade {{$loop->first ? 'active show':''}}"
-                                         id="v-pills-{{$listing['id']}}" role="tabpanel"
-                                         aria-labelledby="v-pills-{{$listing['id']}}-tab">
-                                        <!-- project card -->
-                                        <div class="card bg-light-subtle d-block">
-                                            <div class="card-body ">
-                                                <h4>{{$listing['street'] . ' - '. $listing['name']}}</h4>
+                            <tbody>
+                            @forelse($listingData['listings'] as $listing)
+                                <tr>
+                                    <td>{{$listing['id']}}</td>
+                                    <td>{{$listing['property_type']}}</td>
+                                    <td>{{$listing['street']}}</td>
+                                    <td>{{$listing['name']}}</td>
+                                    <td>{{$listing['city']}}</td>
+                                    <td>{{$listing['country']}}</td>
+                                    <td>{{$listing['min_nights']}}</td>
+                                    <td>{{$listing['max_nights']}}</td>
+                                    <td>{{$listing['beds']}}</td>
+                                    <td>{{$listing['bedrooms']}}</td>
+                                    <td>{{$listing['person_capacity']}}</td>
+                                    <td>{{$listing['checkin_start']}}</td>
+                                    <td>{{$listing['checkout']}}</td>
+                                    <td>{{$listing['tags']}}</td>
+                                    <td><a href="" data-id="{{$listing['id']}}" data-name="{{$listing['name']}}"
+                                           data-bs-toggle="modal"
+                                           data-bs-target="#right-modal" id="owner-link">{{$listing->user['name']}}</a></td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td>No data.</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                </tr>
+                            @endforelse
+                            </tbody>
+                        </table>
 
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <!-- listing -->
-                                                        <p class="mt-2 mb-1 text-muted">Image</p>
-                                                        <div class="d-flex align-items-start">
-                                                            <img src="{{$listing['thumbnail_file']}}" alt="img"
-                                                                 class="rounded me-2" height="100"/>
-                                                            <div class="w-100">
-                                                                <h5 class="mt-1">
-                                                                </h5>
-                                                            </div>
-                                                        </div>
-                                                        <!-- end listing -->
-                                                        <h5 class="mt-3">Tags:</h5>
+                    </div> <!-- end card body-->
+                </div> <!-- end card -->
+            </div><!-- end col-->
+        </div>
 
-                                                        <p class="text-muted mb-4">
-                                                            {{json_decode($listing['tags'])}}
-                                                        </p>
-                                                    </div>
-                                                    <!-- end col -->
-                                                    <div class="col-md-9">
-                                                        <div class="row d-flex flex-wrap  justify-content-start">
-                                                            <!-- start state -->
-                                                            <div class="col-md-2">
-                                                                <p class="mt-2 mb-1 text-muted">Type</p>
-                                                                <div class="d-flex align-items-start">
-                                                                    @if($listing['property_type']=='Apartment')
-                                                                        <i class="ri-home-7-line fs-18 text-success me-1"></i>
-                                                                    @else
-                                                                        <i class="ri-home-smile-2-line fs-18 text-success me-1"></i>
-                                                                    @endif
-                                                                    <div class="w-100">
-                                                                        <h5 class="mt-1">
-                                                                            {{$listing['property_type']?? 'No data'}}
-                                                                        </h5>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!-- end state -->
-                                                            <!-- start street -->
-                                                            <div class="col-md-2">
-                                                                <p class="mt-2 mb-1 text-muted">Street</p>
-                                                                <div class="d-flex align-items-start">
-                                                                    <i class="ri-map-pin-line fs-18 text-success me-1"></i>
-                                                                    <div class="w-100">
-                                                                        <h5 class="mt-1">
-                                                                            {{$listing['street'] ?? 'No data'}}
-                                                                        </h5>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!-- end street -->
-                                                            <!-- start title -->
-                                                            <div class="col-md-2">
-                                                                <p class="mt-2 mb-1 text-muted">Listing Title</p>
-                                                                <div class="d-flex align-items-start">
-                                                                    <i class="ri-double-quotes-l fs-18 text-success me-1"></i>
-                                                                    <div class="w-100">
-                                                                        <h5 class="mt-1">
-                                                                            {{$listing['name'] ?? 'No data'}}
-                                                                        </h5>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!-- end title -->
-                                                            <!-- start city -->
-                                                            <div class="col-md-2">
-                                                                <p class="mt-2 mb-1 text-muted">City</p>
-                                                                <div class="d-flex align-items-start">
-                                                                    <i class="ri-earth-line fs-18 text-success me-1"></i>
-                                                                    <div class="w-100">
-                                                                        <h5 class="mt-1">
-                                                                            {{$listing['city']??'No data'}}
-                                                                        </h5>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!-- end city -->
-                                                            <!-- start country -->
-                                                            <div class="col-md-2">
-                                                                <p class="mt-2 mb-1 text-muted">Country</p>
-                                                                <div class="d-flex align-items-start">
-                                                                    <i class="ri-earth-line fs-18 text-success me-1"></i>
-                                                                    <div class="w-100">
-                                                                        <h5 class="mt-1">
-                                                                            {{$listing['country'] = null ?? 'Cyprus'}}
-                                                                        </h5>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!-- end country -->
-                                                            <!-- start minimum nights -->
-                                                            <div class="col-md-2">
-                                                                <p class="mt-2 mb-1 text-muted">Minimum Nights</p>
-                                                                <div class="d-flex align-items-start">
-                                                                    <i class="ri-moon-fill fs-18 text-success me-1"></i>
-                                                                    <div class="w-100">
-                                                                        <h5 class="mt-1">
-                                                                            {{$listing['min_nights'] ?? 'No data'}}
-                                                                        </h5>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!-- end minimum nights -->
-                                                            <!-- start maximum nights -->
-                                                            <div class="col-md-2">
-                                                                <p class="mt-2 mb-1 text-muted">Maximum Nights</p>
-                                                                <div class="d-flex align-items-start">
-                                                                    <i class="ri-moon-fill fs-18 text-success me-1"></i>
-                                                                    <div class="w-100">
-                                                                        <h5 class="mt-1">
-                                                                            {{$listing['max_nights'] ?? 'No data'}}
-                                                                        </h5>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!-- end maximum nights -->
-                                                            <!-- start beds -->
-                                                            <div class="col-md-2">
-                                                                <p class="mt-2 mb-1 text-muted">Beds</p>
-                                                                <div class="d-flex align-items-start">
-                                                                    <i class="ri-hotel-bed-line fs-18 text-success me-1"></i>
-                                                                    <div class="w-100">
-                                                                        <h5 class="mt-1">
-                                                                            {{$listing['beds'] ?? 'No data'}}
-                                                                        </h5>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!-- end beds -->
-                                                            <!-- start bedrooms -->
-                                                            <div class="col-md-2">
-                                                                <p class="mt-2 mb-1 text-muted">Bedrooms</p>
-                                                                <div class="d-flex align-items-start">
-                                                                    <i class="ri-home-office-line fs-18 text-success me-1"></i>
-                                                                    <div class="w-100">
-                                                                        <h5 class="mt-1">
-                                                                            {{$listing['bedrooms'] ?? 'No data'}}
-                                                                        </h5>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!-- end bedrooms -->
-                                                            <!-- start person capacity -->
-                                                            <div class="col-md-2">
-                                                                <p class="mt-2 mb-1 text-muted">Person Capacity</p>
-                                                                <div class="d-flex align-items-start">
-                                                                    <i class="ri-team-line fs-18 text-success me-1"></i>
-                                                                    <div class="w-100">
-                                                                        <h5 class="mt-1">
-                                                                            {{$listing['person_capacity'] ?? 'No data'}}
-                                                                        </h5>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!-- end person capacity -->
-                                                            <!-- start checkin -->
-                                                            <div class="col-md-2">
-                                                                <p class="mt-2 mb-1 text-muted">Checkin</p>
-                                                                <div class="d-flex align-items-start">
-                                                                    <i class="ri-time-line fs-18 text-success me-1"></i>
-                                                                    <div class="w-100">
-                                                                        <h5 class="mt-1">
-                                                                            {{\Carbon\Carbon::parse($listing['checkin_start'])->format('H:i') ?? 'No data'}}
-                                                                        </h5>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!-- end checkin -->
-                                                            <!-- start checkin start -->
-                                                            <div class="col-md-2">
-                                                                <p class="mt-2 mb-1 text-muted">Check Out</p>
-                                                                <div class="d-flex align-items-start">
-                                                                    <i class="ri-time-line fs-18 text-success me-1"></i>
-                                                                    <div class="w-100">
-                                                                        <h5 class="mt-1">
-                                                                            {{\Carbon\Carbon::parse($listing['checkout']??'11:00')->format('H:i')}}
-                                                                        </h5>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!-- end checkin start-->
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- end row -->
-                                                <div class="col col-auto d-flex justify-content-end">
-                                                    <div class="dropdown btn-group">
-                                                        <button class="btn btn-light dropdown-toggle" type="button"
-                                                                data-bs-toggle="dropdown" aria-haspopup="true"
-                                                                aria-expanded="false" id="animated-preview">
-                                                            Set owner
-                                                        </button>
-                                                        <div class="dropdown-menu dropdown-menu-animated">
-                                                            @foreach($listingData['users'] as $user)
-                                                                <form action="{{route('listing.owner')}}" method="POST">
-                                                                    @csrf
-                                                                    <input type="hidden" value="{{$user['id']}}"
-                                                                           name="user_id">
-                                                                    <input type="hidden" value="{{$listing['id']}}"
-                                                                           name="listing_id">
-                                                                    <button type="submit" class="dropdown-item">{{$user['name']}}</button>
-                                                                </form>
-                                                            @endforeach
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- end card-body-->
-                                        </div>
-                                        <!-- end card-->
-                                    </div>
-
-                                    <!-- end card-->
-                                @empty
-                                    No Listings Found.
-                                @endforelse
-                            </div> <!-- end tab-content-->
+        <div id="right-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-sm modal-right">
+                <div class="modal-content">
+                    <div class="modal-header border-0">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="text-center">
+                            <h4 class="mt-0">Set owner</h4>
+                            <p id="listing_name">Here you can change the owner of the listing </p>
+                            <form action="{{route('listing.owner')}}" method="POST" id="owner-form">
+                                @csrf
+                                <div class="my-3">
+                                    <label for="listing_id">Listing</label>
+                                    <input name="listing_id" id="listing_id" class="form-control" readonly="readonly">
+                                </div>
+                                <div class="my-3">
+                                    <label for="user_id">Users</label>
+                                    <select name="user_id" id="user_id" class="form-control">
+                                        <option value="">Select user...</option>
+                                        @forelse($listingData['users'] as $user)
+                                            <option value="{{$user['id']}}">{{$user['name']}}</option>
+                                        @empty
+                                            <option value="">No clients</option>
+                                        @endforelse
+                                    </select>
+                                </div>
+                            <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-success btn-sm">Submit</button>
+                            </form>
                         </div>
-                    </div> <!-- end col-->
-                </div>
-                <!-- end row-->
-            </div> <!-- end card-body -->
-        </div> <!-- end card-->
-    {{$listingData['listings']->links('vendor.pagination.bootstrap-5')}}
-@endsection
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
 
+        <div class="modal fade" id="loading-modal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <h4 class="text-center mt-xxl-4">Sending reservation request...</h4>
+                    <div class="text-center mb-3 mt-3">
+                        <div class="spinner-border avatar-lg text-primary m-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+@endsection
+@section('script')
+    @vite('resources/js/listings.js')
+@endsection

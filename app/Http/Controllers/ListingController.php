@@ -22,9 +22,9 @@ class ListingController extends Controller
      */
     public function index(): array
     {
-        $listings = Listing::where('user_id', Auth::user()['id'])->paginate(10);
+        $listings = Listing::where('user_id', Auth::user()['id'])->paginate(7);
         return[
-            'listings'=>$listings
+            'listings'=>$listings,
         ];
     }
 }

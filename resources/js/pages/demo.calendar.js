@@ -205,10 +205,8 @@ var fp = $('#date').flatpickr({
                 let reservationName = $('#name').val();
                 let propertyName = $('#listing-select').val();
                 let dates = $('#date').val().split('to');
-                console.log(dates);
                 let checkInDate = new Date(dates[0]).toLocaleDateString(undefined, options);
                 let checkOutDate = new Date(dates[1]).toLocaleDateString(undefined, options);
-                console.log(checkInDate);
                 $('#reservation-name').text(reservationName);
                 $('#property-name').text(propertyName);
                 $('#check-in').text(checkInDate);

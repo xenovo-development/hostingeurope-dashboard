@@ -151,8 +151,8 @@
                                     <p><b>Sub-total:</b> <span
                                             class="float-end">{{$invoiceData['currency'] .$invoiceData['total_value']}}</span>
                                     </p>
-                                    <p><b>Hosting Europe Commission (%{{$invoiceData['commission']}}): </b> <span
-                                            class="float-end"> {{$invoiceData['currency'] . $invoiceData['commission_subtract']}}</span>
+                                    <p><b>Hosting Europe Commission (%{{$invoiceData['commission']}})</b> <span
+                                            class="float-end"> {{': '.$invoiceData['currency'] . $invoiceData['commission_subtract']}}</span>
                                     </p>
                                     <h3 class="float-end">{{$invoiceData['currency'] . $invoiceData['final_sum']}}
                                     </h3>
@@ -178,7 +178,4 @@
         <!-- end row -->
 
     </div> <!-- container -->
-@endsection
-@section('script')
-    @vite(['resources/js/pages/invoice.js'])
 @endsection

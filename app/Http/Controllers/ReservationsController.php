@@ -23,7 +23,7 @@ class ReservationsController extends Controller
     public function index($listing_id): array
     {
         $listing = Listing::find($listing_id);
-        $reservations = Reservation::where('listing_id',$listing_id)->orderBy('checkIn','ASC')->paginate(50);
+        $reservations = Reservation::where('listing_id',$listing_id)->orderBy('checkIn','ASC')->get();
 
          return[
              'listing'=>$listing,

@@ -16,7 +16,7 @@ class AdminController extends Controller
      */
     public function listingIndex(): array
     {
-        $listings = Listing::paginate(7);
+        $listings = Listing::all();
         $users = User::all();
 
         return [
