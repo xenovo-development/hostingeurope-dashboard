@@ -20,10 +20,10 @@ class AnalyticsController extends Controller
     public function index(int $listingId, $date = null): array
     {
         $listing = Listing::findOrFail($listingId);
-        $reservations = $listing->reservations;
         $dates = explode("-", $date);
         $startDate = empty($dates[0]) ? Carbon::create('2022-01-01') : Carbon::create($dates[0]);
-        $endDate = Carbon::create($dates[1] ?? Carbon::today());
+        $endDate = empty($dates[1]) ? Carbon::create('2050-01-01') : Carbon::create($dates[1]);
+        $reservations = $listing->reservations->whereBetween('checkIn',[$startDate,$endDate]);
         $startOfMonth = \Carbon\Carbon::now()->startOfMonth();
         $endOfMonth = \Carbon\Carbon::now()->endOfMonth();
         $currency = (new CurrencyFactory())->setCurrency($reservations->first());
@@ -38,10 +38,15 @@ class AnalyticsController extends Controller
             'reservations_this_month' => $reservations->whereBetween('checkIn', [$startOfMonth, $endOfMonth])->count(),
             'total_revenue' => $reservationsChartData['totalRevenue'],
             'open_revenue' => $reservationsChartData['openRevenue'],
+            'series_net_revenue' => array_slice($reservationsChartData['seriesNetRevenue'], -30),
+            'series_guests' => array_slice($reservationsChartData['seriesGuests'], -30),
+            'series_reservation_dates' => array_slice($reservationsChartData['reservationDates'], -30),
+            'series_reservation_nights' => array_slice($reservationsChartData['reservationNights'], -30),
             'currency' => $currency,
-            'channels' => ['airbnb' => $reservationsChartData['airbnb'], 'booking' => $reservationsChartData['booking'], 'guest24' => $reservationsChartData['guest24']],
+            'channels' => ['airbnb' => $reservationsChartData['airbnbPercentage'], 'booking' => $reservationsChartData['bookingPercentage'], 'guest24' => $reservationsChartData['guest24Percentage']],
             'monthly_reservation_lengths'=>$monthlyProfitChartData['monthlyReservationLength'],
             'month_names'=>$monthlyProfitChartData['monthNames'],
+            'occupancy_by_month'=>$monthlyProfitChartData['occupancyByMonth']
         ];
     }
 }

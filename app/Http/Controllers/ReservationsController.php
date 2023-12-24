@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Listing;
 use App\Models\Reservation;
 use DateTime;
+use Exception;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -37,7 +38,7 @@ class ReservationsController extends Controller
      * @param Request $request
      * @return RedirectResponse
      * @throws GuzzleException
-     * @throws \Exception
+     * @throws Exception
      */
     public function store(Request $request): RedirectResponse
     {
@@ -65,7 +66,7 @@ class ReservationsController extends Controller
                 'phone'=>Auth::user()['phone'],
                 'total_price'=>0,
                 'status'=>'accepted',
-                'source'=>'Direct',
+                'source'=>'Guest24 Services',
                 'channel_commission'=>0,
                 'skip_restrictions'=>true,
             ];

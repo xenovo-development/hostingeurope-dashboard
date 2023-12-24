@@ -25,18 +25,13 @@
                             <li class="breadcrumb-item active">Reservations</li>
                         </ol>
                     </div>
-                    <h4 class="page-title">Reservations <span class="text-muted">(Beta)</span></h4>
+                    <h4 class="page-title">Reservations</h4>
                 </div>
             </div>
         </div>
         <!-- end page title -->
         <div class="col-12">
-            <div class="alert alert-warning text-bg-warning border-0" role="alert">
-                    <span
-                        style="color: #464f5b;"><strong>Warning! - </strong> Dear host, This page represents the <strong>beta</strong>
-                        stage of its development. Please note that this page is in its early access phase and will be much improved in terms of design and functionality in the future.
-                        Thank you for your patience.</span>
-            </div>
+
 
             <div class="card">
                 <div class="card-body">

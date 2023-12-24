@@ -38,102 +38,11 @@ import 'chart.js/dist/chart.min.js';
             colors: ["#16a7e9", "#47ad77", "#fa5c7c", "#ffbc00"],
         };
 
-        function getRandomData(number) {
-            var graphData = [];
-            for (var idx = 0; idx < number; idx++) {
-                graphData.push(Math.floor(Math.random() * Math.floor(90)) + 30);
-            }
-            return graphData;
-        }
-
-        function getDaysInMonth(month, year) {
-            var date = new Date(year, month, 1);
-            var days = [];
-            var idx = 0;
-            while (date.getMonth() === month && idx < 15) {
-                var d = new Date(date);
-                days.push(d.getDate() + " " + d.toLocaleString('en-us', {month: 'short'}));
-                date.setDate(date.getDate() + 1);
-                idx += 1;
-            }
-            return days;
-        }
-
-        var now = new Date();
-        var labels = getDaysInMonth(now.getMonth() + 1, now.getFullYear());
-
-        var colors = ["#16a7e9", "#47ad77", "#fa5c7c", "#ffbc00"];
-        var dataColors = $("#sessions-overview").data('colors');
-        if (dataColors) {
-            colors = dataColors.split(",");
-        }
-        var options = {
-            chart: {
-                height: 240,
-                type: 'area'
-            },
-            dataLabels: {
-                enabled: false
-            },
-            stroke: {
-                curve: 'smooth',
-                width: 4
-            },
-            series: [{
-                name: 'Sessions',
-                data: [10, 20, 5, 15, 10, 20, 15, 25, 20, 30, 25, 40, 30, 50, 35]
-            }],
-            zoom: {
-                enabled: false
-            },
-            legend: {
-                show: false
-            },
-            colors: colors,
-            xaxis: {
-                type: 'string',
-                categories: labels,
-                tooltip: {
-                    enabled: false
-                },
-                axisBorder: {
-                    show: false
-                },
-                labels: {}
-            },
-            yaxis: {
-                labels: {
-                    formatter: function (val) {
-                        return val + "k"
-                    },
-                    offsetX: -15
-                }
-            },
-            fill: {
-                type: 'gradient',
-                gradient: {
-                    type: "vertical",
-                    shadeIntensity: 1,
-                    inverseColors: false,
-                    opacityFrom: 0.45,
-                    opacityTo: 0.05,
-                    stops: [45, 100]
-                },
-            },
-        }
-
-        var chart = new ApexCharts(
-            document.querySelector("#sessions-overview"),
-            options
-        );
-
-        chart.render();
-
         // --------------------------------------------------
         var seriesMonthsJS = months.map(dateStr => new Date(dateStr));
         var monthNames = seriesMonthsJS.map(date => date.toLocaleString('en-US', {month: 'long'}));
         var colors = ["#16a7e9", "#47ad77", "#fa5c7c", "#ffbc00"];
-        var dataColors = $("#views-min").data('colors');
+        var dataColors = $("#reservation-lentgths").data('colors');
         if (dataColors) {
             colors = dataColors.split(",");
         }
@@ -212,112 +121,12 @@ import 'chart.js/dist/chart.min.js';
         }
 
         var chart2 = new ApexCharts(
-            document.querySelector("#views-min"),
+            document.querySelector("#reservation-lentgths"),
             options
         );
 
         chart2.render();
 
-
-        // ------------ sessions by browser
-        var colors = ["#16a7e9", "#47ad77", "#fa5c7c", "#ffbc00"];
-        var dataColors = $("#sessions-browser").data('colors');
-        if (dataColors) {
-            colors = dataColors.split(",");
-        }
-        var options = {
-            chart: {
-                height: 364,
-                type: 'radar',
-            },
-            series: [{
-                name: 'Usage',
-                data: [80, 50, 30, 40, 60, 20],
-            }],
-            labels: ['Chrome', 'Firefox', 'Safari', 'Opera', 'Edge', 'Explorer'],
-            plotOptions: {
-                radar: {
-                    size: 130,
-                    polygons: {
-                        strokeColor: '#e9e9e9',
-                        fill: {
-                            colors: ['#f8f8f8', '#fff']
-                        }
-                    }
-                }
-            },
-            colors: colors,
-            yaxis: {
-                labels: {
-                    formatter: function (val) {
-                        return val + "%";
-                    }
-                },
-            },
-            dataLabels: {
-                enabled: true
-            },
-            markers: {
-                size: 4,
-                colors: ['#fff'],
-                strokeColor: colors[0],
-                strokeWidth: 2,
-            }
-        }
-
-        var chart = new ApexCharts(
-            document.querySelector("#sessions-browser"),
-            options
-        );
-
-        chart.render();
-
-        /* ------------- visitors by country */
-        var colors = ["#16a7e9", "#47ad77", "#fa5c7c", "#ffbc00"];
-        var dataColors = $("#country-chart").data('colors');
-        if (dataColors) {
-            colors = dataColors.split(",");
-        }
-        var options = {
-            chart: {
-                height: 332,
-                type: 'bar',
-            },
-            plotOptions: {
-                bar: {
-                    horizontal: true,
-                }
-            },
-            colors: colors,
-            dataLabels: {
-                enabled: false
-            },
-            series: [{
-                name: 'Sessions',
-                data: [90, 75, 60, 50, 45, 36, 28, 20, 15, 12]
-            }],
-            xaxis: {
-                categories: ["India", "China", "United States", "Japan", "France", "Italy", "Netherlands", "United Kingdom", "Canada", "South Korea"],
-                axisBorder: {
-                    show: false,
-                },
-                labels: {
-                    formatter: function (val) {
-                        return val + "%";
-                    }
-                }
-            },
-            grid: {
-                strokeDashArray: [5]
-            }
-        }
-
-        var chart = new ApexCharts(
-            document.querySelector("#country-chart"),
-            options
-        );
-
-        chart.render();
 
         /* ------------- reservations by channel */
         let channelsVals = Object.values(channels);
@@ -362,181 +171,7 @@ import 'chart.js/dist/chart.min.js';
         );
 
         chart.render();
-
-        //
-        // Campaign Sent Chart
-        //
-        var colors = ["#16a7e9"];
-        var dataColors = $("#campaign-sent-chart").data('colors');
-        if (dataColors) {
-            colors = dataColors.split(",");
-        }
-        var options1 = {
-            chart: {
-                type: 'radialBar',
-                height: 60,
-                sparkline: {
-                    enabled: true
-                }
-            },
-            plotOptions: {
-                bar: {
-                    columnWidth: '60%'
-                }
-            },
-            colors: colors,
-            series: [{
-                data: [25, 66, 41, 89, 63, 25, 44, 12, 36, 9, 54]
-            }],
-            labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-            xaxis: {
-                crosshairs: {
-                    width: 1
-                },
-            },
-            tooltip: {
-                fixed: {
-                    enabled: false
-                },
-                x: {
-                    show: false
-                },
-                y: {
-                    title: {
-                        formatter: function (seriesName) {
-                            return ''
-                        }
-                    }
-                },
-                marker: {
-                    show: false
-                }
-            }
-        }
-
-        new ApexCharts(document.querySelector("#campaign-sent-chart"), options1).render();
-
-        //
-        // New Leads Chart
-        //
-        var colors = ["#16a7e9"];
-        var dataColors = $("#new-leads-chart").data('colors');
-        if (dataColors) {
-            colors = dataColors.split(",");
-        }
-        var options2 = {
-            chart: {
-                type: 'line',
-                height: 60,
-                sparkline: {
-                    enabled: true
-                }
-            },
-            series: [{
-                data: [25, 66, 41, 89, 63, 25, 44, 12, 36, 9, 54]
-            }],
-            stroke: {
-                width: 2,
-                curve: 'smooth'
-            },
-            markers: {
-                size: 0
-            },
-            colors: colors,
-            tooltip: {
-                fixed: {
-                    enabled: false
-                },
-                x: {
-                    show: false
-                },
-                y: {
-                    title: {
-                        formatter: function (seriesName) {
-                            return ''
-                        }
-                    }
-                },
-                marker: {
-                    show: false
-                }
-            }
-        }
-
-
-        new ApexCharts(document.querySelector("#new-leads-chart"), options2).render();
-
-
-        var dataColors = $("#occupancy").data('colors');
-        var options = {
-            colors : dataColors,
-            series: [44, 55, 67, 83],
-            chart: {
-                height: 350,
-                type: 'radialBar',
-            },
-            plotOptions: {
-                radialBar: {
-                    dataLabels: {
-                        name: {
-                            fontSize: '22px',
-                        },
-                        value: {
-                            fontSize: '16px',
-                        },
-                        total: {
-                            show: true,
-                            label: 'Total',
-                            formatter: function (w) {
-                                // By default this function returns the average of all series. The below is just an example to show the use of custom formatter function
-                                return 249
-                            }
-                        }
-                    }
-                }
-            },
-            labels: monthNames,
-        };
-
-        var chart = new ApexCharts(document.querySelector("#occupancy"), options);
-        chart.render();
     },
-
-        // inits the map
-        AnalyticsDashboard.prototype.initMaps = function () {
-            //various examples
-            if ($('#world-map-markers').length > 0) {
-                $('#world-map-markers').vectorMap({
-                    map: 'world_mill_en',
-                    normalizeFunction: 'polynomial',
-                    hoverOpacity: 0.7,
-                    hoverColor: false,
-                    regionStyle: {
-                        initial: {
-                            fill: 'rgba(145,166,189,.25)'
-                        }
-                    },
-                    series: {
-                        regions: [{
-                            values: {
-                                "KR": "#e6ebff",
-                                "CA": "#b3c3ff",
-                                "GB": "#809bfe",
-                                "NL": "#4d73fe",
-                                "IT": "#1b4cfe",
-                                "FR": "#16a7e9",
-                                "JP": "#e7fef7",
-                                "US": "#e7e9fd",
-                                "CN": "#8890f7",
-                                "IN": "#16a7e9",
-                            }, attribute: 'fill'
-                        }]
-                    },
-                    backgroundColor: 'transparent',
-                    zoomOnScroll: false
-                });
-            }
-        },
         //initializing various components and plugins
         AnalyticsDashboard.prototype.init = function () {
             var $this = this;
@@ -545,21 +180,12 @@ import 'chart.js/dist/chart.min.js';
 
             //default date range picker
             $('#dash-daterange').daterangepicker({
-                singleDatePicker: false
+                singleDatePicker: false,
+                autoUpdateInput: false,
             });
 
             // init charts
             this.initCharts();
-
-            //init maps
-            this.initMaps();
-
-            // active counts
-            window.setInterval(function () {
-                var ac = Math.floor(Math.random() * 600 + 150);
-                $("#active-users-count").text(ac);
-                $("#active-views-count").text(Math.floor(Math.random() * ac + 200));
-            }, 2000);
         },
 
         //init flotchart
@@ -571,3 +197,293 @@ import 'chart.js/dist/chart.min.js';
         "use strict";
         $.AnalyticsDashboard.init()
     }(window.jQuery);
+$('#dash-daterange').daterangepicker({
+    autoUpdateInput: false,
+    singleDatePicker: false,
+});
+
+$('#dash-daterange').on('apply.daterangepicker', function(ev, picker) {
+    var formattedDateRange = picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY');
+    $(this).val(formattedDateRange);
+    const currentUrl = new URL(window.location.href);
+    currentUrl.searchParams.set('date', formattedDateRange);
+    window.location.href = currentUrl.toString();
+});
+
+$('#dash-daterange').on('cancel.daterangepicker', function(ev, picker) {
+    $(this).val('');
+});
+
+//
+// COLUMN CHART WITH DATALABELS
+//
+var colors = ["#3e60d5"];
+var dataColors = $("#occupancy-chart").data('colors');
+if (dataColors) {
+    colors = dataColors.split(",");
+}
+var options = {
+    chart: {
+        height: 'auto',
+        type: 'bar',
+        toolbar: {
+            show: false
+        }
+    },
+    plotOptions: {
+        bar: {
+            borderRadius: 10,
+            dataLabels: {
+                position: 'top', // top, center, bottom
+            },
+        }
+    },
+    dataLabels: {
+        enabled: true,
+        formatter: function (val) {
+            return val + "%";
+        },
+        offsetY: -25,
+        style: {
+            fontSize: '12px',
+            colors: ["#304758"]
+        }
+    },
+    colors: colors,
+    legend: {
+        show: true,
+        horizontalAlign: "center",
+        offsetX: 0,
+        offsetY: -5,
+    },
+    series: [{
+        name: 'Occupancy',
+        data: occupancy
+    }],
+    xaxis: {
+        categories: months,
+        type: 'datetime',
+        position: 'top',
+        labels: {
+            formatter: function (val) {
+                return new Date(val).toLocaleDateString('en-EN', {month: 'short'});
+            }
+        },
+        axisBorder: {
+            show: false
+        },
+        axisTicks: {
+            show: false
+        },
+        crosshairs: {
+            fill: {
+                type: 'gradient',
+                gradient: {
+                    colorFrom: '#D8E3F0',
+                    colorTo: '#BED1E6',
+                    stops: [0, 100],
+                    opacityFrom: 0.4,
+                    opacityTo: 0.5,
+                }
+            }
+        },
+        tooltip: {
+            enabled: true,
+            offsetY: -10,
+        }
+    },
+    fill: {
+        gradient: {
+            enabled: false,
+            shade: 'light',
+            type: "horizontal",
+            shadeIntensity: 0.25,
+            gradientToColors: undefined,
+            inverseColors: true,
+            opacityFrom: 1,
+            opacityTo: 1,
+            stops: [50, 0, 100, 100]
+        },
+    },
+    yaxis: {
+        axisBorder: {
+            show: false
+        },
+        axisTicks: {
+            show: false,
+        },
+        labels: {
+            show: false,
+            formatter: function (val) {
+                return val + "%";
+            }
+        }
+
+    },
+    title: {
+        text: 'Monthly Occupancy Rate for Property',
+        floating: true,
+        offsetY: 360,
+        align: 'center',
+        style: {
+            color: '#444'
+        }
+    },
+    grid: {
+        row: {
+            colors: ['transparent', 'transparent'], // takes an array which will be repeated on columns
+            opacity: 0.2
+        },
+        borderColor: '#f1f3fa'
+    }
+}
+
+var chart = new ApexCharts(
+    document.querySelector("#occupancy-chart"),
+    options
+);
+
+chart.render();
+
+var roptions = {
+    noData: {
+        text: 'No data.',
+        align: 'center',
+        verticalAlign: 'middle',
+        offsetX: 0,
+        offsetY: 0,
+        style: {
+            color: undefined,
+            fontSize: '14px',
+            fontFamily: undefined
+        }
+    },
+    series: [{
+        name: 'Guests',
+        type: 'column',
+        data: seriesGuests,
+    }, {
+        name: 'Reserved Nights',
+        type: 'area',
+        data: seriesNights
+    }, {
+        name: 'Net Revenue',
+        type: 'column',
+        data: seriesNetRevenue
+    }],
+    chart: {
+        height: 500,
+        type: 'line',
+        stacked: false,
+    },
+    dataLabels: {
+        enabled: false
+    },
+    title: {
+        text: 'XYZ - Reservation Analysis (Last 30)',
+        align: 'left',
+        offsetX: 110
+    },
+    xaxis:
+        {
+            categories: reservationDates,
+            type: 'categories',
+        },
+    yaxis: [
+        {
+            autoScaleYaxis: false,
+            axisTicks: {
+                show: true,
+            },
+            axisBorder: {
+                show: true,
+                color: '#008FFB'
+            },
+            labels: {
+                style: {
+                    colors: '#008FFB',
+                }
+            },
+            title: {
+                text: "Guest count (by booking)",
+                style: {
+                    color: '#008FFB',
+                }
+            },
+            tooltip: {
+                enabled: true,
+            }
+        },
+        {
+            seriesName: 'Revenue',
+            opposite: true,
+            axisTicks: {
+                show: true,
+            },
+            axisBorder: {
+                show: true,
+                color: '#00E396'
+            },
+            labels: {
+                style: {
+                    colors: '#00E396',
+                }
+            },
+            title: {
+                text: "Reserved Nights",
+                style: {
+                    color: '#00E396',
+                }
+            },
+        },
+        {
+            seriesName: 'Revenue',
+            opposite: true,
+            axisTicks: {
+                show: true,
+            },
+            axisBorder: {
+                show: true,
+                color: '#fa5c7c'
+            },
+            labels: {
+                style: {
+                    colors: '#fa5c7c',
+                },
+            },
+            title: {
+                text: "Net Revenue (minus commissions)",
+                style: {
+                    color: '#fa5c7c',
+                }
+            }
+        },
+    ],
+    tooltip: {
+        fixed: {
+            enabled: true,
+            position: 'topLeft', // topRight, topLeft, bottomRight, bottomLeft
+            offsetY: 30,
+            offsetX: 60,
+        },
+    },
+    legend: {
+        horizontalAlign: 'left',
+        offsetX: 40
+    }
+};
+
+var chart = new ApexCharts(document.querySelector("#listing-reservations-chart"), roptions);
+chart.render();
+
+document.addEventListener('DOMContentLoaded', function() {
+    const currentUrl = new URL(window.location.href);
+    const listingId = currentUrl.searchParams.get('listingId');
+
+    if (listingId) {
+        const refreshButton = document.getElementById('refreshButton');
+        currentUrl.searchParams.delete('date');
+        currentUrl.searchParams.set('listingId', listingId);
+        refreshButton.href = currentUrl.toString();
+    }
+});

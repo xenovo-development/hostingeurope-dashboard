@@ -21,6 +21,7 @@ $(document).ready(function () {
         responsive:true,
         scrollX:true,
         paging:true,
+        stateSave:true,
         "language": {
             "paginate": {
                 "previous": "<i class='ri-arrow-left-s-line'>",

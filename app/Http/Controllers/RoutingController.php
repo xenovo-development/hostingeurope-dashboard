@@ -74,6 +74,7 @@ class RoutingController extends Controller
         $reservationId = $request->query('reservationId');
         $start = $request->query('start');
         $end = $request->query('end');
+        $date = $request->query('date');
 
         $caseKey = $first . '/' . $second;
 
@@ -110,7 +111,7 @@ class RoutingController extends Controller
                 break;
 
             case 'pages/analytics':
-                $analyticsData = (new AnalyticsController())->index($listingId);
+                $analyticsData = (new AnalyticsController())->index($listingId,$date);
                 break;
         }
 

@@ -20,6 +20,7 @@ class MonthlyProfitChartDataFactory
         for ($month = 0; $month <= 12; $month++) {
             $monthStart = Carbon::create(date('Y'), $month)->startOfMonth();
             $monthEnd = Carbon::create(date('Y'), $month)->endOfMonth();
+            $monthDayCount = $monthStart->diff($monthEnd)->days;
             $subtotals = 0;
             $cleaningFees = 0;
             $chCommissions = 0;
@@ -43,14 +44,15 @@ class MonthlyProfitChartDataFactory
             $monthlyRevenue[] = round($netRevenue , 2);
             $monthNames[] = $monthStart;
             $monthlyReservationLength[] = $reservationLength;
+            $occupancyByMonth[]= round(($reservationLength / $monthDayCount) * 100,2);
         }
-
         return [
             'monthlyReservations'=> $monthlyReservations,
             'monthlyRevenue' => $monthlyRevenue,
             'monthNames'=>$monthNames,
             'monthlyBookings'=>$monthlyBookings,
             'monthlyReservationLength'=>$monthlyReservationLength,
+            'occupancyByMonth'=>$occupancyByMonth,
             ];
     }
 }

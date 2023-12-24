@@ -50,7 +50,7 @@
                                         2nd Floor College House 17 <br>King Edwards Road
                                         HA4 7AE <br>Ruislip, London
                                         United Kingdom<br>
-                                        <abbr title="Phone">Phone:</abbr> (123) 456-7890
+                                        <abbr title="Phone">Phone:</abbr> +44-204-577-1242
                                     </address>
                                 </div>
 
@@ -74,7 +74,7 @@
                                     2nd Floor College House 17 <br>King Edwards Road
                                     HA4 7AE <br>Ruislip, London
                                     United Kingdom<br>
-                                    <abbr title="Phone">Phone:</abbr> (123) 456-7890
+                                    <abbr title="Phone">Phone:</abbr> +44-204-577-1242
                                 </address>
                             </div> <!-- end col-->
 

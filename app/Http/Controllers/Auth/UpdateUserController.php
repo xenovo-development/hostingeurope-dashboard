@@ -30,7 +30,7 @@ class UpdateUserController extends Controller
             ]);
 
             $user->save();
-            return back()->with('success', 'User Updated!');
+            return back()->with('success', 'Field(s) updated successfully!');
         }else{
             throw \Illuminate\Validation\ValidationException::withMessages(['password'=>['Wrong password']]);
         }
