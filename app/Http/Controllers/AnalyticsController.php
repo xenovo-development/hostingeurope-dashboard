@@ -6,6 +6,7 @@ use App\Classes\Factory\CurrencyFactory;
 use App\Classes\Factory\MonthlyProfitChartDataFactory;
 use App\Classes\Factory\ReservationsChartDataFactory;
 use App\Models\Listing;
+use App\Models\Reservation;
 use Carbon\Carbon;
 
 class AnalyticsController extends Controller
@@ -23,13 +24,15 @@ class AnalyticsController extends Controller
         $dates = explode("-", $date);
         $startDate = empty($dates[0]) ? Carbon::create('2022-01-01') : Carbon::create($dates[0]);
         $endDate = empty($dates[1]) ? Carbon::create('2050-01-01') : Carbon::create($dates[1]);
-        $reservations = $listing->reservations->whereBetween('checkIn',[$startDate,$endDate]);
+        $reservations = Reservation::where('listing_id',$listingId)->whereBetween('checkIn',[$startDate,$endDate])->get();
+//        dd($reservations);
         $startOfMonth = \Carbon\Carbon::now()->startOfMonth();
         $endOfMonth = \Carbon\Carbon::now()->endOfMonth();
-        $currency = (new CurrencyFactory())->setCurrency($reservations->first());
-
-        $reservationsChartData = (new ReservationsChartDataFactory())->getData($reservations);
-        $monthlyProfitChartData = (new MonthlyProfitChartDataFactory())->getData($reservations);
+        if($reservations->count() > 0){
+            $currency = (new CurrencyFactory())->setCurrency($reservations->first());
+            $reservationsChartData = (new ReservationsChartDataFactory())->getData($reservations);
+            $monthlyProfitChartData = (new MonthlyProfitChartDataFactory())->getData($reservations);
+        }
 
         return [
             'listing' => $listing,

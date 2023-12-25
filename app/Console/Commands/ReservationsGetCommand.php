@@ -44,7 +44,7 @@ class ReservationsGetCommand extends Command
 
             foreach ($data['reservations'] as $reservation) {
                 $count++;
-                if($reservation['source']=== 'Airbnb'){
+                if($reservation['source']=== 'Airbnb' || $reservation['source']=== 'Direct' || $reservation['source']=== 'Guest24 Services'){
                     if (isset($listings[$reservation['listing_id']])) {
                         Reservation::updateOrCreate(
                             ['hostify_id' => $reservation['id']],

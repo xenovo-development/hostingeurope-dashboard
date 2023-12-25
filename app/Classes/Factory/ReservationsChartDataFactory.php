@@ -25,7 +25,7 @@ class ReservationsChartDataFactory
         $commission = Auth()->user()['commission'];
 
         foreach ($reservations as $reservation) {
-            if ($reservation['status'] == 'accepted' && $reservation['subtotal'] != 0) {
+            if ($reservation['status'] == 'accepted' && $reservation['subtotal'] > 0 ) {
                 $netRevenue = $reservation['subtotal'] - $reservation['channel_commission'] - $reservation->listing['cleaning_fee'];
                 if ($reservation['source'] == 'Airbnb') {
                     $airbnb++;
@@ -33,7 +33,7 @@ class ReservationsChartDataFactory
                 if ($reservation['source'] == 'Booking.com') {
                     $booking++;
                 }
-                if ($reservation['source'] == 'Guest24 Services') {
+                if ($reservation['source'] == 'Direct') {
                     $guest24++;
                 }
                 if ($reservation->transactions && $reservation->transactions->count() > 0) {

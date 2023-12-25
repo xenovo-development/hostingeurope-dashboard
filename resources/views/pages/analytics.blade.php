@@ -50,15 +50,15 @@
                             <i class="ri-group-line text-bg-info widget-icon"></i>
                         </div>
                         <h5 class="text-muted fw-normal mt-0" title="Number of Customers">Accepted Reservations</h5>
-                        <h3 class="my-3">{{$analyticsData['reservations']->count()}}</h3>
+                        <h3 class="my-3">{{$analyticsData['reservations']->where('status','accepted')->count()}}</h3>
                         <p class="mb-0 text-muted">
                             @if($dates && count($dates) === 2)
-                                <span class="text-success me-2">From this property (Between {{ $dates[0] }} and {{ $dates[1] }})</span>
+                                <strong class="text-success me-2">From this property (Between {{ $dates[0] }} and {{ $dates[1] }})</strong>
                             @else
-                                <span class="text-success me-2">From this property (All time)</span>
-                                <span class="float-end"><i class="ri-arrow-right-line"></i>
+                                <strong class="text-success me-2">From this property (All time)</strong>
+                                <strong class="float-end"><i class="ri-arrow-right-line"></i>
                             <a href="{{route('second',['pages','reservations']).'?listingId='.$analyticsData['listing']['id']}}">See details</a>
-                            </span>
+                            </strong>
                             @endif
                         </p>
                     </div> <!-- end card-body-->
@@ -75,12 +75,12 @@
                         <h3 class="my-3">{{$analyticsData['currency'].$analyticsData['total_revenue']}}</h3>
                         <p class="mb-0 text-muted">
                             @if($dates && count($dates) === 2)
-                                <span class="text-success me-2">From this property (Between {{ $dates[0] }} and {{ $dates[1] }})</span>
+                                <strong class="text-success me-2">From this property (Between {{ $dates[0] }} and {{ $dates[1] }})</strong>
                             @else
-                                <span class="text-success me-2">From this property (All time)</span>
-                                <span class="float-end"><i class="ri-arrow-right-line"></i>
+                                <strong class="text-success me-2">From this property (All time)</strong>
+                                <strong class="float-end"><i class="ri-arrow-right-line"></i>
                             <a href="{{route('second',['pages','reservations']).'?listingId='.$analyticsData['listing']['id']}}">See details</a>
-                            </span>
+                            </strong>
                             @endif
                         </p>
                     </div> <!-- end card-body-->
@@ -97,12 +97,12 @@
                         <h3 class="my-3">{{$analyticsData['currency'].$analyticsData['open_revenue']}}</h3>
                         <p class="mb-0 text-muted">
                             @if($dates && count($dates) === 2)
-                                <span class="text-success me-2">From this property (Between {{ $dates[0] }} and {{ $dates[1] }})</span>
+                                <strong class="text-success me-2">From this property (Between {{ $dates[0] }} and {{ $dates[1] }})</strong>
                             @else
-                                <span class="text-success me-2">From this property (All time)</span>
-                                <span class="float-end"><i class="ri-arrow-right-line"></i>
+                                <strong class="text-success me-2">From this property (All time)</strong>
+                                <strong class="float-end"><i class="ri-arrow-right-line"></i>
                             <a href="{{route('second',['pages','reservations']).'?listingId='.$analyticsData['listing']['id']}}">See details</a>
-                            </span>
+                            </strong>
                             @endif
                         </p>
                     </div> <!-- end card-body-->
@@ -136,7 +136,7 @@
                         </div>
                         <div class="col-4">
                             <h4 class="fw-normal">
-                                <span>{{$analyticsData['reservations']->where('source','Guest24 Services')->where('status','accepted')->count()}}</span>
+                                <span>{{$analyticsData['reservations']->where('source','Direct')->where('status','accepted')->count()}}</span>
                             </h4>
                             <p class="text-muted mb-0">Guest24 Services</p>
                         </div>
