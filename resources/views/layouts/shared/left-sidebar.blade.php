@@ -46,7 +46,7 @@
 
             <li class="side-nav-title">Navigation</li>
 
-            @if(Auth::user()['role']==='Admin' || Auth::user()['role']==='Sales')
+            @if(Auth::user()['role']==='Admin' || Auth::user()['role']==='Sales' || Auth::user()['role']==='Manager')
                 <li class="side-nav-item">
                     <a data-bs-toggle="collapse" href="#sidebarPagesAuth" aria-expanded="false"
                        aria-controls="sidebarPagesAuth" class="side-nav-link">
@@ -56,12 +56,12 @@
                     </a>
                     <div class="collapse" id="sidebarPagesAuth">
                         <ul class="side-nav-second-level">
-                            @if(Auth::user()['role']==='Admin' || Auth::user()['role']==='Sales')
+                            @if(Auth::user()['role']==='Admin' || Auth::user()['role']==='Sales' || Auth::user()['role']==='Manager')
                                 <li>
                                     <a href="{{ route('second', ['pages', 'listings']) }}">Listings</a>
                                 </li>
                             @endif
-                            @if(Auth::user()['role']==='Admin' || Auth::user()['role']==='Sales')
+                            @if(Auth::user()['role']==='Admin' || Auth::user()['role']==='Sales' || Auth::user()['role']==='Manager')
                                 <li>
                                     <a href="{{ route('any','users') }}">Clients</a>
                                 </li>

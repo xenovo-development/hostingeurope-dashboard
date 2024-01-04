@@ -83,6 +83,18 @@ class UsersCreateCommand extends Command
             'password' => '$2a$12$m6ylt81EtCj1MmjaV/o6suQVZbyDQxg7Cy92x5vFalw/c2Xhx2u5W',
             'remember_token' => Str::random(10),
         ]);
+        User::create([
+            'name' => 'Mihrimah',
+            'role' => 'Manager',
+            'commission' => '0',
+            'contract_start'=>Carbon::create(2020,01,01),
+            'contract_end'=>Carbon::create(2094,12,12),
+            'email' => 'em1.3@odsol-mail.com',
+            'phone' => '+90-555-555-5555',
+            'email_verified_at' => now(),
+            'password' => '$2a$12$m6ylt81EtCj1MmjaV/o6suQVZbyDQxg7Cy92x5vFalw/c2Xhx2u5W',
+            'remember_token' => Str::random(10),
+        ]);
 
         /**
          *Accounting
@@ -127,18 +139,6 @@ class UsersCreateCommand extends Command
         /**
          * Sales
          */
-        User::create([
-            'name' => 'Mihrimah',
-            'role' => 'Sales',
-            'commission' => '0',
-            'contract_start'=>Carbon::create(2020,01,01),
-            'contract_end'=>Carbon::create(2094,12,12),
-            'email' => 'em1.3@odsol-mail.com',
-            'phone' => '+90-555-555-5555',
-            'email_verified_at' => now(),
-            'password' => '$2a$12$m6ylt81EtCj1MmjaV/o6suQVZbyDQxg7Cy92x5vFalw/c2Xhx2u5W',
-            'remember_token' => Str::random(10),
-        ]);
         User::create([
             'name' => 'Seda',
             'role' => 'Sales',
